@@ -4,28 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GPA Smart System</title>
-
 <link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
 <div class="container">
-
 <h1>🎓 GPA Smart System</h1>
-
 <div id="dashboard"></div>
-
 <div id="levels"></div>
-
-<canvas id="levelsChart"></canvas>
-
 </div>
 
 <script>
 
-// ================== الإعدادات الرسمية ==================
+// ================== الإعدادات ==================
 
 const levelsNames = ["مستوى 1","مستوى 2","مستوى 3","مستوى 4"];
 
@@ -67,8 +59,23 @@ const gradeRangeMap = {
     "F":"أقل من 50%"
 };
 
-let data = JSON.parse(localStorage.getItem("gpaFinalV1")) || {};
-let chart;
+const gradeStatusMap = {
+    "A+": "امتياز مرتفع",
+    "A": "امتياز",
+    "A-": "امتياز منخفض",
+    "B+": "جيد جدًا مرتفع",
+    "B": "جيد جدًا",
+    "B-": "جيد جدًا منخفض",
+    "C+": "جيد مرتفع",
+    "C": "جيد",
+    "C-": "جيد منخفض",
+    "D+": "مقبول مرتفع",
+    "D": "مقبول",
+    "D-": "مقبول منخفض",
+    "F": "راسب"
+};
+
+let data = JSON.parse(localStorage.getItem("gpaFinalV2")) || {};
 
 // ================== تهيئة ==================
 
@@ -89,7 +96,7 @@ function init(){
 }
 
 function save(){
-    localStorage.setItem("gpaFinalV1", JSON.stringify(data));
+    localStorage.setItem("gpaFinalV2", JSON.stringify(data));
 }
 
 // ================== إضافة مادة ==================
@@ -99,10 +106,9 @@ function addSubject(level,sem){
     render();
 }
 
-// ================== حساب أعلى درجة فقط ==================
+// ================== أعلى درجة فقط ==================
 
 function getAllUniqueSubjects(){
-
     let map={};
 
     levelsNames.forEach(level=>{
@@ -119,7 +125,7 @@ function getAllUniqueSubjects(){
     return map;
 }
 
-// ================== حساب التراكمي ==================
+// ================== تحديد التقدير النهائي ==================
 
 function getFinalLetter(gpa){
     if(gpa >= 3.7) return "A+";
@@ -136,6 +142,8 @@ function getFinalLetter(gpa){
     if(gpa > 0) return "D-";
     return "F";
 }
+
+// ================== الحساب ==================
 
 function calculateStats(){
 
@@ -171,11 +179,12 @@ function calculateStats(){
     };
 }
 
-// ================== عرض ==================
+// ================== العرض ==================
 
 function render(){
 
     let stats=calculateStats();
+    let allSubjects=getAllUniqueSubjects();
 
     document.getElementById("dashboard").innerHTML=`
     <div class="dashboard-box">
@@ -200,22 +209,42 @@ function render(){
 
             data[level][sem].forEach((sub,index)=>{
 
+                let attempts = sub.name && allSubjects[sub.name] ? allSubjects[sub.name].length : "";
+
                 html+=`
                 <div class="subject-row">
-                <input placeholder="اسم المادة"
+
+                <input class="subject-name"
+                placeholder="اسم المادة"
                 value="${sub.name}"
                 onchange="data['${level}']['${sem}'][${index}].name=this.value;save();render();">
 
-                <input type="number" placeholder="الساعات"
+                <input class="subject-hours"
+                type="number"
+                placeholder="الساعات"
                 value="${sub.hours}"
                 onchange="data['${level}']['${sem}'][${index}].hours=this.value;save();render();">
 
-                <select onchange="data['${level}']['${sem}'][${index}].grade=this.value;save();render();">
+                <select class="subject-grade"
+                onchange="data['${level}']['${sem}'][${index}].grade=this.value;save();render();">
                 <option value="">التقدير</option>
                 ${Object.keys(gradeScale).map(g=>
                 `<option value="${g}" ${sub.grade===g?"selected":""}>${g}</option>`
                 ).join("")}
                 </select>
+
+                <input class="subject-points"
+                value="${sub.grade && sub.hours ? (sub.hours * gradeScale[sub.grade]).toFixed(2) : ''}"
+                readonly>
+
+                <input class="subject-status status-${sub.grade ? sub.grade.replace('+','plus').replace('-','minus') : ''}"
+                value="${sub.grade ? gradeStatusMap[sub.grade] : ''}"
+                readonly>
+
+                <input class="subject-attempts"
+                value="${attempts}"
+                readonly>
+
                 </div>`;
             });
 
