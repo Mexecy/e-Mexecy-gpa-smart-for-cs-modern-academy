@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPA Pro Smart V4</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2563eb">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+.level-card{
+    background:white;
+    padding:15px;
+    margin:15px 0;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+.level-header{
+    display:flex;
+    justify-content:space-between;
+    cursor:pointer;
+    font-weight:bold;
+}
+.semesters{ display:none; margin-top:10px; }
+.semester{
+    background:#f1f5f9;
+    padding:10px;
+    border-radius:10px;
+    margin:10px 0;
+}
+.subject-row{
+    display:flex;
+    gap:6px;
+    margin-bottom:6px;
+}
+.subject-row input{
+    padding:6px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+.subject-row button{
+    background:#dc2626;
+    color:white;
+    border:none;
+    border-radius:6px;
+    padding:5px 8px;
+}
+.add-sub-btn{
+    background:#16a34a;
+    color:white;
+    border:none;
+    border-radius:6px;
+    padding:5px 10px;
+    margin-top:5px;
+}
+.attempts{
+    font-size:12px;
+    color:#555;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>🎓 GPA Pro Smart V4</h1>
+
+<div id="dashboard"></div>
+<canvas id="levelsChart"></canvas>
+<div id="levels"></div>
+
+</div>
+
+<script>
+
+const levelsNames = ["مستوى 1","مستوى 2","مستوى 3","مستوى 4"];
+const semesterNames = ["فصل أول","فصل ثاني","صيفي"];
+
+let data = JSON.parse(localStorage.getItem("gpaDataV4")) || {};
+let chart;
+
+function save(){
+    localStorage.setItem("gpaDataV4", JSON.stringify(data));
+}
+
+function init(){
+    levelsNames.forEach(level=>{
+        if(!data[level]){
+            data[level]={};
+            semesterNames.forEach(sem=>{
+                data[level][sem]=[];
+            });
+        }
+    });
+    save();
+}
+
+function toggleLevel(id){
+    const el=document.getElementById(id);
+    el.style.display=el.style.display==="block"?"none":"block";
+}
+
+function addSubject(level,sem){
+    data[level][sem].push({name:"",hours:"",grade:""});
+    render();
+}
+
+function deleteSubject(level,sem,index){
+    data[level][sem].splice(index,1);
+    render();
+}
+
+function getUniqueSubjectsFromLevel(level){
+    let subjectsMap={};
+
+    semesterNames.forEach(sem=>{
+        data[level][sem].forEach(sub=>{
+            if(sub.name && sub.hours && sub.grade){
+                if(!subjectsMap[sub.name]){
+                    subjectsMap[sub.name]=[];
+                }
+                subjectsMap[sub.name].push(sub);
+            }
+        });
+    });
+
+    return subjectsMap;
+}
+
+function calculateLevel(level){
+    let subjectsMap=getUniqueSubjectsFromLevel(level);
+
+    let totalPoints=0,totalHours=0;
+
+    Object.values(subjectsMap).forEach(attempts=>{
+        let best=attempts.reduce((max,cur)=>
+            parseFloat(cur.grade)>parseFloat(max.grade)?cur:max
+        );
+        totalPoints+=parseFloat(best.hours)*parseFloat(best.grade);
+        totalHours+=parseFloat(best.hours);
+    });
+
+    return totalHours?(totalPoints/totalHours).toFixed(2):0;
+}
+
+function calculateOverall(){
+    let totalPoints=0,totalHours=0;
+
+    levelsNames.forEach(level=>{
+        let subjectsMap=getUniqueSubjectsFromLevel(level);
+
+        Object.values(subjectsMap).forEach(attempts=>{
+            let best=attempts.reduce((max,cur)=>
+                parseFloat(cur.grade)>parseFloat(max.grade)?cur:max
+            );
+            totalPoints+=parseFloat(best.hours)*parseFloat(best.grade);
+            totalHours+=parseFloat(best.hours);
+        });
+    });
+
+    return totalHours?(totalPoints/totalHours).toFixed(2):0;
+}
+
+function bestLevel(){
+    let best={name:"-",gpa:0};
+
+    levelsNames.forEach(level=>{
+        let g=parseFloat(calculateLevel(level));
+        if(g>best.gpa){
+            best={name:level,gpa:g};
+        }
+    });
+
+    return best;
+}
+
+function updateChart(){
+    if(chart) chart.destroy();
+
+    chart=new Chart(document.getElementById("levelsChart"),{
+        type:"bar",
+        data:{
+            labels:levelsNames,
+            datasets:[{
+                label:"معدل المستوى",
+                data:levelsNames.map(l=>calculateLevel(l))
+            }]
+        }
+    });
+}
+
+function render(){
+
+    let overall=calculateOverall();
+    let best=bestLevel();
+
+    document.getElementById("dashboard").innerHTML=`
+    <div style="background:#2563eb;color:white;padding:15px;border-radius:12px;margin:15px 0;">
+    المعدل التراكمي: <b>${overall}</b> |
+    أفضل مستوى: <b>${best.name}</b> (${best.gpa})
+    </div>`;
+
+    let html="";
+
+    levelsNames.forEach((level,i)=>{
+
+        html+=`
+        <div class="level-card">
+            <div class="level-header" onclick="toggleLevel('level${i}')">
+                ${level}
+                <span>معدل: ${calculateLevel(level)}</span>
+            </div>
+            <div class="semesters" id="level${i}">
+        `;
+
+        semesterNames.forEach(sem=>{
+            html+=`<div class="semester"><h4>${sem}</h4>`;
+
+            data[level][sem].forEach((sub,index)=>{
+                html+=`
+                <div class="subject-row">
+                    <input placeholder="اسم المادة" value="${sub.name}"
+                    onchange="data['${level}']['${sem}'][${index}].name=this.value;save()">
+                    <input type="number" placeholder="الساعات" value="${sub.hours}"
+                    onchange="data['${level}']['${sem}'][${index}].hours=this.value;save()">
+                    <input type="number" step="0.01" placeholder="التقدير" value="${sub.grade}"
+                    onchange="data['${level}']['${sem}'][${index}].grade=this.value;save()">
+                    <button onclick="deleteSubject('${level}','${sem}',${index})">✖</button>
+                </div>`;
+            });
+
+            html+=`
+            <button class="add-sub-btn" onclick="addSubject('${level}','${sem}')">➕ إضافة مادة</button>
+            </div>`;
+        });
+
+        html+=`</div></div>`;
+    });
+
+    document.getElementById("levels").innerHTML=html;
+
+    updateChart();
+    save();
+}
+
+init();
+render();
+
+if("serviceWorker" in navigator){
+    window.addEventListener("load", function(){
+        navigator.serviceWorker.register("sw.js");
+    });
+}
+
+</script>
+
+</body>
+</html>
+
