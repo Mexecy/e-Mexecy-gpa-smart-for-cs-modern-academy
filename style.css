@@ -54,10 +54,12 @@ h1{
 
 .subject-row{
     display:flex;
-    gap:8px;
+    gap:6px;
     margin-bottom:8px;
     align-items:center;
+    flex-wrap:nowrap;
 }
+
 
 /* اسم المادة أكبر مساحة */
 /* اسم المادة يفضل كبير */
