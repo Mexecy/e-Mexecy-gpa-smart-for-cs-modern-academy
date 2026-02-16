@@ -3,263 +3,240 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GPA Smart for CS - Modern Academy</title>
-
+<title>GPA Smart System</title>
 
 <link rel="stylesheet" href="style.css">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2563eb">
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<style>
-.level-card{
-    background:white;
-    padding:15px;
-    margin:15px 0;
-    border-radius:12px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.1);
-}
-.level-header{
-    display:flex;
-    justify-content:space-between;
-    cursor:pointer;
-    font-weight:bold;
-}
-.semesters{ display:none; margin-top:10px; }
-.semester{
-    background:#f1f5f9;
-    padding:10px;
-    border-radius:10px;
-    margin:10px 0;
-}
-.subject-row{
-    display:flex;
-    gap:6px;
-    margin-bottom:6px;
-}
-.subject-row input{
-    padding:6px;
-    border-radius:6px;
-    border:1px solid #ccc;
-}
-.subject-row button{
-    background:#dc2626;
-    color:white;
-    border:none;
-    border-radius:6px;
-    padding:5px 8px;
-}
-.add-sub-btn{
-    background:#16a34a;
-    color:white;
-    border:none;
-    border-radius:6px;
-    padding:5px 10px;
-    margin-top:5px;
-}
-.attempts{
-    font-size:12px;
-    color:#555;
-}
-</style>
-
 </head>
+
 <body>
 
 <div class="container">
 
-<h1>🎓 GPA Smart for CS - Modern Academy</h1>
+<h1>🎓 GPA Smart System</h1>
 
 <div id="dashboard"></div>
-<canvas id="levelsChart"></canvas>
+
 <div id="levels"></div>
+
+<canvas id="levelsChart"></canvas>
 
 </div>
 
 <script>
 
-const levelsNames = ["مستوى 1","مستوى 2","مستوى 3","مستوى 4"];
-const semesterNames = ["فصل أول","فصل ثاني","صيفي"];
+// ================== الإعدادات الرسمية ==================
 
-let data = JSON.parse(localStorage.getItem("gpaDataV4")) || {};
+const levelsNames = ["مستوى 1","مستوى 2","مستوى 3","مستوى 4"];
+
+const semesterConfig = {
+    "فصل أول": 6,
+    "فصل ثاني": 6,
+    "صيفي": 3
+};
+
+const gradeScale = {
+    "A+":4.0,"A":3.7,"A-":3.4,
+    "B+":3.2,"B":3.0,"B-":2.8,
+    "C+":2.6,"C":2.4,"C-":2.2,
+    "D+":2.0,"D":1.5,"D-":1.0,
+    "F":0.0
+};
+
+const gradePercentageMap = {
+    "A+":98,"A":94,"A-":90,
+    "B+":86,"B":82,"B-":78,
+    "C+":74,"C":70,"C-":66,
+    "D+":62,"D":57,"D-":52,
+    "F":40
+};
+
+const gradeRangeMap = {
+    "A+":"96% فأكثر",
+    "A":"92% – أقل من 96%",
+    "A-":"88% – أقل من 92%",
+    "B+":"84% – أقل من 88%",
+    "B":"80% – أقل من 84%",
+    "B-":"76% – أقل من 80%",
+    "C+":"72% – أقل من 76%",
+    "C":"68% – أقل من 72%",
+    "C-":"64% – أقل من 68%",
+    "D+":"60% – أقل من 64%",
+    "D":"55% – أقل من 60%",
+    "D-":"50% – أقل من 55%",
+    "F":"أقل من 50%"
+};
+
+let data = JSON.parse(localStorage.getItem("gpaFinalV1")) || {};
 let chart;
 
-function save(){
-    localStorage.setItem("gpaDataV4", JSON.stringify(data));
-}
+// ================== تهيئة ==================
 
 function init(){
     levelsNames.forEach(level=>{
-        if(!data[level]){
-            data[level]={};
-            semesterNames.forEach(sem=>{
-                data[level][sem]=[];
-            });
-        }
+        if(!data[level]) data[level]={};
+
+        Object.keys(semesterConfig).forEach(sem=>{
+            if(!data[level][sem]) data[level][sem]=[];
+
+            while(data[level][sem].length < semesterConfig[sem]){
+                data[level][sem].push({name:"",hours:"",grade:""});
+            }
+        });
     });
+
     save();
 }
 
-function toggleLevel(id){
-    const el=document.getElementById(id);
-    el.style.display=el.style.display==="block"?"none":"block";
+function save(){
+    localStorage.setItem("gpaFinalV1", JSON.stringify(data));
 }
+
+// ================== إضافة مادة ==================
 
 function addSubject(level,sem){
     data[level][sem].push({name:"",hours:"",grade:""});
     render();
 }
 
-function deleteSubject(level,sem,index){
-    data[level][sem].splice(index,1);
-    render();
-}
+// ================== حساب أعلى درجة فقط ==================
 
-function getUniqueSubjectsFromLevel(level){
-    let subjectsMap={};
+function getAllUniqueSubjects(){
 
-    semesterNames.forEach(sem=>{
-        data[level][sem].forEach(sub=>{
-            if(sub.name && sub.hours && sub.grade){
-                if(!subjectsMap[sub.name]){
-                    subjectsMap[sub.name]=[];
+    let map={};
+
+    levelsNames.forEach(level=>{
+        Object.keys(semesterConfig).forEach(sem=>{
+            data[level][sem].forEach(sub=>{
+                if(sub.name && sub.hours && sub.grade){
+                    if(!map[sub.name]) map[sub.name]=[];
+                    map[sub.name].push(sub);
                 }
-                subjectsMap[sub.name].push(sub);
-            }
+            });
         });
     });
 
-    return subjectsMap;
+    return map;
 }
 
-function calculateLevel(level){
-    let subjectsMap=getUniqueSubjectsFromLevel(level);
+// ================== حساب التراكمي ==================
 
-    let totalPoints=0,totalHours=0;
+function getFinalLetter(gpa){
+    if(gpa >= 3.7) return "A+";
+    if(gpa >= 3.4) return "A";
+    if(gpa >= 3.2) return "A-";
+    if(gpa >= 3.0) return "B+";
+    if(gpa >= 2.8) return "B";
+    if(gpa >= 2.6) return "B-";
+    if(gpa >= 2.4) return "C+";
+    if(gpa >= 2.2) return "C";
+    if(gpa >= 2.0) return "C-";
+    if(gpa >= 1.5) return "D+";
+    if(gpa >= 1.0) return "D";
+    if(gpa > 0) return "D-";
+    return "F";
+}
 
-    Object.values(subjectsMap).forEach(attempts=>{
+function calculateStats(){
+
+    let map=getAllUniqueSubjects();
+
+    let totalPoints=0;
+    let totalHours=0;
+    let totalPercentage=0;
+
+    Object.values(map).forEach(attempts=>{
+
         let best=attempts.reduce((max,cur)=>
-            parseFloat(cur.grade)>parseFloat(max.grade)?cur:max
+            gradeScale[cur.grade] > gradeScale[max.grade] ? cur : max
         );
-        totalPoints+=parseFloat(best.hours)*parseFloat(best.grade);
-        totalHours+=parseFloat(best.hours);
+
+        totalPoints += parseFloat(best.hours) * gradeScale[best.grade];
+        totalHours += parseFloat(best.hours);
+        totalPercentage += parseFloat(best.hours) * gradePercentageMap[best.grade];
     });
 
-    return totalHours?(totalPoints/totalHours).toFixed(2):0;
+    let gpa = totalHours ? totalPoints/totalHours : 0;
+    let percentage = totalHours ? totalPercentage/totalHours : 0;
+
+    let letter=getFinalLetter(gpa);
+
+    return {
+        gpa:gpa.toFixed(2),
+        percentage:percentage.toFixed(2),
+        hours:totalHours,
+        points:totalPoints.toFixed(2),
+        letter:letter,
+        range:gradeRangeMap[letter]
+    };
 }
 
-function calculateOverall(){
-    let totalPoints=0,totalHours=0;
-
-    levelsNames.forEach(level=>{
-        let subjectsMap=getUniqueSubjectsFromLevel(level);
-
-        Object.values(subjectsMap).forEach(attempts=>{
-            let best=attempts.reduce((max,cur)=>
-                parseFloat(cur.grade)>parseFloat(max.grade)?cur:max
-            );
-            totalPoints+=parseFloat(best.hours)*parseFloat(best.grade);
-            totalHours+=parseFloat(best.hours);
-        });
-    });
-
-    return totalHours?(totalPoints/totalHours).toFixed(2):0;
-}
-
-function bestLevel(){
-    let best={name:"-",gpa:0};
-
-    levelsNames.forEach(level=>{
-        let g=parseFloat(calculateLevel(level));
-        if(g>best.gpa){
-            best={name:level,gpa:g};
-        }
-    });
-
-    return best;
-}
-
-function updateChart(){
-    if(chart) chart.destroy();
-
-    chart=new Chart(document.getElementById("levelsChart"),{
-        type:"bar",
-        data:{
-            labels:levelsNames,
-            datasets:[{
-                label:"معدل المستوى",
-                data:levelsNames.map(l=>calculateLevel(l))
-            }]
-        }
-    });
-}
+// ================== عرض ==================
 
 function render(){
 
-    let overall=calculateOverall();
-    let best=bestLevel();
+    let stats=calculateStats();
 
     document.getElementById("dashboard").innerHTML=`
-    <div style="background:#2563eb;color:white;padding:15px;border-radius:12px;margin:15px 0;">
-    المعدل التراكمي: <b>${overall}</b> |
-    أفضل مستوى: <b>${best.name}</b> (${best.gpa})
+    <div class="dashboard-box">
+    🎓 المعدل التراكمي: <b>${stats.gpa}</b> |
+    🏅 التقدير: <b>${stats.letter}</b><br>
+    📊 النسبة: <b>${stats.percentage}%</b><br>
+    📌 الرينج الرسمي: <b>${stats.range}</b><br><br>
+    📚 الساعات: <b>${stats.hours}</b> |
+    ⭐ النقاط: <b>${stats.points}</b>
     </div>`;
 
     let html="";
 
     levelsNames.forEach((level,i)=>{
 
-        html+=`
-        <div class="level-card">
-            <div class="level-header" onclick="toggleLevel('level${i}')">
-                ${level}
-                <span>معدل: ${calculateLevel(level)}</span>
-            </div>
-            <div class="semesters" id="level${i}">
-        `;
+        html+=`<div class="level-card level-${i+1}">
+        <h3>${level}</h3>`;
 
-        semesterNames.forEach(sem=>{
+        Object.keys(semesterConfig).forEach(sem=>{
+
             html+=`<div class="semester"><h4>${sem}</h4>`;
 
             data[level][sem].forEach((sub,index)=>{
+
                 html+=`
                 <div class="subject-row">
-                    <input placeholder="اسم المادة" value="${sub.name}"
-                    onchange="data['${level}']['${sem}'][${index}].name=this.value;save()">
-                    <input type="number" placeholder="الساعات" value="${sub.hours}"
-                    onchange="data['${level}']['${sem}'][${index}].hours=this.value;save()">
-                    <input type="number" step="0.01" placeholder="التقدير" value="${sub.grade}"
-                    onchange="data['${level}']['${sem}'][${index}].grade=this.value;save()">
-                    <button onclick="deleteSubject('${level}','${sem}',${index})">✖</button>
+                <input placeholder="اسم المادة"
+                value="${sub.name}"
+                onchange="data['${level}']['${sem}'][${index}].name=this.value;save();render();">
+
+                <input type="number" placeholder="الساعات"
+                value="${sub.hours}"
+                onchange="data['${level}']['${sem}'][${index}].hours=this.value;save();render();">
+
+                <select onchange="data['${level}']['${sem}'][${index}].grade=this.value;save();render();">
+                <option value="">التقدير</option>
+                ${Object.keys(gradeScale).map(g=>
+                `<option value="${g}" ${sub.grade===g?"selected":""}>${g}</option>`
+                ).join("")}
+                </select>
                 </div>`;
             });
 
             html+=`
-            <button class="add-sub-btn" onclick="addSubject('${level}','${sem}')">➕ إضافة مادة</button>
+            <button class="add-btn"
+            onclick="addSubject('${level}','${sem}')">
+            ➕ إضافة مادة
+            </button>
             </div>`;
         });
 
-        html+=`</div></div>`;
+        html+=`</div>`;
     });
 
     document.getElementById("levels").innerHTML=html;
-
-    updateChart();
-    save();
 }
 
 init();
 render();
 
-if("serviceWorker" in navigator){
-    window.addEventListener("load", function(){
-        navigator.serviceWorker.register("sw.js");
-    });
-}
-
 </script>
 
 </body>
 </html>
-
