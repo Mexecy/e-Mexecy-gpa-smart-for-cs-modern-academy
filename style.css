@@ -35,9 +35,43 @@ h1{
 
 .subject-row{
     display:flex;
-    gap:10px;
+    gap:8px;
     margin-bottom:8px;
+    align-items:center;
 }
+
+.subject-name{
+    flex:3;
+}
+
+.subject-hours{
+    flex:1;
+    width:70px;
+}
+
+.subject-grade{
+    flex:1;
+    width:80px;
+}
+
+.subject-points{
+    flex:1;
+    width:80px;
+    background:#e2e8f0;
+}
+
+.subject-status{
+    flex:1;
+    width:70px;
+    background:#e2e8f0;
+}
+
+.subject-attempts{
+    flex:1;
+    width:90px;
+    background:#e2e8f0;
+}
+
 
 input,select{
     padding:6px;
