@@ -1,26 +1,33 @@
 body{
-    font-family:Arial;
+    font-family:Arial, sans-serif;
     background:#f1f5f9;
     margin:0;
     padding:20px;
 }
 
 .container{
-    max-width:1000px;
+    max-width:1100px;
     margin:auto;
 }
 
 h1{
     text-align:center;
+    margin-bottom:20px;
 }
+
+/* ================= Dashboard ================= */
 
 .dashboard-box{
     background:#2563eb;
     color:white;
-    padding:15px;
+    padding:18px;
     border-radius:12px;
-    margin-bottom:20px;
+    margin-bottom:25px;
+    font-size:15px;
+    line-height:1.8;
 }
+
+/* ================= Levels ================= */
 
 .level-card{
     padding:15px;
@@ -28,10 +35,22 @@ h1{
     margin-bottom:20px;
 }
 
-.level-1{background:#eff6ff;border-right:5px solid #2563eb;}
-.level-2{background:#f0fdf4;border-right:5px solid #16a34a;}
-.level-3{background:#fef9c3;border-right:5px solid #ca8a04;}
-.level-4{background:#fce7f3;border-right:5px solid #db2777;}
+/* ألوان ثابتة لكل مستوى */
+
+.level-1{background:#eff6ff;border-right:6px solid #2563eb;}
+.level-2{background:#f0fdf4;border-right:6px solid #16a34a;}
+.level-3{background:#fef9c3;border-right:6px solid #ca8a04;}
+.level-4{background:#fce7f3;border-right:6px solid #db2777;}
+
+.semester{
+    margin-top:15px;
+}
+
+.semester h4{
+    margin-bottom:10px;
+}
+
+/* ================= Subject Row ================= */
 
 .subject-row{
     display:flex;
@@ -40,50 +59,105 @@ h1{
     align-items:center;
 }
 
+/* اسم المادة أكبر مساحة */
 .subject-name{
     flex:3;
+    min-width:200px;
 }
 
+/* خانات أصغر */
 .subject-hours{
-    flex:1;
-    width:70px;
+    flex:0.7;
+    max-width:80px;
 }
 
 .subject-grade{
-    flex:1;
-    width:80px;
+    flex:0.8;
+    max-width:90px;
 }
 
 .subject-points{
-    flex:1;
-    width:80px;
+    flex:0.8;
+    max-width:90px;
     background:#e2e8f0;
 }
 
 .subject-status{
-    flex:1;
-    width:70px;
-    background:#e2e8f0;
+    flex:1.2;
+    max-width:140px;
+    font-weight:bold;
+    text-align:center;
 }
 
 .subject-attempts{
-    flex:1;
-    width:90px;
+    flex:0.8;
+    max-width:90px;
     background:#e2e8f0;
+    text-align:center;
 }
 
+/* ================= Inputs ================= */
 
 input,select{
     padding:6px;
     border-radius:6px;
     border:1px solid #ccc;
+    font-size:13px;
 }
 
+/* ================= زر الإضافة ================= */
+
 .add-btn{
+    margin-top:8px;
     background:#16a34a;
     color:white;
     border:none;
     padding:6px 12px;
     border-radius:6px;
     cursor:pointer;
+    font-size:13px;
+}
+
+.add-btn:hover{
+    opacity:0.9;
+}
+
+/* ================= ألوان الحالة ================= */
+
+/* امتياز */
+.status-Aplus,
+.status-A,
+.status-Aminus{
+    background:#facc15;
+    color:#000;
+}
+
+/* جيد جدًا */
+.status-Bplus,
+.status-B,
+.status-Bminus{
+    background:#3b82f6;
+    color:#fff;
+}
+
+/* جيد */
+.status-Cplus,
+.status-C,
+.status-Cminus{
+    background:#22c55e;
+    color:#fff;
+}
+
+/* مقبول */
+.status-Dplus,
+.status-D,
+.status-Dminus{
+    background:#f97316;
+    color:#fff;
+}
+
+/* راسب */
+.status-F{
+    background:#ef4444;
+    color:#fff;
 }
