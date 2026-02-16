@@ -54,54 +54,64 @@ h1{
 
 .subject-row{
     display:flex;
-    gap:6px;
-    margin-bottom:8px;
+    gap:4px;
+    margin-bottom:6px;
     align-items:center;
     flex-wrap:nowrap;
 }
 
-
 /* اسم المادة أكبر مساحة */
-/* اسم المادة يفضل كبير */
 .subject-name{
     flex:1;
-    min-width:280px;
+    min-width:320px;
 }
 
+/* الساعات */
 .subject-hours{
-    width:45px;
+    width:38px;
+    text-align:center;
 }
 
+/* التقدير بالحرف */
 .subject-grade{
-    width:60px;
+    width:52px;
+    text-align:center;
 }
 
+/* النقاط */
 .subject-points{
-    width:60px;
+    width:52px;
     background:#e2e8f0;
     text-align:center;
 }
 
+/* الحالة (جيد - جيد جداً - امتياز) */
 .subject-status{
-    width:95px;
+    width:80px;
     font-weight:bold;
     text-align:center;
+    font-size:12px;
 }
 
+/* عدد مرات الدخول */
 .subject-attempts{
-    width:45px;
+    width:35px;
     background:#e2e8f0;
     text-align:center;
 }
+
 
 /* ================= Inputs ================= */
 
 input,select{
-    padding:6px;
+    padding:5px;
     border-radius:6px;
     border:1px solid #ccc;
-    font-size:13px;
+    font-size:12px;
+    width:100%;
+    box-sizing:border-box;
 }
+
 
 /* ================= زر الإضافة ================= */
 
