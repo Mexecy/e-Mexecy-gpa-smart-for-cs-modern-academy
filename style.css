@@ -62,41 +62,32 @@ h1{
 /* اسم المادة أكبر مساحة */
 /* اسم المادة يفضل كبير */
 .subject-name{
-    flex:4;
-    min-width:250px;
-}
-
-/* الساعات أصغر */
-.subject-hours{
-    flex:0.6;
-    max-width:60px;
-}
-
-/* التقدير */
-.subject-grade{
-    flex:0.7;
-    max-width:70px;
-}
-
-/* النقاط */
-.subject-points{
-    flex:0.7;
-    max-width:70px;
-    background:#e2e8f0;
-}
-
-/* الحالة */
-.subject-status{
     flex:1;
-    max-width:110px;
+    min-width:280px;
+}
+
+.subject-hours{
+    width:45px;
+}
+
+.subject-grade{
+    width:60px;
+}
+
+.subject-points{
+    width:60px;
+    background:#e2e8f0;
+    text-align:center;
+}
+
+.subject-status{
+    width:95px;
     font-weight:bold;
     text-align:center;
 }
 
-/* عدد مرات دخول الامتحان */
 .subject-attempts{
-    flex:0.6;
-    max-width:60px;
+    width:45px;
     background:#e2e8f0;
     text-align:center;
 }
