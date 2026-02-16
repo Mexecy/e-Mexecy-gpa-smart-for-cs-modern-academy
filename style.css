@@ -1,4 +1,4 @@
-body{
+غbody{
     font-family:Arial, sans-serif;
     background:#f1f5f9;
     margin:0;
@@ -53,62 +53,59 @@ h1{
 /* ================= Subject Row ================= */
 
 .subject-row{
-    display:grid;
-    grid-template-columns: 1fr 45px 60px 60px 95px 40px;
-    gap:4px;
-    margin-bottom:4px;
+    display:flex;
     align-items:center;
+    gap:5px;
+    margin-bottom:6px;
 }
 
-/* اسم المادة */
+/* اسم المادة ياخد باقي المساحة */
 .subject-name{
-    width:100%;
+    flex:1;
+    min-width:300px;
 }
 
-/* الساعات */
+/* كل الخانات الصغيرة حجم ثابت */
 .subject-hours{
-    width:45px;
+    width:40px;
     text-align:center;
 }
 
-/* التقدير */
 .subject-grade{
-    width:60px;
+    width:55px;
     text-align:center;
 }
 
-/* النقاط */
 .subject-points{
-    width:60px;
-    background:#f1f5f9;
+    width:55px;
     text-align:center;
-    font-weight:500;
+    background:#f1f5f9;
 }
 
-/* الحالة */
 .subject-status{
-    width:95px;
-    font-weight:bold;
+    width:85px;
     text-align:center;
     font-size:12px;
+    font-weight:bold;
 }
 
-/* عدد مرات الدخول */
 .subject-attempts{
-    width:40px;
-    background:#f1f5f9;
+    width:35px;
     text-align:center;
+    background:#f1f5f9;
 }
+
 
 /* ================= Inputs ================= */
 
 input,select{
-    padding:4px;
-    border-radius:4px;
+    padding:5px;
+    border-radius:5px;
     border:1px solid #cbd5e1;
     font-size:12px;
     box-sizing:border-box;
 }
+
 
 /* ================= زر الإضافة ================= */
 
