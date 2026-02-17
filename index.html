@@ -206,6 +206,16 @@ function render(){
         Object.keys(semesterConfig).forEach(sem=>{
 
             html+=`<div class="semester"><h4>${sem}</h4>`;
+html+=`
+<div class="subject-header">
+    <div class="col-name">اسم المادة</div>
+    <div class="col-hours">س</div>
+    <div class="col-points">ن</div>
+    <div class="col-grade">التقدير</div>
+    <div class="col-status">الحالة</div>
+    <div class="col-attempts">م</div>
+</div>
+`;
 
             data[level][sem].forEach((sub,index)=>{
 
