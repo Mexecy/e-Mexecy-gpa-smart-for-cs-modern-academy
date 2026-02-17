@@ -1,4 +1,4 @@
-غbody{
+.body{
     font-family:Arial, sans-serif;
     background:#f1f5f9;
     margin:0;
@@ -52,6 +52,24 @@ h1{
 
 /* ================= Subject Row ================= */
 
+.subject-header{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    margin-bottom:6px;
+    font-weight:bold;
+    font-size:13px;
+}
+
+.col-name{ flex:1; min-width:160px; }
+.col-hours{ width:45px; text-align:center; }
+.col-points{ width:55px; text-align:center; }
+.col-grade{ width:80px; text-align:center; }
+.col-status{ width:85px; text-align:center; }
+.col-attempts{ width:45px; text-align:center; }
+
+/* ================= Subject Row ================= */
+
 .subject-row{
     display:flex;
     align-items:center;
@@ -59,27 +77,23 @@ h1{
     margin-bottom:6px;
 }
 
-/* اسم المادة ياخد باقي المساحة */
 .subject-name{
     flex:1;
-    min-width:300px;
+    min-width:160px;
 }
 
-/* كل الخانات الصغيرة حجم ثابت */
 .subject-hours{
-    width:40px;
-    text-align:center;
-}
-
-.subject-grade{
-    width:55px;
-    text-align:center;
+    width:45px;
 }
 
 .subject-points{
     width:55px;
-    text-align:center;
     background:#f1f5f9;
+    text-align:center;
+}
+
+.subject-grade{
+    width:80px;
 }
 
 .subject-status{
@@ -90,22 +104,18 @@ h1{
 }
 
 .subject-attempts{
-    width:35px;
-    text-align:center;
+    width:45px;
     background:#f1f5f9;
+    text-align:center;
 }
 
-
-/* ================= Inputs ================= */
-
+/* منع التمدد */
 input,select{
+    width:100%;
     padding:5px;
-    border-radius:5px;
-    border:1px solid #cbd5e1;
     font-size:12px;
     box-sizing:border-box;
 }
-
 
 /* ================= زر الإضافة ================= */
 
