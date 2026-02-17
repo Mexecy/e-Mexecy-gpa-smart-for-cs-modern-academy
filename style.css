@@ -173,3 +173,64 @@ input,select{
     background:#ef4444;
     color:#fff;
 }
+/* ===============================
+   📱 ضبط شكل الموبايل العمودي
+=================================*/
+
+@media (max-width: 768px){
+
+    .container{
+        padding:10px;
+    }
+
+    .dashboard-box{
+        font-size:14px;
+        padding:15px;
+        line-height:1.8;
+    }
+
+    .level-card{
+        padding:15px;
+        margin-bottom:20px;
+    }
+
+    .semester h4{
+        font-size:18px;
+        margin-bottom:10px;
+    }
+
+    /* الهيدر */
+    .subject-header{
+        display:grid;
+        grid-template-columns: 2fr 0.8fr 1fr 1fr 1.3fr 0.7fr;
+        gap:5px;
+        font-size:12px;
+        text-align:center;
+    }
+
+    /* الصفوف */
+    .subject-row{
+        display:grid;
+        grid-template-columns: 2fr 0.8fr 1fr 1fr 1.3fr 0.7fr;
+        gap:5px;
+        margin-bottom:8px;
+    }
+
+    .subject-row input,
+    .subject-row select{
+        font-size:12px;
+        padding:6px;
+    }
+
+    .subject-status{
+        font-size:11px;
+        padding:5px;
+    }
+
+    .add-btn{
+        width:100%;
+        margin-top:10px;
+        font-size:14px;
+    }
+
+}
