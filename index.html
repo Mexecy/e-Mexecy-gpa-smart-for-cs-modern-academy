@@ -2,8 +2,18 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>كشف الدرجات الذكي</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>كشف الدرجات التراكمي</title>
+
 <link rel="stylesheet" href="style.css">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f172a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
 </head>
 <body>
 
@@ -11,20 +21,24 @@
 
 <h1>كشف الدرجات التراكمي</h1>
 
-<!-- مثال مستوى -->
-<div class="level level-1" data-level="1">
-
-<h2>المستوى الأول</h2>
-
-<div class="summary">
-<span>الساعات المنجزة: <b class="total-hours">0</b></span>
-<span>إجمالي النقاط: <b class="total-points">0</b></span>
-<span>GPA: <b class="gpa">0.00</b></span>
-<span>التقدير العام: <b class="gpa-letter">-</b></span>
+<!-- ====== الملخص العام ====== -->
+<div class="global-summary">
+<span>إجمالي الساعات المنجزة: <b id="global-hours">0</b></span>
+<span>إجمالي النقاط: <b id="global-points">0</b></span>
+<span>GPA العام: <b id="global-gpa">0.00</b></span>
+<span>التقدير العام: <b id="global-letter">-</b></span>
 </div>
 
-<div class="semester-row">
+<!-- ============================= -->
+<!-- ========== المستويات ========= -->
+<!-- ============================= -->
 
+<!-- مستوى 1 -->
+<div class="level level-1" data-level="1">
+<h2>المستوى الأول</h2>
+<div class="semester-wrapper">
+
+<!-- فصل 1 -->
 <div class="semester" data-sem="1">
 <h3>الفصل الأول</h3>
 <table>
@@ -41,6 +55,7 @@
 <button onclick="addSubject(this)">إضافة مادة</button>
 </div>
 
+<!-- فصل 2 -->
 <div class="semester" data-sem="2">
 <h3>الفصل الثاني</h3>
 <table>
@@ -59,6 +74,7 @@
 
 </div>
 
+<!-- صيفي -->
 <div class="summer" data-sem="3">
 <h3>الفصل الصيفي</h3>
 <table>
@@ -76,11 +92,143 @@
 </div>
 
 <button class="clear-btn" onclick="clearLevel(this)">مسح المستوى</button>
+</div>
 
+
+<!-- مستوى 2 -->
+<div class="level level-2" data-level="2">
+<h2>المستوى الثاني</h2>
+<div class="semester-wrapper">
+<div class="semester" data-sem="1">
+<h3>الفصل الأول</h3>
+<table><thead><tr>
+<th class="name-col">اسم المادة</th>
+<th class="small-col">س</th>
+<th class="small-col">ت</th>
+<th class="small-col">ن</th>
+</tr></thead><tbody></tbody></table>
+<button onclick="addSubject(this)">إضافة مادة</button>
+</div>
+
+<div class="semester" data-sem="2">
+<h3>الفصل الثاني</h3>
+<table><thead><tr>
+<th class="name-col">اسم المادة</th>
+<th class="small-col">س</th>
+<th class="small-col">ت</th>
+<th class="small-col">ن</th>
+</tr></thead><tbody></tbody></table>
+<button onclick="addSubject(this)">إضافة مادة</button>
+</div>
+</div>
+
+<div class="summer" data-sem="3">
+<h3>الفصل الصيفي</h3>
+<table><thead><tr>
+<th class="name-col">اسم المادة</th>
+<th class="small-col">س</th>
+<th class="small-col">ت</th>
+<th class="small-col">ن</th>
+</tr></thead><tbody></tbody></table>
+<button onclick="addSubject(this)">إضافة مادة</button>
+</div>
+
+<button class="clear-btn" onclick="clearLevel(this)">مسح المستوى</button>
+</div>
+
+
+<!-- مستوى 3 -->
+<div class="level level-3" data-level="3">
+<h2>المستوى الثالث</h2>
+<div class="semester-wrapper">
+<div class="semester" data-sem="1">
+<h3>الفصل الأول</h3>
+<table><thead><tr>
+<th class="name-col">اسم المادة</th>
+<th class="small-col">س</th>
+<th class="small-col">ت</th>
+<th class="small-col">ن</th>
+</tr></thead><tbody></tbody></table>
+<button onclick="addSubject(this)">إضافة مادة</button>
+</div>
+
+<div class="semester" data-sem="2">
+<h3>الفصل الثاني</h3>
+<table><thead><tr>
+<th class="name-col">اسم المادة</th>
+<th class="small-col">س</th>
+<th class="small-col">ت</th>
+<th class="small-col">ن</th>
+</tr></thead><tbody></tbody></table>
+<button onclick="addSubject(this)">إضافة مادة</button>
+</div>
+</div>
+
+<div class="summer" data-sem="3">
+<h3>الفصل الصيفي</h3>
+<table><thead><tr>
+<th class="name-col">اسم المادة</th>
+<th class="small-col">س</th>
+<th class="small-col">ت</th>
+<th class="small-col">ن</th>
+</tr></thead><tbody></tbody></table>
+<button onclick="addSubject(this)">إضافة مادة</button>
+</div>
+
+<button class="clear-btn" onclick="clearLevel(this)">مسح المستوى</button>
+</div>
+
+
+<!-- مستوى 4 -->
+<div class="level level-4" data-level="4">
+<h2>المستوى الرابع</h2>
+<div class="semester-wrapper">
+<div class="semester" data-sem="1">
+<h3>الفصل الأول</h3>
+<table><thead><tr>
+<th class="name-col">اسم المادة</th>
+<th class="small-col">س</th>
+<th class="small-col">ت</th>
+<th class="small-col">ن</th>
+</tr></thead><tbody></tbody></table>
+<button onclick="addSubject(this)">إضافة مادة</button>
+</div>
+
+<div class="semester" data-sem="2">
+<h3>الفصل الثاني</h3>
+<table><thead><tr>
+<th class="name-col">اسم المادة</th>
+<th class="small-col">س</th>
+<th class="small-col">ت</th>
+<th class="small-col">ن</th>
+</tr></thead><tbody></tbody></table>
+<button onclick="addSubject(this)">إضافة مادة</button>
+</div>
+</div>
+
+<div class="summer" data-sem="3">
+<h3>الفصل الصيفي</h3>
+<table><thead><tr>
+<th class="name-col">اسم المادة</th>
+<th class="small-col">س</th>
+<th class="small-col">ت</th>
+<th class="small-col">ن</th>
+</tr></thead><tbody></tbody></table>
+<button onclick="addSubject(this)">إضافة مادة</button>
+</div>
+
+<button class="clear-btn" onclick="clearLevel(this)">مسح المستوى</button>
 </div>
 
 </div>
 
 <script src="script.js"></script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
 </body>
 </html>
