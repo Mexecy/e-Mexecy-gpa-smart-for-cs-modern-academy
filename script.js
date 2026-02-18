@@ -31,13 +31,13 @@ function addSubject(btn) {
     select.addEventListener("change", () => {
       this.textContent = select.value;
       calculate();
-      saveData();
-    });
+      
+    
   });
 
   row.querySelector(".hours").addEventListener("input", () => {
     calculate();
-    saveData();
+    
   });
 
   tbody.appendChild(row);
@@ -101,21 +101,9 @@ function clearLevel(btn) {
   const level = btn.closest(".level");
   level.querySelectorAll("tbody").forEach(t => t.innerHTML = "");
   calculate();
-  saveData();
-}
-
-function saveData() {
-  localStorage.setItem("gpaData", document.querySelector(".container").innerHTML);
-}
-
-function loadData() {
-  const saved = localStorage.getItem("gpaData");
-  if (saved) {
-    document.querySelector(".container").innerHTML = saved;
-  }
 }
 
 window.onload = function () {
-  loadData();
   calculate();
 };
+
