@@ -1,7 +1,3 @@
-/* =====================================
-   🎓 UNIVERSITY GPA SYSTEM - FINAL CSS
-=====================================*/
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -9,229 +5,76 @@
 }
 
 body{
-    font-family:"Segoe UI",Tahoma,Arial,sans-serif;
-    background:#f4f6f9;
-    padding:20px;
-    color:#1e293b;
+    font-family:"Times New Roman", serif;
+    background:#f7f7f7;
+    padding:30px;
 }
 
 .container{
     max-width:1200px;
     margin:auto;
+    background:#fff;
+    padding:25px;
+    border:1px solid #000;
 }
-
-/* ===============================
-   HEADER
-===============================*/
 
 h1{
     text-align:center;
-    margin-bottom:25px;
-    font-weight:600;
-    color:#1e3a8a;
-}
-
-/* ===============================
-   DASHBOARD
-===============================*/
-
-.dashboard-box{
-    background:#1e3a8a;
-    color:#fff;
-    padding:20px;
-    border-radius:12px;
     margin-bottom:30px;
-    font-size:15px;
-    line-height:1.8;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    font-size:22px;
 }
 
-/* ===============================
-   LEVEL CARD
-===============================*/
-
-.level-card{
-    background:#ffffff;
-    padding:20px;
-    border-radius:14px;
-    margin-bottom:30px;
-    box-shadow:0 4px 14px rgba(0,0,0,0.06);
-    border:1px solid #e2e8f0;
+.level{
+    margin-bottom:40px;
 }
 
-.level-card h3{
+.level h2{
     margin-bottom:15px;
+    border-bottom:2px solid #000;
+    padding-bottom:5px;
 }
 
-/* ===============================
-   SEMESTER
-===============================*/
+.semester-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
 
-.semester{
+.semester h3,
+.summer h3{
+    text-align:center;
+    margin-bottom:8px;
+    font-size:16px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+}
+
+table th,
+table td{
+    border:1px solid #000;
+    padding:6px;
+    text-align:center;
+}
+
+table th{
+    background:#eee;
+    font-weight:bold;
+}
+
+/* الصيفي بعرض كامل */
+.summer{
     margin-top:20px;
 }
 
-.semester h4{
-    margin-bottom:12px;
-    font-size:16px;
-    color:#334155;
-}
+/* 📱 موبايل */
+@media(max-width:768px){
 
-/* ===============================
-   TABLE HEADER (DESKTOP)
-===============================*/
-
-.subject-header{
-    display:grid;
-    grid-template-columns:
-        2fr 0.7fr 1fr 1fr 1.2fr 0.7fr;
-    gap:8px;
-    font-size:13px;
-    font-weight:600;
-    margin-bottom:8px;
-    color:#475569;
-}
-
-/* ===============================
-   SUBJECT ROW (DESKTOP)
-===============================*/
-
-.subject-row{
-    display:grid;
-    grid-template-columns:
-        2fr 0.7fr 1fr 1fr 1.2fr 0.7fr;
-    gap:8px;
-    margin-bottom:10px;
-    align-items:center;
-}
-
-/* ===============================
-   INPUTS
-===============================*/
-
-input,select{
-    width:100%;
-    padding:7px;
-    border-radius:8px;
-    border:1px solid #cbd5e1;
-    font-size:13px;
-    background:#fff;
-}
-
-input:focus,select:focus{
-    outline:none;
-    border-color:#2563eb;
-    box-shadow:0 0 0 2px rgba(37,99,235,0.15);
-}
-
-/* read-only cells */
-
-.subject-points,
-.subject-status,
-.subject-attempts{
-    background:#f1f5f9;
-    text-align:center;
-    font-weight:500;
-}
-
-/* ===============================
-   BUTTON
-===============================*/
-
-.add-btn{
-    margin-top:10px;
-    background:#2563eb;
-    color:#fff;
-    border:none;
-    padding:8px 14px;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:13px;
-    transition:0.2s ease;
-}
-
-.add-btn:hover{
-    background:#1e40af;
-}
-
-/* ===============================
-   STATUS COLORS
-===============================*/
-
-.status-Aplus,
-.status-A,
-.status-Aminus{
-    background:#facc15;
-    color:#000;
-}
-
-.status-Bplus,
-.status-B,
-.status-Bminus{
-    background:#3b82f6;
-    color:#fff;
-}
-
-.status-Cplus,
-.status-C,
-.status-Cminus{
-    background:#22c55e;
-    color:#fff;
-}
-
-.status-Dplus,
-.status-D,
-.status-Dminus{
-    background:#f97316;
-    color:#fff;
-}
-
-.status-F{
-    background:#ef4444;
-    color:#fff;
-}
-
-/* =====================================
-   📱 MOBILE CARD LAYOUT
-=====================================*/
-
-@media (max-width:768px){
-
-    body{
-        padding:12px;
-    }
-
-    .subject-header{
-        display:none;
-    }
-
-    .subject-row{
-        display:flex;
-        flex-direction:column;
-        background:#ffffff;
-        padding:14px;
-        border-radius:14px;
-        box-shadow:0 3px 10px rgba(0,0,0,0.06);
-        margin-bottom:18px;
-        gap:10px;
-    }
-
-    .subject-row input,
-    .subject-row select{
-        font-size:14px;
-        padding:8px;
-    }
-
-    /* label above each field using data-label */
-
-    .subject-row input[data-label]::before,
-    .subject-row select[data-label]::before{
-        content:attr(data-label);
-        display:block;
-        font-size:12px;
-        margin-bottom:4px;
-        color:#64748b;
-        font-weight:600;
+    .semester-row{
+        grid-template-columns:1fr;
     }
 
 }
