@@ -44,15 +44,13 @@ function addSubject(btn){
 }
 
 // ================== Calculate ==================
+
 function calculate(){
 
   let globalPoints = 0;
   let globalHours = 0;
 
   document.querySelectorAll(".semester").forEach(semester => {
-
-    let semesterPoints = 0;
-    let semesterHours = 0;
 
     semester.querySelectorAll("tbody tr").forEach(row => {
 
@@ -63,27 +61,22 @@ function calculate(){
 
       row.querySelector(".points").textContent = points.toFixed(2);
 
-      semesterPoints += points;
-      semesterHours += hours;
+      globalPoints += points;
+      globalHours += hours;
 
     });
-
-    globalPoints += semesterPoints;
-    globalHours += semesterHours;
 
   });
 
   const globalGPA = globalHours ? (globalPoints / globalHours) : 0;
 
+  document.getElementById("global-hours").textContent = globalHours;
+  document.getElementById("global-points").textContent = globalPoints.toFixed(2);
   document.getElementById("global-gpa").textContent = globalGPA.toFixed(2);
   document.getElementById("global-letter").textContent = getLetter(globalGPA);
 
-  document.getElementById("total-hours").textContent = globalHours;
-  document.getElementById("total-points").textContent = globalPoints.toFixed(2);
-
   saveData();
 }
-
 // ================== Arabic Letter System ==================
 function getLetter(gpa){
 
