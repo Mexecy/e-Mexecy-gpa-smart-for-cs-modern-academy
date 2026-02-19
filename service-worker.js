@@ -1,4 +1,4 @@
-const CACHE_NAME="gpa-app-v2";
+const CACHE_NAME="gpa-app-v5";
 
 const urlsToCache=[
 "./",
