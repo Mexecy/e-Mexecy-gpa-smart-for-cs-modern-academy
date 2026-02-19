@@ -51,6 +51,9 @@ function calculate(){
 
   document.querySelectorAll(".semester").forEach(semester => {
 
+    let semesterPoints = 0;
+    let semesterHours = 0;
+
     semester.querySelectorAll("tbody tr").forEach(row => {
 
       const hours = parseFloat(row.querySelector(".hours").textContent) || 0;
@@ -60,10 +63,13 @@ function calculate(){
 
       row.querySelector(".points").textContent = points.toFixed(2);
 
-      globalPoints += points;
-      globalHours += hours;
+      semesterPoints += points;
+      semesterHours += hours;
 
     });
+
+    globalPoints += semesterPoints;
+    globalHours += semesterHours;
 
   });
 
@@ -72,7 +78,10 @@ function calculate(){
   document.getElementById("global-gpa").textContent = globalGPA.toFixed(2);
   document.getElementById("global-letter").textContent = getLetter(globalGPA);
 
-  saveData(); // حفظ تلقائي
+  document.getElementById("total-hours").textContent = globalHours;
+  document.getElementById("total-points").textContent = globalPoints.toFixed(2);
+
+  saveData();
 }
 
 // ================== Arabic Letter System ==================
@@ -168,6 +177,15 @@ function loadData(){
 }
 
 // ================== On Load ==================
+function clearLevel(btn){
+
+  const level = btn.closest(".level");
+  level.querySelectorAll("tbody").forEach(tbody=>{
+    tbody.innerHTML = "";
+  });
+
+  calculate();
+}
 window.onload = function () {
   loadData();
   calculate();
