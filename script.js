@@ -19,10 +19,15 @@ function addSubject(btn) {
     <td class="points">0</td>
   `;
 
+  // اختيار التقدير
   row.querySelector(".grade").addEventListener("click", function () {
     const select = document.createElement("select");
-    select.innerHTML = `<option value="0">0</option>` +
-      Object.keys(gradeMap).map(g => `<option value="${g}">${g}</option>`).join("");
+
+    select.innerHTML =
+      `<option value="0">0</option>` +
+      Object.keys(gradeMap)
+        .map(g => `<option value="${g}">${g}</option>`)
+        .join("");
 
     this.innerHTML = "";
     this.appendChild(select);
@@ -31,13 +36,12 @@ function addSubject(btn) {
     select.addEventListener("change", () => {
       this.textContent = select.value;
       calculate();
-      
-    
+    });
   });
 
+  // عند تعديل الساعات
   row.querySelector(".hours").addEventListener("input", () => {
     calculate();
-    
   });
 
   tbody.appendChild(row);
@@ -51,10 +55,7 @@ function calculate() {
     let totalHours = 0;
     let totalPoints = 0;
 
-    const subjects = {};
-
     level.querySelectorAll("tbody tr").forEach(row => {
-      const name = row.children[0].textContent.trim();
       const hours = parseFloat(row.querySelector(".hours").textContent) || 0;
       const gradeText = row.querySelector(".grade").textContent;
       const gradeValue = gradeMap[gradeText] ?? 0;
@@ -62,20 +63,16 @@ function calculate() {
 
       row.querySelector(".points").textContent = points.toFixed(2);
 
-      if (!subjects[name] || subjects[name] < gradeValue) {
-        subjects[name] = gradeValue;
-      }
-
       totalHours += hours;
       totalPoints += points;
     });
 
     const gpa = totalHours ? (totalPoints / totalHours) : 0;
 
-    level.querySelector(".total-hours")?.textContent = totalHours;
-    level.querySelector(".total-points")?.textContent = totalPoints.toFixed(2);
-    level.querySelector(".gpa")?.textContent = gpa.toFixed(2);
-    level.querySelector(".gpa-letter")?.textContent = getLetter(gpa);
+    level.querySelector(".total-hours").textContent = totalHours;
+    level.querySelector(".total-points").textContent = totalPoints.toFixed(2);
+    level.querySelector(".gpa").textContent = gpa.toFixed(2);
+    level.querySelector(".gpa-letter").textContent = getLetter(gpa);
 
     globalHours += totalHours;
     globalPoints += totalPoints;
@@ -106,4 +103,3 @@ function clearLevel(btn) {
 window.onload = function () {
   calculate();
 };
-
