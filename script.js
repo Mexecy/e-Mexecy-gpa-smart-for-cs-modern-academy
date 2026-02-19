@@ -65,18 +65,20 @@ function calculate(){
       globalHours += hours;
 
     });
+    
+const globalGPA = globalHours ? (globalPoints / globalHours) : 0;
 
-  });
+document.getElementById("global-hours").textContent = globalHours;
+document.getElementById("global-points").textContent = globalPoints.toFixed(2);
+document.getElementById("global-gpa").textContent = globalGPA.toFixed(2);
 
-  const globalGPA = globalHours ? (globalPoints / globalHours) : 0;
-
-  document.getElementById("global-hours").textContent = globalHours;
-  document.getElementById("global-points").textContent = globalPoints.toFixed(2);
-  document.getElementById("global-gpa").textContent = globalGPA.toFixed(2);
+if(globalHours === 0){
+  document.getElementById("global-letter").textContent = "0";
+}else{
   document.getElementById("global-letter").textContent = getLetter(globalGPA);
-
-  saveData();
 }
+
+saveData();
 // ================== Arabic Letter System ==================
 function getLetter(gpa){
 
