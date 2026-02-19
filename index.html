@@ -1,87 +1,153 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>كشف الدرجات التراكمي</title>
+// ================== Grade Map ==================
+const gradeMap = {
+  "A+ (4.0)": 4.0,
+  "A (3.7)": 3.7,
+  "A- (3.4)": 3.4,
+  "B+ (3.2)": 3.2,
+  "B (3.0)": 3.0,
+  "B- (2.8)": 2.8,
+  "C+ (2.6)": 2.6,
+  "C (2.4)": 2.4,
+  "C- (2.2)": 2.2,
+  "D+ (2.0)": 2.0,
+  "D (1.5)": 1.5,
+  "D- (1.0)": 1.0,
+  "F (0.0)": 0.0
+};
 
-<link rel="stylesheet" href="style.css">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0f172a">
-</head>
 
-<body>
+// ================== Add Subject ==================
+function addSubject(btn){
 
-<div class="container">
+  const semester = btn.closest(".semester");
+  if(!semester) return;
 
-<h1>كشف الدرجات التراكمي</h1>
+  const tbody = semester.querySelector("tbody");
+  if(!tbody) return;
 
-<div class="global-summary">
-<span>إجمالي الساعات: <b id="global-hours">0</b></span>
-<span>إجمالي النقاط: <b id="global-points">0</b></span>
-<span>GPA: <b id="global-gpa">0.00</b></span>
-<span>التقدير: <b id="global-letter">0</b></span>
-</div>
+  const row = document.createElement("tr");
 
-<!-- المستويات -->
-<div class="levels">
+  row.innerHTML = `
+    <td contenteditable="true"></td>
+    <td contenteditable="true" class="hours">0</td>
+    <td>
+      <select class="grade">
+        <option value="">اختر</option>
+        ${Object.keys(gradeMap).map(g => 
+          `<option value="${g}">${g}</option>`
+        ).join("")}
+      </select>
+    </td>
+    <td class="points">0</td>
+  `;
 
-<!-- سيتم تكرار نفس البلوك 4 مرات -->
-<script>
-for (let i = 1; i <= 4; i++) {
-document.write(`
-<div class="level">
-<h2>المستوى ${i}</h2>
+  row.querySelector(".hours").addEventListener("input", calculate);
+  row.querySelector(".grade").addEventListener("change", calculate);
 
-<div class="semester">
-<h3>الفصل الأول</h3>
-<table>
-<thead>
-<tr><th>اسم المادة</th><th>س</th><th>ت</th><th>ن</th></tr>
-</thead>
-<tbody></tbody>
-</table>
-<button onclick="addSubject(this)">إضافة مادة</button>
-</div>
+  tbody.appendChild(row);
 
-<div class="semester">
-<h3>الفصل الثاني</h3>
-<table>
-<thead>
-<tr><th>اسم المادة</th><th>س</th><th>ت</th><th>ن</th></tr>
-</thead>
-<tbody></tbody>
-</table>
-<button onclick="addSubject(this)">إضافة مادة</button>
-</div>
-
-<div class="semester">
-<h3>الفصل الصيفي</h3>
-<table>
-<thead>
-<tr><th>اسم المادة</th><th>س</th><th>ت</th><th>ن</th></tr>
-</thead>
-<tbody></tbody>
-</table>
-<button onclick="addSubject(this)">إضافة مادة</button>
-</div>
-
-<button class="clear-btn" onclick="clearLevel(this)">مسح المستوى</button>
-</div>
-`);
+  calculate();
 }
-</script>
 
-</div>
-</div>
 
-<script src="script.js"></script>
+// ================== Calculate ==================
+function calculate(){
 
-<script>
-if ("serviceWorker" in navigator) {
-navigator.serviceWorker.register("service-worker.js");
+  let globalPoints = 0;
+  let globalHours = 0;
+
+  document.querySelectorAll(".semester").forEach(semester => {
+
+    semester.querySelectorAll("tbody tr").forEach(row => {
+
+      const hours = parseFloat(row.querySelector(".hours").textContent) || 0;
+      const grade = row.querySelector(".grade").value;
+
+      const points = (gradeMap[grade] || 0) * hours;
+
+      row.querySelector(".points").textContent = points.toFixed(2);
+
+      globalPoints += points;
+      globalHours += hours;
+
+    });
+
+  });
+
+  const globalGPA = globalHours ? (globalPoints / globalHours) : 0;
+
+  document.getElementById("global-hours").textContent = globalHours;
+  document.getElementById("global-points").textContent = globalPoints.toFixed(2);
+  document.getElementById("global-gpa").textContent = globalGPA.toFixed(2);
+
+  if(globalHours === 0){
+    document.getElementById("global-letter").textContent = "0";
+  } else {
+    document.getElementById("global-letter").textContent = getLetter(globalGPA);
+  }
+
+  saveData();
 }
-</script>
 
-</body>
-</html>
+
+// ================== Arabic Letter System ==================
+function getLetter(gpa){
+
+  if (gpa >= 4.0) return "A+ ممتاز مرتفع";
+  if (gpa >= 3.7) return "A ممتاز";
+  if (gpa >= 3.4) return "A- ممتاز منخفض";
+
+  if (gpa >= 3.2) return "B+ جيد جداً مرتفع";
+  if (gpa >= 3.0) return "B جيد جداً";
+  if (gpa >= 2.8) return "B- جيد جداً منخفض";
+
+  if (gpa >= 2.6) return "C+ جيد مرتفع";
+  if (gpa >= 2.4) return "C جيد";
+  if (gpa >= 2.2) return "C- جيد منخفض";
+
+  if (gpa >= 2.0) return "D+ مقبول مرتفع";
+  if (gpa >= 1.5) return "D مقبول";
+  if (gpa >= 1.0) return "D- مقبول منخفض";
+
+  return "F راسب";
+}
+
+
+// ================== Save Data ==================
+function saveData(){
+
+  const data = [];
+
+  document.querySelectorAll(".semester").forEach(semester => {
+
+    const subjects = [];
+
+    semester.querySelectorAll("tbody tr").forEach(row => {
+
+      subjects.push({
+        name: row.children[0].textContent,
+        hours: row.querySelector(".hours").textContent,
+        grade: row.querySelector(".grade").value
+      });
+
+    });
+
+    data.push(subjects);
+
+  });
+
+  localStorage.setItem("gpaData", JSON.stringify(data));
+}
+
+
+// ================== Load Data ==================
+function loadData(){
+
+  const saved = localStorage.getItem("gpaData");
+  if(!saved) return;
+
+  const data = JSON.parse(saved);
+
+  document.querySelectorAll(".semester").forEach((semester,index)=>{
+
+    const tbody = semester.query
