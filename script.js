@@ -1,3 +1,4 @@
+// ================== Grade Map ==================
 const gradeMap = {
   "A+ (4.0)": 4.0,
   "A (3.7)": 3.7,
@@ -14,86 +15,160 @@ const gradeMap = {
   "F (0.0)": 0.0
 };
 
+// ================== Add Subject ==================
 function addSubject(btn){
 
-const semester = btn.closest(".semester");
-const tbody = semester.querySelector("tbody");
+  const semester = btn.closest(".semester");
+  const tbody = semester.querySelector("tbody");
 
-const row = document.createElement("tr");
+  const row = document.createElement("tr");
 
-row.innerHTML = `
-<td contenteditable="true"></td>
+  row.innerHTML = `
+    <td contenteditable="true"></td>
+    <td contenteditable="true" class="hours">0</td>
+    <td>
+      <select class="grade">
+        <option value="">اختر</option>
+        ${Object.keys(gradeMap).map(g=>`<option value="${g}">${g}</option>`).join("")}
+      </select>
+    </td>
+    <td class="points">0</td>
+  `;
 
-<td contenteditable="true" class="hours">0</td>
+  row.querySelector(".hours").addEventListener("input", calculate);
+  row.querySelector(".grade").addEventListener("change", calculate);
 
-<td>
-<select class="grade">
-<option value="">اختر</option>
-${Object.keys(gradeMap).map(g=>`<option value="${g}">${g}</option>`).join("")}
-</select>
-</td>
+  tbody.appendChild(row);
 
-<td class="points">0</td>
-`;
-
-row.querySelector(".hours").addEventListener("input", calculate);
-row.querySelector(".grade").addEventListener("change", calculate);
-
-tbody.appendChild(row);
-
-calculate();
+  calculate();
 }
 
+// ================== Calculate ==================
 function calculate(){
 
-let totalHours=0;
-let totalPoints=0;
+  let globalPoints = 0;
+  let globalHours = 0;
 
-document.querySelectorAll("tbody tr").forEach(row=>{
+  document.querySelectorAll(".semester").forEach(semester => {
 
-const hours=parseFloat(row.querySelector(".hours").textContent)||0;
-const grade=row.querySelector(".grade").value;
-const value=gradeMap[grade]||0;
+    semester.querySelectorAll("tbody tr").forEach(row => {
 
-const points=hours*value;
-row.querySelector(".points").textContent=points.toFixed(2);
+      const hours = parseFloat(row.querySelector(".hours").textContent) || 0;
+      const grade = row.querySelector(".grade").value;
 
-totalHours+=hours;
-totalPoints+=points;
-});
+      const points = (gradeMap[grade] || 0) * hours;
 
-const gpa= totalHours? totalPoints/totalHours : 0;
+      row.querySelector(".points").textContent = points.toFixed(2);
 
-document.getElementById("global-hours").textContent=totalHours;
-document.getElementById("global-points").textContent=totalPoints.toFixed(2);
-document.getElementById("global-gpa").textContent=gpa.toFixed(2);
-document.getElementById("global-letter").textContent=getLetter(gpa);
+      globalPoints += points;
+      globalHours += hours;
+
+    });
+
+  });
+
+  const globalGPA = globalHours ? (globalPoints / globalHours) : 0;
+
+  document.getElementById("global-gpa").textContent = globalGPA.toFixed(2);
+  document.getElementById("global-letter").textContent = getLetter(globalGPA);
+
+  saveData(); // حفظ تلقائي
 }
 
+// ================== Arabic Letter System ==================
 function getLetter(gpa){
 
-if (gpa >= 4.0) return "A+ ممتاز مرتفع";
-if (gpa >= 3.7) return "A ممتاز";
-if (gpa >= 3.4) return "A- ممتاز منخفض";
+  if (gpa >= 4.0) return "A+ ممتاز مرتفع";
+  if (gpa >= 3.7) return "A ممتاز";
+  if (gpa >= 3.4) return "A- ممتاز منخفض";
 
-if (gpa >= 3.2) return "B+ جيد جداً مرتفع";
-if (gpa >= 3.0) return "B جيد جداً";
-if (gpa >= 2.8) return "B- جيد جداً منخفض";
+  if (gpa >= 3.2) return "B+ جيد جداً مرتفع";
+  if (gpa >= 3.0) return "B جيد جداً";
+  if (gpa >= 2.8) return "B- جيد جداً منخفض";
 
-if (gpa >= 2.6) return "C+ جيد مرتفع";
-if (gpa >= 2.4) return "C جيد";
-if (gpa >= 2.2) return "C- جيد منخفض";
+  if (gpa >= 2.6) return "C+ جيد مرتفع";
+  if (gpa >= 2.4) return "C جيد";
+  if (gpa >= 2.2) return "C- جيد منخفض";
 
-if (gpa >= 2.0) return "D+ مقبول مرتفع";
-if (gpa >= 1.5) return "D مقبول";
-if (gpa >= 1.0) return "D- مقبول منخفض";
+  if (gpa >= 2.0) return "D+ مقبول مرتفع";
+  if (gpa >= 1.5) return "D مقبول";
+  if (gpa >= 1.0) return "D- مقبول منخفض";
 
-return "F راسب";
+  return "F راسب";
+}
+
+// ================== Save Data ==================
+function saveData(){
+
+  const data = [];
+
+  document.querySelectorAll(".semester").forEach(semester => {
+
+    const subjects = [];
+
+    semester.querySelectorAll("tbody tr").forEach(row => {
+
+      subjects.push({
+        name: row.children[0].textContent,
+        hours: row.querySelector(".hours").textContent,
+        grade: row.querySelector(".grade").value
+      });
+
+    });
+
+    data.push(subjects);
+
+  });
+
+  localStorage.setItem("gpaData", JSON.stringify(data));
+}
+
+// ================== Load Data ==================
+function loadData(){
+
+  const saved = localStorage.getItem("gpaData");
+  if(!saved) return;
+
+  const data = JSON.parse(saved);
+
+  document.querySelectorAll(".semester").forEach((semester,index)=>{
+
+    const tbody = semester.querySelector("tbody");
+    tbody.innerHTML = "";
+
+    if(!data[index]) return;
+
+    data[index].forEach(subject=>{
+
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td contenteditable="true">${subject.name}</td>
+        <td contenteditable="true" class="hours">${subject.hours}</td>
+        <td>
+          <select class="grade">
+            <option value="">اختر</option>
+            ${Object.keys(gradeMap).map(g=>`<option value="${g}">${g}</option>`).join("")}
+          </select>
+        </td>
+        <td class="points">0</td>
+      `;
+
+      row.querySelector(".grade").value = subject.grade;
+
+      row.querySelector(".hours").addEventListener("input", calculate);
+      row.querySelector(".grade").addEventListener("change", calculate);
+
+      tbody.appendChild(row);
+
+    });
+
+  });
 
 }
 
-function clearLevel(btn){
-const level=btn.closest(".level");
-level.querySelectorAll("tbody").forEach(t=>t.innerHTML="");
-calculate();
-}
+// ================== On Load ==================
+window.onload = function () {
+  loadData();
+  calculate();
+};
