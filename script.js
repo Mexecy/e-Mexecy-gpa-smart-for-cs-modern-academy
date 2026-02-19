@@ -167,14 +167,13 @@ function loadData(){
 
     });
 
-  });
-
 }
 
 // ================== On Load ==================
 function clearLevel(btn){
 
-  const level = btn.closest(".level");
+  const level = btn.parentElement;
+
   level.querySelectorAll("tbody").forEach(tbody=>{
     tbody.innerHTML = "";
   });
