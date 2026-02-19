@@ -15,11 +15,15 @@ const gradeMap = {
   "F (0.0)": 0.0
 };
 
+
 // ================== Add Subject ==================
 function addSubject(btn){
 
   const semester = btn.closest(".semester");
+  if(!semester) return;
+
   const tbody = semester.querySelector("tbody");
+  if(!tbody) return;
 
   const row = document.createElement("tr");
 
@@ -29,7 +33,9 @@ function addSubject(btn){
     <td>
       <select class="grade">
         <option value="">اختر</option>
-        ${Object.keys(gradeMap).map(g=>`<option value="${g}">${g}</option>`).join("")}
+        ${Object.keys(gradeMap).map(g => 
+          `<option value="${g}">${g}</option>`
+        ).join("")}
       </select>
     </td>
     <td class="points">0</td>
@@ -76,12 +82,14 @@ function calculate(){
 
   if(globalHours === 0){
     document.getElementById("global-letter").textContent = "0";
-  }else{
+  } else {
     document.getElementById("global-letter").textContent = getLetter(globalGPA);
   }
 
   saveData();
 }
+
+
 // ================== Arabic Letter System ==================
 function getLetter(gpa){
 
@@ -103,6 +111,7 @@ function getLetter(gpa){
 
   return "F راسب";
 }
+
 
 // ================== Save Data ==================
 function saveData(){
@@ -129,6 +138,7 @@ function saveData(){
 
   localStorage.setItem("gpaData", JSON.stringify(data));
 }
+
 
 // ================== Load Data ==================
 function loadData(){
@@ -170,12 +180,16 @@ function loadData(){
 
     });
 
+  });
+
 }
 
-// ================== On Load ==================
+
+// ================== Clear Level ==================
 function clearLevel(btn){
 
-  const level = btn.parentElement;
+  const level = btn.closest(".level");
+  if(!level) return;
 
   level.querySelectorAll("tbody").forEach(tbody=>{
     tbody.innerHTML = "";
@@ -183,6 +197,9 @@ function clearLevel(btn){
 
   calculate();
 }
+
+
+// ================== On Load ==================
 window.onload = function () {
   loadData();
   calculate();
