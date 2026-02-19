@@ -8,7 +8,7 @@ const gradeMap = {
 
 function addSubject(btn) {
 
-  // نجيب نفس الديف اللي الزرار جواه (summer أو أي فصل)
+  // نجيب نفس الفصل (semester أو summer)
   const container = btn.parentElement;
   const tbody = container.querySelector("tbody");
 
@@ -28,6 +28,7 @@ function addSubject(btn) {
 
   // اختيار التقدير
   row.querySelector(".grade").addEventListener("click", function () {
+
     const select = document.createElement("select");
 
     select.innerHTML =
@@ -61,11 +62,8 @@ function calculate() {
   let globalHours = 0;
   let globalPoints = 0;
 
-  // نلف على كل فصل فيه جدول
+  // نلف على كل الجداول
   document.querySelectorAll("tbody").forEach(tbody => {
-
-    let totalHours = 0;
-    let totalPoints = 0;
 
     tbody.querySelectorAll("tr").forEach(row => {
 
@@ -76,27 +74,22 @@ function calculate() {
 
       row.querySelector(".points").textContent = points.toFixed(2);
 
-      totalHours += hours;
-      totalPoints += points;
+      globalHours += hours;
+      globalPoints += points;
     });
-
-    globalHours += totalHours;
-    globalPoints += totalPoints;
   });
 
   const globalGPA = globalHours ? (globalPoints / globalHours) : 0;
 
-  if (document.getElementById("global-hours"))
-    document.getElementById("global-hours").textContent = globalHours;
+  const hoursEl = document.getElementById("global-hours");
+  const pointsEl = document.getElementById("global-points");
+  const gpaEl = document.getElementById("global-gpa");
+  const letterEl = document.getElementById("global-letter");
 
-  if (document.getElementById("global-points"))
-    document.getElementById("global-points").textContent = globalPoints.toFixed(2);
-
-  if (document.getElementById("global-gpa"))
-    document.getElementById("global-gpa").textContent = globalGPA.toFixed(2);
-
-  if (document.getElementById("global-letter"))
-    document.getElementById("global-letter").textContent = getLetter(globalGPA);
+  if (hoursEl) hoursEl.textContent = globalHours;
+  if (pointsEl) pointsEl.textContent = globalPoints.toFixed(2);
+  if (gpaEl) gpaEl.textContent = globalGPA.toFixed(2);
+  if (letterEl) letterEl.textContent = getLetter(globalGPA);
 }
 
 function getLetter(gpa) {
@@ -109,8 +102,14 @@ function getLetter(gpa) {
 
 function clearLevel(btn) {
 
-  const container = btn.closest("div");
-  container.querySelectorAll("tbody").forEach(t => t.innerHTML = "");
+  // نجيب المستوى نفسه بس
+  const level = btn.closest(".level");
+
+  if (!level) return;
+
+  level.querySelectorAll("tbody").forEach(tbody => {
+    tbody.innerHTML = "";
+  });
 
   calculate();
 }
