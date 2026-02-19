@@ -1,9 +1,17 @@
 const gradeMap = {
-A:4, "A-":3.7,
-"B+":3.3, B:3, "B-":2.7,
-"C+":2.3, C:2, "C-":1.7,
-"D+":1.3, D:1,
-F:0
+  "A+ (4.0)": 4.0,
+  "A (3.7)": 3.7,
+  "A- (3.4)": 3.4,
+  "B+ (3.2)": 3.2,
+  "B (3.0)": 3.0,
+  "B- (2.8)": 2.8,
+  "C+ (2.6)": 2.6,
+  "C (2.4)": 2.4,
+  "C- (2.2)": 2.2,
+  "D+ (2.0)": 2.0,
+  "D (1.5)": 1.5,
+  "D- (1.0)": 1.0,
+  "F (0.0)": 0.0
 };
 
 function addSubject(btn){
@@ -63,11 +71,25 @@ document.getElementById("global-letter").textContent=getLetter(gpa);
 }
 
 function getLetter(gpa){
-if(gpa>=3.7)return "امتياز";
-if(gpa>=3)return "جيد جداً";
-if(gpa>=2)return "جيد";
-if(gpa>=1)return "مقبول";
-return "راسب";
+
+if (gpa >= 4.0) return "A+ ممتاز مرتفع";
+if (gpa >= 3.7) return "A ممتاز";
+if (gpa >= 3.4) return "A- ممتاز منخفض";
+
+if (gpa >= 3.2) return "B+ جيد جداً مرتفع";
+if (gpa >= 3.0) return "B جيد جداً";
+if (gpa >= 2.8) return "B- جيد جداً منخفض";
+
+if (gpa >= 2.6) return "C+ جيد مرتفع";
+if (gpa >= 2.4) return "C جيد";
+if (gpa >= 2.2) return "C- جيد منخفض";
+
+if (gpa >= 2.0) return "D+ مقبول مرتفع";
+if (gpa >= 1.5) return "D مقبول";
+if (gpa >= 1.0) return "D- مقبول منخفض";
+
+return "F راسب";
+
 }
 
 function clearLevel(btn){
