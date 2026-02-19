@@ -15,30 +15,24 @@ const row = document.createElement("tr");
 
 row.innerHTML = `
 <td contenteditable="true"></td>
+
 <td contenteditable="true" class="hours">0</td>
-<td class="grade">اختر</td>
+
+<td>
+<select class="grade">
+<option value="">اختر</option>
+${Object.keys(gradeMap).map(g=>`<option value="${g}">${g}</option>`).join("")}
+</select>
+</td>
+
 <td class="points">0</td>
 `;
 
-row.querySelector(".grade").addEventListener("click",function(){
-
-const select = document.createElement("select");
-select.innerHTML = `<option>اختر</option>` +
-Object.keys(gradeMap).map(g=>`<option>${g}</option>`).join("");
-
-this.innerHTML="";
-this.appendChild(select);
-select.focus();
-
-select.addEventListener("change",()=>{
-this.textContent=select.value;
-calculate();
-});
-});
-
-row.querySelector(".hours").addEventListener("input",calculate);
+row.querySelector(".hours").addEventListener("input", calculate);
+row.querySelector(".grade").addEventListener("change", calculate);
 
 tbody.appendChild(row);
+
 calculate();
 }
 
@@ -50,7 +44,7 @@ let totalPoints=0;
 document.querySelectorAll("tbody tr").forEach(row=>{
 
 const hours=parseFloat(row.querySelector(".hours").textContent)||0;
-const grade=row.querySelector(".grade").textContent;
+const grade=row.querySelector(".grade").value;
 const value=gradeMap[grade]||0;
 
 const points=hours*value;
