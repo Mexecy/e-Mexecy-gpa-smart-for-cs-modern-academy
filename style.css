@@ -89,13 +89,13 @@ th:nth-child(2){
 /* التقدير */
 td:nth-child(3),
 th:nth-child(3){
-    width:15%;
+    width:13%;
 }
 
 /* النقاط */
 td:nth-child(4),
 th:nth-child(4){
-    width:18%;
+    width:15%;
 }
 
 /* select */
