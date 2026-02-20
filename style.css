@@ -83,7 +83,7 @@ th:first-child{
 /* الساعات */
 td:nth-child(2),
 th:nth-child(2){
-    width:10%;
+    width:12%;
 }
 
 /* التقدير */
@@ -95,13 +95,13 @@ th:nth-child(3){
 /* النقاط */
 td:nth-child(4),
 th:nth-child(4){
-    width:10%;
+    width:18%;
 }
 
 /* select */
 select{
     width:100%;
-    font-size:13px;
+    font-size:15px;
 }
 
 /* ===== الأزرار ===== */
