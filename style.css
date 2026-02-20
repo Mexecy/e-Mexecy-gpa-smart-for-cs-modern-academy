@@ -20,7 +20,7 @@ body{
     box-sizing:border-box;
 }
 
-h1{
+{
     text-align:center;
     margin-bottom:20px;
 }
@@ -63,41 +63,38 @@ table{
 
 th, td{
     border:0.7px solid #e6e6e6;
-    padding:5px;
+    padding:6px;
     font-size:14px;
     text-align:center;
 }
 /* ===== توزيع الأعمدة ===== */
 
-/* اسم المادة (أكبر مساحة) */
-/* اسم المادة (آخر عمود لأنه RTL) */
-td:last-child,
-th:last-child{
-    width:60%;
+/* اسم المادة */
+th:nth-child(1),
+td:nth-child(1){
+    width:55%;
     text-align:right;
     padding-right:8px;
-    font-weight:500;
-    word-wrap:break-word;
+    word-break:break-word;
 }
 
 /* الساعات */
-td:nth-child(2),
-th:nth-child(2){
+th:nth-child(2),
+td:nth-child(2){
     width:15%;
 }
 
 /* التقدير */
-td:nth-child(3),
-th:nth-child(3){
+th:nth-child(3),
+td:nth-child(3){
     width:15%;
 }
 
 /* النقاط */
-td:nth-child(4),
-th:nth-child(4){
-    width:110%;
+th:nth-child(4),
+td:nth-child(4){
+    width:15%;
 }
-
 /* select */
 select{
     width:100%;
