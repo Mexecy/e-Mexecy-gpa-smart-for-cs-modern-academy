@@ -90,28 +90,34 @@ th, td{
     text-align:center;
 }
 
-/* ===== توزيع الأعمدة الصحيح ===== */
+/* ===== توزيع أعمدة متوازن ===== */
 
 /* اسم المادة */
 th:nth-child(1),
 td:nth-child(1){
-    width:60%;
-    min-width:180px;
+    width:55%;
+    min-width:160px;
     text-align:right;
-    padding-right:10px;
-    font-weight:500;
 }
 
-/* الساعات + التقدير + النقاط */
+/* الساعات */
 th:nth-child(2),
-td:nth-child(2),
+td:nth-child(2){
+    width:15%;
+}
+
+/* التقدير */
 th:nth-child(3),
-td:nth-child(3),
+td:nth-child(3){
+    width:15%;
+    min-width:60px;
+}
+
+/* النقاط */
 th:nth-child(4),
 td:nth-child(4){
-    width:13%;
+    width:15%;
 }
-/* ===== select ===== */
 
 select{
     width:100%;
