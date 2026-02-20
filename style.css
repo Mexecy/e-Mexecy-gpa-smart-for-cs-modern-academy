@@ -73,7 +73,7 @@ th, td{
 /* اسم المادة (أكبر مساحة) */
 td:first-child,
 th:first-child{
-    width:75%;
+    width:55%;
     text-align:right;
     padding-right:8px;
     font-weight:500;
