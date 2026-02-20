@@ -1,16 +1,19 @@
 body{
-font-family:system-ui;
-background:#f5f5f5;
-margin:0;
-padding:15px;
+    font-family: system-ui;
+    background:#f5f7fa;
+    margin:0;
+    padding:12px;
 }
 
 .container{
-max-width:1000px;
-margin:auto;
-background:#fff;
-padding:20px;
-border-radius:10px;
+    width:100%;
+    max-width:600px;
+    margin:auto;
+    background:#ffffff;
+    padding:18px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
+    box-sizing:border-box;
 }
 
 h1{text-align:center;}
@@ -39,12 +42,40 @@ table{
 width:100%;
 border-collapse:collapse;
 margin-bottom:5px;
+table-layout: fixed;
 }
 
-th,td{
-border:1px solid #ccc;
-padding:6px;
-text-align:center;
+th, td {
+    border:1px solid #ccc;
+    padding:6px;
+    text-align:center;
+    font-size:14px;
+}
+
+/* اسم المادة أكبر مساحة */
+td:first-child,
+th:first-child {
+    width:45%;
+    text-align:right;
+    padding-right:8px;
+    font-weight:500;
+}
+/* الساعات */
+td:nth-child(2),
+th:nth-child(2) {
+    width:15%;
+}
+
+/* التقدير */
+td:nth-child(3),
+th:nth-child(3) {
+    width:20%;
+}
+
+/* النقاط */
+td:nth-child(4),
+th:nth-child(4) {
+    width:20%;
 }
 
 button{
