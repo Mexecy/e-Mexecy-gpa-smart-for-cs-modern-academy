@@ -90,19 +90,19 @@ th, td{
     text-align:center;
 }
 
+/* ===== توزيع الأعمدة الصحيح ===== */
 
-/* ===== توزيع أعمدة مضبوط للـ RTL ===== */
-
-/* اسم المادة - أول عمود يمين */
-th:first-child,
-td:first-child{
+/* اسم المادة */
+th:nth-child(1),
+td:nth-child(1){
     width:60%;
     min-width:180px;
     text-align:right;
     padding-right:10px;
+    font-weight:500;
 }
 
-/* باقي الأعمدة */
+/* الساعات + التقدير + النقاط */
 th:nth-child(2),
 td:nth-child(2),
 th:nth-child(3),
