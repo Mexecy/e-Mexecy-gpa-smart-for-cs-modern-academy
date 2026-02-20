@@ -83,19 +83,19 @@ th:first-child{
 /* الساعات */
 td:nth-child(2),
 th:nth-child(2){
-    width:10%;
+    width:8%;
 }
 
 /* التقدير */
 td:nth-child(3),
 th:nth-child(3){
-    width:15%;
+    width:10%;
 }
 
 /* النقاط */
 td:nth-child(4),
 th:nth-child(4){
-    width:10%;
+    width:8%;
 }
 
 /* select */
