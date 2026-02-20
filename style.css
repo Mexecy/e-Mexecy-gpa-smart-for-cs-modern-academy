@@ -72,7 +72,6 @@ h1{
 table{
     width:100%;
     border-collapse:collapse;
-    table-layout:fixed;
     margin-bottom:15px;
     background:#ffffff;
     border-radius:10px;
@@ -91,35 +90,23 @@ th, td{
     text-align:center;
 }
 
-/* ===== توزيع الأعمدة (ثابت وصحيح) ===== */
 
-/* النقاط */
-th:nth-child(1),
-td:nth-child(1){
-    width:15%;
-}
+/* ===== توزيع الأعمدة ===== */
 
-/* التقدير */
-th:nth-child(2),
-td:nth-child(2){
-    width:15%;
-}
-
-/* الساعات */
-th:nth-child(3),
-td:nth-child(3){
-    width:15%;
-}
-
-/* اسم المادة */
-th:nth-child(4),
-td:nth-child(4){
-    width:55%;
+/* عمود اسم المادة */
+th:last-child,
+td:last-child{
+    width:50%;
+    min-width:140px;
     text-align:right;
-    padding-right:10px;
-    font-weight:500;
+    white-space:nowrap;
 }
 
+/* الأعمدة الصغيرة */
+th:not(:last-child),
+td:not(:last-child){
+    width:16%;
+}
 /* ===== select ===== */
 
 select{
