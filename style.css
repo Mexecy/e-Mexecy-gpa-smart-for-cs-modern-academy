@@ -23,7 +23,7 @@ body{
 
 /* ===== العنوان ===== */
 
-{
+h1{
     text-align:center;
     margin-bottom:25px;
     font-size:22px;
@@ -91,20 +91,33 @@ th, td{
     text-align:center;
 }
 
-/* ===== توزيع الأعمدة ===== */
+/* ===== توزيع الأعمدة (ثابت وصحيح) ===== */
 
-th:last-child,
-td:last-child{
+/* النقاط */
+th:nth-child(1),
+td:nth-child(1){
+    width:15%;
+}
+
+/* التقدير */
+th:nth-child(2),
+td:nth-child(2){
+    width:15%;
+}
+
+/* الساعات */
+th:nth-child(3),
+td:nth-child(3){
+    width:15%;
+}
+
+/* اسم المادة */
+th:nth-child(4),
+td:nth-child(4){
     width:55%;
     text-align:right;
     padding-right:10px;
     font-weight:500;
-    word-break:break-word;
-}
-
-th:not(:last-child),
-td:not(:last-child){
-    width:15%;
 }
 
 /* ===== select ===== */
