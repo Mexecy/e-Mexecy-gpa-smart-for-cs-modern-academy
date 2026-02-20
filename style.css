@@ -1,9 +1,13 @@
+/* ===== الأساس ===== */
+
 body{
     font-family: system-ui;
     background:#f5f7fa;
     margin:0;
     padding:12px;
 }
+
+/* ===== الإطار الرئيسي ===== */
 
 .container{
     width:100%;
@@ -16,82 +20,117 @@ body{
     box-sizing:border-box;
 }
 
-h1{text-align:center;}
+h1{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+/* ===== الملخص ===== */
 
 .global-summary{
-display:flex;
-flex-wrap:wrap;
-gap:15px;
-justify-content:center;
-margin-bottom:25px;
-font-weight:bold;
-}
-
-.level{
-background:#eef5ff;
-padding:15px;
-margin-bottom:30px;
-border-radius:10px;
-}
-
-.semester{
-margin-bottom:20px;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-margin-bottom:5px;
-table-layout: fixed;
-}
-
-th, td {
-    border:1px solid #ccc;
-    padding:6px;
-    text-align:center;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:space-between;
+    margin-bottom:20px;
+    font-weight:bold;
     font-size:14px;
 }
 
-/* اسم المادة أكبر مساحة */
+/* ===== المستوى ===== */
+
+.level{
+    background:#f0f4ff;
+    padding:15px;
+    margin-bottom:25px;
+    border-radius:10px;
+}
+
+/* ===== الفصل ===== */
+
+.semester{
+    margin-bottom:20px;
+}
+
+/* ===== الجدول ===== */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    table-layout:fixed;
+    margin-bottom:8px;
+}
+
+th, td{
+    border:1px solid #e0e0e0;
+    padding:6px;
+    font-size:14px;
+    text-align:center;
+}
+
+/* ===== توزيع الأعمدة ===== */
+
+/* اسم المادة (أكبر مساحة) */
 td:first-child,
-th:first-child {
-    width:45%;
+th:first-child{
+    width:60%;
     text-align:right;
     padding-right:8px;
     font-weight:500;
+    word-wrap:break-word;
 }
+
 /* الساعات */
 td:nth-child(2),
-th:nth-child(2) {
-    width:15%;
+th:nth-child(2){
+    width:10%;
 }
 
 /* التقدير */
 td:nth-child(3),
-th:nth-child(3) {
-    width:20%;
+th:nth-child(3){
+    width:15%;
 }
 
 /* النقاط */
 td:nth-child(4),
-th:nth-child(4) {
-    width:20%;
+th:nth-child(4){
+    width:15%;
 }
 
+/* select */
+select{
+    width:100%;
+    font-size:13px;
+}
+
+/* ===== الأزرار ===== */
+
 button{
-padding:6px 12px;
-cursor:pointer;
-border:none;
-background:#0f172a;
-color:#fff;
-border-radius:6px;
+    padding:6px 12px;
+    cursor:pointer;
+    border:none;
+    background:#0f172a;
+    color:#fff;
+    border-radius:6px;
+    font-size:13px;
+}
+
+button:hover{
+    opacity:0.9;
 }
 
 .clear-btn{
-background:#c62828;
-margin-top:10px;
+    background:#c62828;
+    margin-top:10px;
 }
 
+/* ===== موبايل ===== */
+
 @media(max-width:768px){
-.global-summary{flex-direction:column;align-items:center;}
+    .global-summary{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:6px;
+    }
 }
