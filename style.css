@@ -92,11 +92,10 @@ th, td{
 }
 
 /* ===== توزيع الأعمدة الجديد ===== */
-
 /* اسم المادة */
 th:nth-child(1),
 td:nth-child(1){
-    width:55%;
+    width:50%;
 }
 
 /* الساعات */
@@ -108,10 +107,10 @@ td:nth-child(2){
 /* التقدير */
 th:nth-child(3),
 td:nth-child(3){
-    width:15%;
+    width:20%;
 }
 
-/* النقاط */
+/* الإجمالي */
 th:nth-child(4),
 td:nth-child(4){
     width:15%;
@@ -122,10 +121,6 @@ select{
     font-size:14px;
     text-align:center;
     padding:4px;
-}
-
-select.grade{
-    width:70px;
 }
 
 /* ===== input عام ===== */
