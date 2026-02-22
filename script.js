@@ -16,6 +16,15 @@ const gradeMap = {
 };
 
 
+// ================== Generate Grade Options (احترافي) ==================
+function generateGradeOptions(){
+  return Object.keys(gradeMap).map(g => {
+    const letter = g.split(" ")[0]; // ياخد الحرف بس
+    return `<option value="${g}">${letter}</option>`;
+  }).join("");
+}
+
+
 // ================== Add Subject ==================
 function addSubject(btn){
 
@@ -33,9 +42,7 @@ function addSubject(btn){
     <td>
       <select class="grade">
         <option value="">اختر</option>
-        ${Object.keys(gradeMap).map(g => 
-          `<option value="${g}">${g}</option>`
-        ).join("")}
+        ${generateGradeOptions()}
       </select>
     </td>
     <td class="points">0</td>
@@ -165,7 +172,7 @@ function loadData(){
         <td>
           <select class="grade">
             <option value="">اختر</option>
-            ${Object.keys(gradeMap).map(g=>`<option value="${g}">${g}</option>`).join("")}
+            ${generateGradeOptions()}
           </select>
         </td>
         <td class="points">0</td>
