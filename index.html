@@ -23,47 +23,67 @@
 <span>التقدير: <b id="global-letter">0</b></span>
 </div>
 
-<!-- المستويات -->
-<div class="levels">
+<div class="levels" id="levels-container"></div>
 
-<script>
-for (let i = 1; i <= 4; i++) {
-document.write(`
-<div class="level">
-<h2>المستوى ${i}</h2>
-
-<div class="semester">
-<h3>الفصل الأول</h3>
-<table>
-<thead>
-<tr><th>اسم المادة</th><th>ساعات</th><th>تقدير</th><th>نقاط</th></tr>
-</thead>
-<tbody></tbody>
-</table>
-<button onclick="addSubject(this)">إضافة مادة</button>
-</div>
-
-<div class="semester">
-<h3>الفصل الثاني</h3>
-<table>
-<thead>
-<tr><th>اسم المادة</th><th>ساعات</th><th>تقدير</th><th>نقاط</th></tr>
-</thead>
-<tbody></tbody>
-</table>
-<button onclick="addSubject(this)">إضافة مادة</button>
-</div>
-
-<button class="clear-btn" onclick="clearLevel(this)">مسح المستوى</button>
-</div>
-`);
-}
-</script>
-
-</div>
 </div>
 
 <script src="script.js"></script>
+
+<script>
+function createLevels() {
+  const container = document.getElementById("levels-container");
+
+  for (let i = 1; i <= 4; i++) {
+
+    const level = document.createElement("div");
+    level.className = "level";
+
+    level.innerHTML = `
+      <h2>المستوى ${i}</h2>
+
+      <div class="semester">
+        <h3>الفصل الأول</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>اسم المادة</th>
+              <th>ساعات</th>
+              <th>تقدير</th>
+              <th>نقاط</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <button onclick="addSubject(this)">إضافة مادة</button>
+      </div>
+
+      <div class="semester">
+        <h3>الفصل الثاني</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>اسم المادة</th>
+              <th>ساعات</th>
+              <th>تقدير</th>
+              <th>نقاط</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <button onclick="addSubject(this)">إضافة مادة</button>
+      </div>
+
+      <button class="clear-btn" onclick="clearLevel(this)">مسح المستوى</button>
+    `;
+
+    container.appendChild(level);
+  }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  createLevels();
+});
+</script>
 
 <script>
 if ("serviceWorker" in navigator) {
