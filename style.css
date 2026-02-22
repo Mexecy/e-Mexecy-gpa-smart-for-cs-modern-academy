@@ -96,39 +96,33 @@ th, td{
 /* اسم المادة */
 th:nth-child(1),
 td:nth-child(1){
-    width:68%;
-    min-width:160px;
-    text-align:right;
+    width:55%;
 }
 
 /* الساعات */
 th:nth-child(2),
 td:nth-child(2){
-    width:8%;
-    min-width:35px;
+    width:15%;
 }
 
 /* التقدير */
 th:nth-child(3),
 td:nth-child(3){
-    width:14%;
-    min-width:60px;
+    width:15%;
 }
 
 /* النقاط */
 th:nth-child(4),
 td:nth-child(4){
-    width:10%;
-    min-width:50px;
+    width:15%;
 }
-
 /* ===== select ===== */
 
 select{
     width:100%;
-    font-size:13px;
-    padding:3px;
+    font-size:14px;
     text-align:center;
+    padding:4px;
 }
 
 /* ===== input عام ===== */
