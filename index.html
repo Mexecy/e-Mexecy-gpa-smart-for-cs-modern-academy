@@ -23,6 +23,7 @@
 <span>التقدير: <b id="global-letter">0</b></span>
 </div>
 
+<!-- المستويات -->
 <div class="levels" id="levels-container"></div>
 
 </div>
@@ -30,7 +31,8 @@
 <script src="script.js"></script>
 
 <script>
-function createLevels() {
+document.addEventListener("DOMContentLoaded", function () {
+
   const container = document.getElementById("levels-container");
 
   for (let i = 1; i <= 4; i++) {
@@ -78,10 +80,7 @@ function createLevels() {
 
     container.appendChild(level);
   }
-}
 
-window.addEventListener("DOMContentLoaded", () => {
-  createLevels();
 });
 </script>
 
