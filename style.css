@@ -71,18 +71,10 @@ h1{
 table{
     width:100%;
     border-collapse:collapse;
-    margin-bottom:12px;
+    margin-bottom:15px;
     background:#ffffff;
     border-radius:10px;
     overflow:hidden;
-    table-layout:fixed;
-}
-
-th, td{
-    border:1px solid #e5e7eb;
-    padding:4px;
-    font-size:13px;
-    text-align:center;
 }
 
 th{
@@ -92,39 +84,48 @@ th{
 
 th, td{
     border:1px solid #e5e7eb;
-    padding:4px;
+    padding:6px 4px;
     font-size:13px;
     text-align:center;
-    direction:rtl; /* يرجع النص عربي طبيعي */
+    vertical-align:middle;
 }
 
-/* ===== توزيع الأعمدة ===== */
+/* ===== توزيع احترافي للأعمدة ===== */
 
-/* اسم المادة */
-th:nth-child(1),
-td:nth-child(1){
-    width:50%;
+/* اسم المادة - يمين خالص */
+th:first-child,
+td:first-child{
+    width:45%;
     text-align:right;
+    padding-right:8px;
 }
 
 /* الساعات */
 th:nth-child(2),
 td:nth-child(2){
-    width:12%;
+    width:15%;
 }
 
 /* التقدير */
 th:nth-child(3),
 td:nth-child(3){
-    width:23%;
+    width:20%;
 }
 
-/* الإجمالي */
+/* الإجمالي - شمال خالص */
 th:nth-child(4),
 td:nth-child(4){
-    width:15%;
+    width:20%;
+    text-align:left;
+    padding-left:8px;
 }
 
+/* منع تزاحم العناصر داخل الخانات */
+input,
+select{
+    width:100%;
+    box-sizing:border-box;
+}
 /* ===== select ===== */
 
 select{
