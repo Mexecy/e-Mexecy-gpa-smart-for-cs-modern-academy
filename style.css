@@ -117,11 +117,6 @@ th:nth-child(4),
 td:nth-child(4){
     width:15%;
 }
-/* الإجمالي */
-th:nth-child(4),
-td:nth-child(4){
-    width:15%;
-}
 /* ===== select ===== */
 
 select{
