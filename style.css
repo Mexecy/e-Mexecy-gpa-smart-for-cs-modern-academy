@@ -120,11 +120,13 @@ td:nth-child(4){
 /* ===== select ===== */
 
 select{
+    width:85%;
     font-size:14px;
     text-align:center;
     padding:4px;
+    margin:auto;
+    display:block;
 }
-
 /* ===== input عام ===== */
 
 input{
