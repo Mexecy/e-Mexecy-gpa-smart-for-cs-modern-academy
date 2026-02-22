@@ -15,47 +15,42 @@ const gradeMap = {
   "F (0.0)": 0.0
 };
 
-
-// ================== Generate Grade Options (احترافي) ==================
+// ================== Generate Grade Options ==================
 function generateGradeOptions(){
   return Object.keys(gradeMap).map(g => {
-    const letter = g.split(" ")[0]; // ياخد الحرف بس
+    const letter = g.split(" ")[0];
     return `<option value="${g}">${letter}</option>`;
   }).join("");
 }
-
 
 // ================== Add Subject ==================
 function addSubject(btn){
 
   const semester = btn.closest(".semester");
-  if(!semester) return;
-
   const tbody = semester.querySelector("tbody");
-  if(!tbody) return;
 
   const row = document.createElement("tr");
 
   row.innerHTML = `
     <td contenteditable="true"></td>
-    <td contenteditable="true" class="hours">0</td>
+    <td>
+      <input type="number" class="hours" value="0" min="0" step="1">
+    </td>
     <td>
       <select class="grade">
         <option value="">اختر</option>
         ${generateGradeOptions()}
       </select>
     </td>
-    <td class="points">0</td>
+    <td class="points">0.00</td>
   `;
 
   row.querySelector(".hours").addEventListener("input", calculate);
   row.querySelector(".grade").addEventListener("change", calculate);
 
   tbody.appendChild(row);
-
   calculate();
 }
-
 
 // ================== Calculate ==================
 function calculate(){
@@ -63,22 +58,17 @@ function calculate(){
   let globalPoints = 0;
   let globalHours = 0;
 
-  document.querySelectorAll(".semester").forEach(semester => {
+  document.querySelectorAll(".semester tbody tr").forEach(row => {
 
-    semester.querySelectorAll("tbody tr").forEach(row => {
+    const hours = parseFloat(row.querySelector(".hours").value) || 0;
+    const grade = row.querySelector(".grade").value;
 
-      const hours = parseFloat(row.querySelector(".hours").textContent) || 0;
-      const grade = row.querySelector(".grade").value;
+    const points = (gradeMap[grade] || 0) * hours;
 
-      const points = (gradeMap[grade] || 0) * hours;
+    row.querySelector(".points").textContent = points.toFixed(2);
 
-      row.querySelector(".points").textContent = points.toFixed(2);
-
-      globalPoints += points;
-      globalHours += hours;
-
-    });
-
+    globalPoints += points;
+    globalHours += hours;
   });
 
   const globalGPA = globalHours ? (globalPoints / globalHours) : 0;
@@ -86,18 +76,13 @@ function calculate(){
   document.getElementById("global-hours").textContent = globalHours;
   document.getElementById("global-points").textContent = globalPoints.toFixed(2);
   document.getElementById("global-gpa").textContent = globalGPA.toFixed(2);
-
-  if(globalHours === 0){
-    document.getElementById("global-letter").textContent = "0";
-  } else {
-    document.getElementById("global-letter").textContent = getLetter(globalGPA);
-  }
+  document.getElementById("global-letter").textContent =
+    globalHours === 0 ? "0" : getLetter(globalGPA);
 
   saveData();
 }
 
-
-// ================== Arabic Letter System ==================
+// ================== Letter System ==================
 function getLetter(gpa){
 
   if (gpa >= 4.0) return "A+ ممتاز مرتفع";
@@ -119,7 +104,6 @@ function getLetter(gpa){
   return "F راسب";
 }
 
-
 // ================== Save Data ==================
 function saveData(){
 
@@ -133,19 +117,17 @@ function saveData(){
 
       subjects.push({
         name: row.children[0].textContent,
-        hours: row.querySelector(".hours").textContent,
+        hours: row.querySelector(".hours").value,
         grade: row.querySelector(".grade").value
       });
 
     });
 
     data.push(subjects);
-
   });
 
   localStorage.setItem("gpaData", JSON.stringify(data));
 }
-
 
 // ================== Load Data ==================
 function loadData(){
@@ -168,14 +150,16 @@ function loadData(){
 
       row.innerHTML = `
         <td contenteditable="true">${subject.name}</td>
-        <td contenteditable="true" class="hours">${subject.hours}</td>
+        <td>
+          <input type="number" class="hours" value="${subject.hours}" min="0" step="1">
+        </td>
         <td>
           <select class="grade">
             <option value="">اختر</option>
             ${generateGradeOptions()}
           </select>
         </td>
-        <td class="points">0</td>
+        <td class="points">0.00</td>
       `;
 
       row.querySelector(".grade").value = subject.grade;
@@ -184,30 +168,21 @@ function loadData(){
       row.querySelector(".grade").addEventListener("change", calculate);
 
       tbody.appendChild(row);
-
     });
 
   });
 
-}
-
-
-// ================== Clear Level ==================
-function clearLevel(btn){
-
-  const level = btn.closest(".level");
-  if(!level) return;
-
-  level.querySelectorAll("tbody").forEach(tbody=>{
-    tbody.innerHTML = "";
-  });
-
   calculate();
 }
 
+// ================== Clear Level ==================
+function clearLevel(btn){
+  const level = btn.closest(".level");
+  level.querySelectorAll("tbody").forEach(tbody => tbody.innerHTML = "");
+  calculate();
+}
 
 // ================== On Load ==================
 window.onload = function () {
   loadData();
-  calculate();
 };
