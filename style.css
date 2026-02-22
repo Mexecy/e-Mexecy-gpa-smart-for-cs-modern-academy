@@ -1,11 +1,10 @@
 /* ===== الأساس ===== */
-
 body{
     font-family: system-ui;
     background:#f5f7fa;
     margin:0;
-    padding:12px;
-    direction: rtl;
+    padding:8px;
+    direction:rtl;
 }
 
 /* ===== الإطار الرئيسي ===== */
@@ -15,7 +14,7 @@ body{
     max-width:600px;
     margin:auto;
     background:#ffffff;
-    padding:8px;
+    padding:10px 8px;
     border-radius:16px;
     box-shadow:0 6px 20px rgba(0,0,0,0.06);
     box-sizing:border-box;
@@ -25,8 +24,8 @@ body{
 
 h1{
     text-align:center;
-    margin-bottom:25px;
-    font-size:22px;
+    margin-bottom:20px;
+    font-size:20px;
 }
 
 /* ===== الملخص ===== */
@@ -34,37 +33,37 @@ h1{
 .global-summary{
     display:flex;
     flex-wrap:wrap;
-    gap:10px;
+    gap:8px;
     justify-content:space-between;
-    margin-bottom:25px;
+    margin-bottom:20px;
     font-weight:bold;
-    font-size:14px;
+    font-size:13px;
 }
 
 /* ===== المستوى ===== */
 
 .level{
     background:#f8fafc;
-    padding:20px;
-    margin-bottom:30px;
+    padding:14px;
+    margin-bottom:20px;
     border-radius:16px;
     border:1px solid #eef2f7;
 }
 
 .level h2{
     margin:0 0 10px 0;
-    font-size:20px;
+    font-size:18px;
 }
 
 /* ===== الفصل ===== */
 
 .semester{
-    margin-bottom:25px;
+    margin-bottom:20px;
 }
 
 .semester h3{
-    margin:15px 0 10px 0;
-    font-size:17px;
+    margin:12px 0 8px 0;
+    font-size:15px;
 }
 
 /* ===== الجدول ===== */
@@ -72,12 +71,12 @@ h1{
 table{
     width:100%;
     border-collapse:collapse;
-    margin-bottom:15px;
+    margin-bottom:12px;
     background:#ffffff;
     border-radius:10px;
     overflow:hidden;
     table-layout:fixed;
-
+    direction:ltr; /* يحل مشكلة دمج الأعمدة */
 }
 
 th{
@@ -88,28 +87,30 @@ th{
 th, td{
     border:1px solid #e5e7eb;
     padding:4px;
-    font-size:14px;
+    font-size:13px;
     text-align:center;
-    
+    direction:rtl; /* يرجع النص عربي طبيعي */
 }
 
-/* ===== توزيع الأعمدة الجديد ===== */
+/* ===== توزيع الأعمدة ===== */
+
 /* اسم المادة */
 th:nth-child(1),
 td:nth-child(1){
-    width:55%;
+    width:50%;
+    text-align:right;
 }
 
 /* الساعات */
 th:nth-child(2),
 td:nth-child(2){
-    width:10%;
+    width:12%;
 }
 
 /* التقدير */
 th:nth-child(3),
 td:nth-child(3){
-    width:20%;
+    width:23%;
 }
 
 /* الإجمالي */
@@ -117,69 +118,31 @@ th:nth-child(4),
 td:nth-child(4){
     width:15%;
 }
+
 /* ===== select ===== */
 
 select{
-    width:85%;
-    font-size:14px;
+    width:90%;
+    font-size:13px;
     text-align:center;
-    padding:4px;
+    padding:3px;
     margin:auto;
     display:block;
 }
-/* ===== input عام ===== */
 
-input{
-    width:100%;
-    padding:6px;
-    font-size:14px;
-    border:1px solid #dcdcdc;
-    border-radius:6px;
-    box-sizing:border-box;
-    outline:none;
-}
-
-input:focus{
-    border-color:#111827;
-}
-
-/* ===== تصغير input الساعات فقط ===== */
-
-input.hours{
-    width:32px;
-    padding:2px;
-    font-size:13px;
-    text-align:center;
-}
-
-/* ===== الأزرار ===== */
+/* ===== أزرار ===== */
 
 button{
-    padding:8px 14px;
-    cursor:pointer;
+    width:100%;
+    padding:6px;
+    font-size:13px;
+    margin-top:6px;
     border:none;
-    background:#111827;
-    color:#fff;
     border-radius:8px;
-    font-size:14px;
-    transition:0.2s ease;
+    background:#0f172a;
+    color:#ffffff;
 }
 
-button:hover{
-    opacity:0.9;
-}
-
-.clear-btn{
-    background:#c62828;
-    margin-top:10px;
-}
-
-/* ===== موبايل ===== */
-
-@media(max-width:768px){
-    .global-summary{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:6px;
-    }
+button:active{
+    transform:scale(0.98);
 }
