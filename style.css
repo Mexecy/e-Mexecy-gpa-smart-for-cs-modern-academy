@@ -76,7 +76,13 @@ table{
     border-radius:10px;
     overflow:hidden;
     table-layout:fixed;
-    direction:ltr; /* يحل مشكلة دمج الأعمدة */
+}
+
+th, td{
+    border:1px solid #e5e7eb;
+    padding:4px;
+    font-size:13px;
+    text-align:center;
 }
 
 th{
