@@ -86,47 +86,52 @@ th{
 
 th, td{
     border:1px solid #f0f0f0;
-    padding:8px;
+    padding:6px;
     font-size:14px;
     text-align:center;
 }
+
+/* ===== توزيع الأعمدة الجديد ===== */
+
 /* اسم المادة */
 th:nth-child(1),
 td:nth-child(1){
-    width:65%;
-    min-width:170px;
+    width:68%;
+    min-width:160px;
     text-align:right;
 }
 
 /* الساعات */
 th:nth-child(2),
 td:nth-child(2){
-    width:10%;
-    min-width:40px;
-    text-align:center;
+    width:8%;
+    min-width:35px;
 }
 
-/* التقدير (حرف فقط مثل A+) */
+/* التقدير */
 th:nth-child(3),
 td:nth-child(3){
-    width:12%;
-    min-width:55px;
-    text-align:center;
+    width:14%;
+    min-width:60px;
 }
 
-/* النقاط (رقم) */
+/* النقاط */
 th:nth-child(4),
 td:nth-child(4){
-    width:13%;
-    min-width:55px;
-    text-align:center;
+    width:10%;
+    min-width:50px;
 }
+
+/* ===== select ===== */
+
 select{
     width:100%;
     font-size:13px;
+    padding:3px;
+    text-align:center;
 }
 
-/* ===== input اسم المادة ===== */
+/* ===== input عام ===== */
 
 input{
     width:100%;
@@ -140,6 +145,15 @@ input{
 
 input:focus{
     border-color:#111827;
+}
+
+/* ===== تصغير input الساعات فقط ===== */
+
+input.hours{
+    width:38px;
+    padding:3px;
+    font-size:13px;
+    text-align:center;
 }
 
 /* ===== الأزرار ===== */
@@ -172,14 +186,4 @@ button:hover{
         align-items:flex-start;
         gap:6px;
     }
-}
-
-/* أي كود عندك فوق */
-
-/* ===== تجربة توسيط مؤقت ===== */
-th:nth-child(2),
-td:nth-child(2),
-th:nth-child(3),
-td:nth-child(3){
-    text-align:center;
 }
