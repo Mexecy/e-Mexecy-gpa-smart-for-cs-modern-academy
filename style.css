@@ -90,6 +90,7 @@ th, td{
     text-align:center;
 }
 
+
 /* ===== توزيع أعمدة متوازن ===== */
 
 /* اسم المادة */
@@ -118,7 +119,6 @@ th:nth-child(4),
 td:nth-child(4){
     width:15%;
 }
-
 select{
     width:100%;
     font-size:13px;
