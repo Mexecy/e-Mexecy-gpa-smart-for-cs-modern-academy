@@ -76,6 +76,7 @@ table{
     background:#ffffff;
     border-radius:10px;
     overflow:hidden;
+    table-layout:fixed;
 }
 
 th{
@@ -89,11 +90,10 @@ th, td{
     font-size:14px;
     text-align:center;
 }
-
 /* اسم المادة */
 th:nth-child(1),
 td:nth-child(1){
-    width:60%;
+    width:65%;
     min-width:170px;
     text-align:right;
 }
@@ -102,20 +102,24 @@ td:nth-child(1){
 th:nth-child(2),
 td:nth-child(2){
     width:10%;
-    min-width:45px;
+    min-width:40px;
+    text-align:center;
 }
 
-/* التقدير */
+/* التقدير (حرف فقط مثل A+) */
 th:nth-child(3),
 td:nth-child(3){
-    width:15%;
-    min-width:65px;
+    width:12%;
+    min-width:55px;
+    text-align:center;
 }
 
-/* النقاط */
+/* النقاط (رقم) */
 th:nth-child(4),
 td:nth-child(4){
-    width:15%;
+    width:13%;
+    min-width:55px;
+    text-align:center;
 }
 select{
     width:100%;
