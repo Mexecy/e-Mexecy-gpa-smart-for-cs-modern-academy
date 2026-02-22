@@ -90,28 +90,26 @@ th, td{
     text-align:center;
 }
 
-
-/* ===== توزيع أعمدة متوازن ===== */
-
 /* اسم المادة */
 th:nth-child(1),
 td:nth-child(1){
-    width:55%;
-    min-width:160px;
+    width:60%;
+    min-width:170px;
     text-align:right;
 }
 
 /* الساعات */
 th:nth-child(2),
 td:nth-child(2){
-    width:15%;
+    width:10%;
+    min-width:45px;
 }
 
 /* التقدير */
 th:nth-child(3),
 td:nth-child(3){
     width:15%;
-    min-width:60px;
+    min-width:65px;
 }
 
 /* النقاط */
