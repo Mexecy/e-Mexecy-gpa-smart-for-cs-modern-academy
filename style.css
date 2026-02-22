@@ -104,13 +104,13 @@ td:nth-child(1){
 /* الساعات */
 th:nth-child(2),
 td:nth-child(2){
-    width:10%;
+    width:15%;
 }
 
 /* التقدير */
 th:nth-child(3),
 td:nth-child(3){
-    width:10%;
+    width:15%;
     min-width:60px;
 }
 
