@@ -38,7 +38,7 @@ function addSubject(btn){
     </td>
     <td>
       <select class="grade">
-        <option value="">اختر</option>
+        <option value="" selected disabled>0</option>
         ${generateGradeOptions()}
       </select>
     </td>
@@ -155,7 +155,7 @@ function loadData(){
         </td>
         <td>
           <select class="grade">
-            <option value="">اختر</option>
+            <option value="" disabled ${!subject.grade ? "selected" : ""}>0</option>
             ${generateGradeOptions()}
           </select>
         </td>
