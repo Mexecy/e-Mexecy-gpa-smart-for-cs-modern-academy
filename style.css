@@ -110,7 +110,7 @@ td:nth-child(2){
 /* التقدير */
 th:nth-child(3),
 td:nth-child(3){
-    width:15%;
+    width:13%;
     min-width:60px;
 }
 
