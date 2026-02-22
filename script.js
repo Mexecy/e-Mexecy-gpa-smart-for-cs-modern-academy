@@ -18,8 +18,7 @@ const gradeMap = {
 // ================== Generate Grade Options ==================
 function generateGradeOptions(){
   return Object.keys(gradeMap).map(g => {
-    const letter = g.split(" ")[0];
-    return `<option value="${g}">${letter}</option>`;
+    return `<option value="${g}">${g}</option>`;
   }).join("");
 }
 
@@ -38,11 +37,11 @@ function addSubject(btn){
     </td>
     <td>
       <select class="grade">
-  <option value="" selected>0</option>
-  ${generateGradeOptions()}
-</select>
+        <option value="">اختر</option>
+        ${generateGradeOptions()}
+      </select>
     </td>
-    <td class="points">0.00</td>
+    <td class="total">0.00</td>
   `;
 
   row.querySelector(".hours").addEventListener("input", calculate);
@@ -62,12 +61,13 @@ function calculate(){
 
     const hours = parseFloat(row.querySelector(".hours").value) || 0;
     const grade = row.querySelector(".grade").value;
+    const gradeValue = gradeMap[grade] || 0;
 
-    const points = (gradeMap[grade] || 0) * hours;
+    const total = gradeValue * hours;
 
-    row.querySelector(".points").textContent = points.toFixed(2);
+    row.querySelector(".total").textContent = total.toFixed(2);
 
-    globalPoints += points;
+    globalPoints += total;
     globalHours += hours;
   });
 
@@ -88,15 +88,12 @@ function getLetter(gpa){
   if (gpa >= 4.0) return "A+ ممتاز مرتفع";
   if (gpa >= 3.7) return "A ممتاز";
   if (gpa >= 3.4) return "A- ممتاز منخفض";
-
   if (gpa >= 3.2) return "B+ جيد جداً مرتفع";
   if (gpa >= 3.0) return "B جيد جداً";
   if (gpa >= 2.8) return "B- جيد جداً منخفض";
-
   if (gpa >= 2.6) return "C+ جيد مرتفع";
   if (gpa >= 2.4) return "C جيد";
   if (gpa >= 2.2) return "C- جيد منخفض";
-
   if (gpa >= 2.0) return "D+ مقبول مرتفع";
   if (gpa >= 1.5) return "D مقبول";
   if (gpa >= 1.0) return "D- مقبول منخفض";
@@ -155,11 +152,11 @@ function loadData(){
         </td>
         <td>
           <select class="grade">
-  <option value="" ${!subject.grade ? "selected" : ""}>0</option>
-  ${generateGradeOptions()}
-</select>
+            <option value="">اختر</option>
+            ${generateGradeOptions()}
+          </select>
         </td>
-        <td class="points">0.00</td>
+        <td class="total">0.00</td>
       `;
 
       row.querySelector(".grade").value = subject.grade;
