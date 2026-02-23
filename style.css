@@ -8,7 +8,6 @@ body{
 }
 
 /* ===== الإطار الرئيسي ===== */
-
 .container{
     width:100%;
     max-width:600px;
@@ -21,7 +20,6 @@ body{
 }
 
 /* ===== العنوان ===== */
-
 h1{
     text-align:center;
     margin-bottom:20px;
@@ -29,7 +27,6 @@ h1{
 }
 
 /* ===== الملخص ===== */
-
 .global-summary{
     display:flex;
     flex-wrap:wrap;
@@ -41,7 +38,6 @@ h1{
 }
 
 /* ===== المستوى ===== */
-
 .level{
     background:#f8fafc;
     padding:14px;
@@ -56,7 +52,6 @@ h1{
 }
 
 /* ===== الفصل ===== */
-
 .semester{
     margin-bottom:20px;
 }
@@ -67,7 +62,6 @@ h1{
 }
 
 /* ===== الجدول ===== */
-
 table{
     width:100%;
     border-collapse:collapse;
@@ -75,6 +69,7 @@ table{
     background:#ffffff;
     border-radius:10px;
     overflow:hidden;
+    table-layout:fixed;
 }
 
 th{
@@ -90,60 +85,57 @@ th, td{
     vertical-align:middle;
 }
 
-/* ===== توزيع ثابت مستقر ===== */
-
-table{
-    table-layout: fixed;
-}
+/* ===== توزيع الأعمدة للموبايل ===== */
 
 /* اسم المادة */
 th:first-child,
 td:first-child{
-    width: auto;
-    text-align: right;
+    width:55%;
+    text-align:right;
 }
 
-/* الساعات */
+/* الساعات (رقم صغير) */
 th:nth-child(2),
 td:nth-child(2){
-    width: 60px;
+    width:10%;
 }
 
 /* التقدير */
 th:nth-child(3),
 td:nth-child(3){
-    width: 90px;
+    width:22%;
 }
 
 /* الإجمالي */
 th:nth-child(4),
 td:nth-child(4){
-    width: 60px;
-    text-align: left;
+    width:13%;
+    text-align:left;
 }
+
+/* ===== الحقول ===== */
 td input{
     width:100%;
     box-sizing:border-box;
+    text-align:center;
 }
-/* ===== select ===== */
 
 select{
     width:100%;
-    font-size:13px;
-    text-align:center;
-    padding:3px;
     box-sizing:border-box;
+    font-size:13px;
+    padding:3px;
+    text-align:center;
 }
 
-/* ===== أزرار ===== */
-
+/* ===== الأزرار ===== */
 button{
     width:100%;
-    padding:6px;
-    font-size:13px;
-    margin-top:6px;
+    padding:8px;
+    font-size:14px;
+    margin-top:8px;
     border:none;
-    border-radius:8px;
+    border-radius:10px;
     background:#0f172a;
     color:#ffffff;
 }
