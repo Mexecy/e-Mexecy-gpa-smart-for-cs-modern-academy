@@ -96,31 +96,31 @@ table{
     table-layout: fixed;
 }
 
-/* اسم المادة ياخد المساحة المتبقية */
+/* اسم المادة */
 th:first-child,
 td:first-child{
+    width: auto;
     text-align: right;
 }
 
 /* الساعات */
 th:nth-child(2),
 td:nth-child(2){
-    width: 65px;
+    width: 60px;
 }
 
 /* التقدير */
 th:nth-child(3),
 td:nth-child(3){
-    width: 85px;
+    width: 90px;
 }
 
 /* الإجمالي */
 th:nth-child(4),
 td:nth-child(4){
-    width: 65px;
+    width: 60px;
     text-align: left;
 }
-
 td input{
     width:100%;
     box-sizing:border-box;
