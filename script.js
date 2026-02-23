@@ -22,6 +22,46 @@ function generateGradeOptions(){
   }).join("");
 }
 
+// ================== Handle Duplicate (Professional Way) ==================
+function handleDuplicate(row){
+
+  const name = row.children[0].textContent.trim().toLowerCase();
+  if(!name) return false;
+
+  const hours = parseFloat(row.querySelector(".hours").value) || 0;
+  const grade = row.querySelector(".grade").value;
+  const gradeValue = gradeMap[grade] || 0;
+
+  let duplicateRow = null;
+
+  document.querySelectorAll(".semester tbody tr").forEach(r=>{
+    if(r === row) return;
+
+    const existingName = r.children[0].textContent.trim().toLowerCase();
+    if(existingName === name){
+      duplicateRow = r;
+    }
+  });
+
+  if(duplicateRow){
+
+    const existingGrade = duplicateRow.querySelector(".grade").value;
+    const existingGradeValue = gradeMap[existingGrade] || 0;
+
+    // لو الجديدة أعلى
+    if(gradeValue > existingGradeValue){
+      duplicateRow.querySelector(".grade").value = grade;
+      duplicateRow.querySelector(".hours").value = hours;
+    }
+
+    row.remove();
+    calculate();
+    return true;
+  }
+
+  return false;
+}
+
 // ================== Add Subject ==================
 function addSubject(btn){
 
@@ -44,8 +84,23 @@ function addSubject(btn){
     <td class="total">0.00</td>
   `;
 
-  row.querySelector(".hours").addEventListener("input", calculate);
-  row.querySelector(".grade").addEventListener("change", calculate);
+  row.querySelector(".hours").addEventListener("input", ()=>{
+    if(!handleDuplicate(row)){
+      calculate();
+    }
+  });
+
+  row.querySelector(".grade").addEventListener("change", ()=>{
+    if(!handleDuplicate(row)){
+      calculate();
+    }
+  });
+
+  row.children[0].addEventListener("blur", ()=>{
+    if(!handleDuplicate(row)){
+      calculate();
+    }
+  });
 
   tbody.appendChild(row);
   calculate();
@@ -58,54 +113,9 @@ function calculate(){
   let globalPoints = 0;
   let globalHours = 0;
 
-  const subjectMap = {};
-
   const rows = document.querySelectorAll(".semester tbody tr");
 
   rows.forEach(row => {
-
-    const nameCell = row.children[0];
-    const name = nameCell.textContent.trim().toLowerCase();
-
-    const hours = parseFloat(row.querySelector(".hours").value) || 0;
-    const grade = row.querySelector(".grade").value;
-    const gradeValue = gradeMap[grade] || 0;
-
-    const total = gradeValue * hours;
-
-    row.querySelector(".total").textContent = total.toFixed(2);
-
-    if(!name || hours === 0) return;
-
-    if(subjectMap[name]){
-
-      // لو المادة متكررة
-      if(gradeValue > subjectMap[name].gradeValue){
-
-        // نحدّث القديمة بالأعلى
-        subjectMap[name].row.querySelector(".grade").value = grade;
-        subjectMap[name].row.querySelector(".hours").value = hours;
-
-        // نحذف الصف الحالي
-        row.remove();
-
-      }else{
-        // الجديدة أقل → نحذفها
-        row.remove();
-      }
-
-    }else{
-      subjectMap[name] = {
-        row: row,
-        gradeValue: gradeValue,
-        hours: hours
-      };
-    }
-
-  });
-
-  // إعادة الحساب بعد حذف المكرر
-  document.querySelectorAll(".semester tbody tr").forEach(row => {
 
     const hours = parseFloat(row.querySelector(".hours").value) || 0;
     const grade = row.querySelector(".grade").value;
@@ -117,6 +127,7 @@ function calculate(){
 
     globalPoints += total;
     globalHours += hours;
+
   });
 
   const globalGPA = globalHours ? (globalPoints / globalHours) : 0;
@@ -129,6 +140,7 @@ function calculate(){
 
   saveData();
 }
+
 // ================== Letter System ==================
 function getLetter(gpa){
 
@@ -208,8 +220,23 @@ function loadData(){
 
       row.querySelector(".grade").value = subject.grade;
 
-      row.querySelector(".hours").addEventListener("input", calculate);
-      row.querySelector(".grade").addEventListener("change", calculate);
+      row.querySelector(".hours").addEventListener("input", ()=>{
+        if(!handleDuplicate(row)){
+          calculate();
+        }
+      });
+
+      row.querySelector(".grade").addEventListener("change", ()=>{
+        if(!handleDuplicate(row)){
+          calculate();
+        }
+      });
+
+      row.children[0].addEventListener("blur", ()=>{
+        if(!handleDuplicate(row)){
+          calculate();
+        }
+      });
 
       tbody.appendChild(row);
     });
