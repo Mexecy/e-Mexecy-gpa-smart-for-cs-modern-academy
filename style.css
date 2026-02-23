@@ -90,34 +90,41 @@ th, td{
     vertical-align:middle;
 }
 
-/* ===== توزيع متوازن جديد ===== */
+/* ===== توزيع ثابت مستقر ===== */
 
-/* اسم المادة - كبير ومريح */
+table{
+    table-layout: fixed;
+}
+
+/* اسم المادة ياخد المساحة المتبقية */
 th:first-child,
 td:first-child{
-    width:48%;
-    text-align:right;
-    padding-right:8px;
+    text-align: right;
 }
 
-/* الساعات - أصغر */
+/* الساعات */
 th:nth-child(2),
 td:nth-child(2){
-    width:12%;
+    width: 65px;
 }
 
-/* التقدير - أوسع علشان ال select */
+/* التقدير */
 th:nth-child(3),
 td:nth-child(3){
-    width:25%;
+    width: 85px;
 }
 
-/* الإجمالي - شمال خالص */
+/* الإجمالي */
 th:nth-child(4),
 td:nth-child(4){
-    width:15%;
-    text-align:left;
-    padding-left:10px;
+    width: 65px;
+    text-align: left;
+}
+
+input,
+select{
+    width:100%;
+    box-sizing:border-box;
 }
 /* ===== select ===== */
 
