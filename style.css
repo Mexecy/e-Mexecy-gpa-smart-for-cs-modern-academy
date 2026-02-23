@@ -142,3 +142,16 @@ button{
 button:active{
     transform:scale(0.98);
 }
+/* ===== زرار مسح المستوى ===== */
+.clear-btn{
+    background:#ef4444 !important;
+    color:#fff;
+}
+
+.clear-btn:hover{
+    background:#dc2626 !important;
+}
+
+.clear-btn:active{
+    transform:scale(0.97);
+}
