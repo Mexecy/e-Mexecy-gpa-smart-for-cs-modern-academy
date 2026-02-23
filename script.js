@@ -51,12 +51,60 @@ function addSubject(btn){
   calculate();
 }
 
+
 // ================== Calculate ==================
 function calculate(){
 
   let globalPoints = 0;
   let globalHours = 0;
 
+  const subjectMap = {};
+
+  const rows = document.querySelectorAll(".semester tbody tr");
+
+  rows.forEach(row => {
+
+    const nameCell = row.children[0];
+    const name = nameCell.textContent.trim().toLowerCase();
+
+    const hours = parseFloat(row.querySelector(".hours").value) || 0;
+    const grade = row.querySelector(".grade").value;
+    const gradeValue = gradeMap[grade] || 0;
+
+    const total = gradeValue * hours;
+
+    row.querySelector(".total").textContent = total.toFixed(2);
+
+    if(!name || hours === 0) return;
+
+    if(subjectMap[name]){
+
+      // لو المادة متكررة
+      if(gradeValue > subjectMap[name].gradeValue){
+
+        // نحدّث القديمة بالأعلى
+        subjectMap[name].row.querySelector(".grade").value = grade;
+        subjectMap[name].row.querySelector(".hours").value = hours;
+
+        // نحذف الصف الحالي
+        row.remove();
+
+      }else{
+        // الجديدة أقل → نحذفها
+        row.remove();
+      }
+
+    }else{
+      subjectMap[name] = {
+        row: row,
+        gradeValue: gradeValue,
+        hours: hours
+      };
+    }
+
+  });
+
+  // إعادة الحساب بعد حذف المكرر
   document.querySelectorAll(".semester tbody tr").forEach(row => {
 
     const hours = parseFloat(row.querySelector(".hours").value) || 0;
@@ -81,7 +129,6 @@ function calculate(){
 
   saveData();
 }
-
 // ================== Letter System ==================
 function getLetter(gpa){
 
