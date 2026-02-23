@@ -90,20 +90,20 @@ th, td{
 /* اسم المادة */
 th:first-child,
 td:first-child{
-    width:55%;
+    width:50%;
     text-align:right;
 }
 
-/* الساعات (رقم صغير) */
+/* الساعات */
 th:nth-child(2),
 td:nth-child(2){
     width:10%;
 }
 
-/* التقدير */
+/* التقدير - نزود مساحته */
 th:nth-child(3),
 td:nth-child(3){
-    width:22%;
+    width:27%;
 }
 
 /* الإجمالي */
@@ -112,7 +112,6 @@ td:nth-child(4){
     width:13%;
     text-align:left;
 }
-
 /* ===== الحقول ===== */
 td input{
     width:100%;
