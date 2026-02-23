@@ -90,41 +90,34 @@ th, td{
     vertical-align:middle;
 }
 
-/* ===== توزيع احترافي للأعمدة ===== */
+/* ===== توزيع متوازن جديد ===== */
 
-/* اسم المادة - يمين خالص */
+/* اسم المادة - كبير ومريح */
 th:first-child,
 td:first-child{
-    width:45%;
+    width:48%;
     text-align:right;
     padding-right:8px;
 }
 
-/* الساعات */
+/* الساعات - أصغر */
 th:nth-child(2),
 td:nth-child(2){
-    width:15%;
+    width:12%;
 }
 
-/* التقدير */
+/* التقدير - أوسع علشان ال select */
 th:nth-child(3),
 td:nth-child(3){
-    width:20%;
+    width:25%;
 }
 
 /* الإجمالي - شمال خالص */
 th:nth-child(4),
 td:nth-child(4){
-    width:20%;
+    width:15%;
     text-align:left;
-    padding-left:8px;
-}
-
-/* منع تزاحم العناصر داخل الخانات */
-input,
-select{
-    width:100%;
-    box-sizing:border-box;
+    padding-left:10px;
 }
 /* ===== select ===== */
 
