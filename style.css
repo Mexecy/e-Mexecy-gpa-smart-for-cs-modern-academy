@@ -121,20 +121,18 @@ td:nth-child(4){
     text-align: left;
 }
 
-input,
-select{
+td input{
     width:100%;
     box-sizing:border-box;
 }
 /* ===== select ===== */
 
 select{
-    width:90%;
+    width:100%;
     font-size:13px;
     text-align:center;
     padding:3px;
-    margin:auto;
-    display:block;
+    box-sizing:border-box;
 }
 
 /* ===== أزرار ===== */
