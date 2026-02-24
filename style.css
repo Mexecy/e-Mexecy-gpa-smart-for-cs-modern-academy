@@ -40,4 +40,162 @@ h1{
     border-radius:12px;
 }
 
-/* ===== المستوى
+/* ===== المستوى ===== */
+.level{
+    background:#f8fafc;
+    padding:14px;
+    margin-bottom:20px;
+    border-radius:16px;
+    border:1px solid #eef2f7;
+}
+
+.level h2{
+    margin:0 0 10px 0;
+    font-size:18px;
+}
+
+/* ===== الفصل ===== */
+.semester{
+    margin-bottom:20px;
+}
+
+.semester h3{
+    margin:12px 0 8px 0;
+    font-size:15px;
+}
+
+/* ===== الجدول ===== */
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:15px;
+    background:#ffffff;
+    border-radius:10px;
+    overflow:hidden;
+    table-layout:fixed;
+}
+
+th{
+    background:#f1f5f9;
+    font-weight:600;
+}
+
+th, td{
+    border:1px solid #e5e7eb;
+    padding:6px 4px;
+    font-size:13px;
+    text-align:center;
+    vertical-align:middle;
+}
+
+/* ===== توزيع الأعمدة ===== */
+
+/* اسم المادة */
+th:first-child,
+td:first-child{
+    width:48%;
+    text-align:right;
+}
+
+/* الساعات */
+th:nth-child(2),
+td:nth-child(2){
+    width:15%; /* وسعناها شوية عشان الرقم يظهر */
+}
+
+/* التقدير */
+th:nth-child(3),
+td:nth-child(3){
+    width:27%;
+}
+
+/* الإجمالي */
+th:nth-child(4),
+td:nth-child(4){
+    width:10%;
+    text-align:left;
+}
+
+/* ===== الحقول ===== */
+td input{
+    width:100%;
+    box-sizing:border-box;
+    text-align:center;
+}
+
+/* Select عام */
+select{
+    width:100%;
+    box-sizing:border-box;
+    font-size:13px;
+    padding:4px;
+    text-align:center;
+    border:1px solid #e5e7eb;
+    border-radius:6px;
+    background:#ffffff;
+}
+
+/* Select خاص بالساعات */
+.hours{
+    min-width:50px; /* يمنع اختفاء الرقم */
+}
+
+/* تحسين للموبايل */
+@media (max-width:480px){
+
+    th, td{
+        font-size:12px;
+        padding:5px 3px;
+    }
+
+    select{
+        font-size:12px;
+        padding:3px;
+    }
+
+    .hours{
+        min-width:45px;
+    }
+}
+
+/* ===== الأزرار ===== */
+button{
+    width:100%;
+    padding:8px;
+    font-size:14px;
+    margin-top:8px;
+    border:none;
+    border-radius:10px;
+    background:#0f172a;
+    color:#ffffff;
+}
+
+button:active{
+    transform:scale(0.98);
+}
+
+/* ===== زرار مسح المستوى ===== */
+.clear-btn{
+    background:#ef4444 !important;
+    color:#fff;
+}
+
+.clear-btn:hover{
+    background:#dc2626 !important;
+}
+
+.clear-btn:active{
+    transform:scale(0.97);
+}
+
+/* ===== مادة تم تحديثها ===== */
+.updated-subject{
+    background:#dcfce7 !important;
+    transition: background 0.3s ease;
+}
+
+/* ===== اختفاء تدريجي ===== */
+.fade-out{
+    opacity:0;
+    transition: opacity 0.6s ease;
+}
