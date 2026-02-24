@@ -155,3 +155,14 @@ button:active{
 .clear-btn:active{
     transform:scale(0.97);
 }
+/* ===== مادة تم تحديثها ===== */
+.updated-subject{
+    background:#dcfce7 !important; /* أخضر فاتح */
+    transition: background 0.3s ease;
+}
+
+/* ===== اختفاء تدريجي ===== */
+.fade-out{
+    opacity:0;
+    transition: opacity 0.4s ease;
+}
