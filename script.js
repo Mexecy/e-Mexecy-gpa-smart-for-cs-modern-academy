@@ -60,12 +60,12 @@ function handleDuplicate(row){
   }
 
   // الصف الجديد يتلاشى
-  row.classList.add("fade-out");
+ row.classList.add("fade-out");
 
-  setTimeout(()=>{
-    row.remove();
-    calculate();
-  },400);
+row.addEventListener("transitionend", function(){
+  row.remove();
+  calculate();
+}, { once: true }); 
 
   return true;
 }
