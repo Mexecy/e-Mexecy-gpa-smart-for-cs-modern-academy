@@ -26,10 +26,12 @@ function generateGradeOptions(){
 function handleDuplicate(row){
 
   const name = row.children[0].textContent.trim().toLowerCase();
-  if(!name) return false;
-
   const hours = parseFloat(row.querySelector(".hours").value) || 0;
   const grade = row.querySelector(".grade").value;
+
+  // ✅ متتحركش غير لما البيانات تبقى كاملة
+  if(!name || hours === 0 || !grade) return false;
+
   const gradeValue = gradeMap[grade] || 0;
 
   let duplicateRow = null;
@@ -48,7 +50,6 @@ function handleDuplicate(row){
     const existingGrade = duplicateRow.querySelector(".grade").value;
     const existingGradeValue = gradeMap[existingGrade] || 0;
 
-    // لو الجديدة أعلى
     if(gradeValue > existingGradeValue){
       duplicateRow.querySelector(".grade").value = grade;
       duplicateRow.querySelector(".hours").value = hours;
@@ -61,7 +62,6 @@ function handleDuplicate(row){
 
   return false;
 }
-
 // ================== Add Subject ==================
 function addSubject(btn){
 
