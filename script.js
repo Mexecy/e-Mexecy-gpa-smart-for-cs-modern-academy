@@ -182,11 +182,11 @@ function saveData(){
     semester.querySelectorAll("tbody tr").forEach(row => {
 
       subjects.push({
-        name: row.children[0].textContent,
-        hours: row.querySelector(".hours").value,
-        grade: row.querySelector(".grade").value
-      });
-
+  name: row.children[0].textContent,
+  hours: row.querySelector(".hours").value,
+  grade: row.querySelector(".grade").value,
+  updated: row.classList.contains("updated-subject")
+});
     });
 
     data.push(subjects);
@@ -229,7 +229,10 @@ function loadData(){
       `;
 
       row.querySelector(".grade").value = subject.grade;
-
+      
+if(subject.updated){
+  row.classList.add("updated-subject");
+}
       row.querySelector(".hours").addEventListener("input", ()=>{
         if(!handleDuplicate(row)){
           calculate();
