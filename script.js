@@ -48,9 +48,18 @@ function handleDuplicate(row){
     const existingGradeValue = gradeMap[existingGrade] || 0;
 
     if(gradeValue > existingGradeValue){
+
       duplicateRow.querySelector(".grade").value = grade;
       duplicateRow.querySelector(".hours").value = hours;
+
+      // ✨ التأثير المرحلي
+      duplicateRow.classList.remove("final");
       duplicateRow.classList.add("updated-subject");
+
+      setTimeout(()=>{
+        duplicateRow.classList.add("final");
+        saveData(); // نحفظ بعد ما يثبت اللون
+      },1500);
     }
 
     row.classList.add("fade-out");
@@ -233,7 +242,7 @@ function loadData(){
       row.querySelector(".hours").value = subject.hours || "0";
 
       if(subject.updated){
-        row.classList.add("updated-subject");
+        row.classList.add("updated-subject","final");
       }
 
       row.querySelector(".hours").addEventListener("change", ()=>{
