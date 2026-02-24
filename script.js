@@ -77,7 +77,11 @@ function handleDuplicate(row){
 
 // ================== Add Subject ==================
 function addSubject(btn){
-
+  // متغير لتخزين قيمة الـ GPA السابقة
+let previousGPA = 0;
+  
+// ================== Calculate ==================
+function calculate(){
   const semester = btn.closest(".semester");
   const tbody = semester.querySelector("tbody");
   const row = document.createElement("tr");
@@ -149,7 +153,9 @@ function calculate(){
 
   document.getElementById("global-hours").textContent = globalHours;
   document.getElementById("global-points").textContent = globalPoints.toFixed(2);
-  document.getElementById("global-gpa").textContent = globalGPA.toFixed(2);
+  animateGPA(previousGPA, globalGPA);
+updateProgressBar(globalGPA);
+previousGPA = globalGPA;
   document.getElementById("global-letter").textContent =
     globalHours === 0 ? "0" : getLetter(globalGPA);
 
@@ -280,3 +286,47 @@ function clearLevel(btn){
 window.onload = function () {
   loadData();
 };
+
+// ================== Animated GPA ==================
+function animateGPA(start, end){
+
+  const duration = 400;
+  const startTime = performance.now();
+  const gpaElement = document.getElementById("global-gpa");
+
+  function update(currentTime){
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const value = start + (end - start) * progress;
+
+    gpaElement.textContent = value.toFixed(2);
+
+    if(progress < 1){
+      requestAnimationFrame(update);
+    }
+  }
+
+  requestAnimationFrame(update);
+}
+
+// ================== Progress Bar ==================
+function updateProgressBar(gpa){
+
+  const bar = document.getElementById("gpa-bar");
+  const percent = (gpa / 4) * 100;
+
+  bar.style.width = percent + "%";
+
+  if(gpa >= 3.7){
+    bar.style.background = "#16a34a";
+  }
+  else if(gpa >= 3.0){
+    bar.style.background = "#65a30d";
+  }
+  else if(gpa >= 2.0){
+    bar.style.background = "#eab308";
+  }
+  else{
+    bar.style.background = "#dc2626";
+  }
+}
