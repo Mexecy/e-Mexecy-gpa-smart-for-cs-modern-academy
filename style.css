@@ -35,8 +35,10 @@ h1{
     margin-bottom:20px;
     font-weight:bold;
     font-size:13px;
+    background:#eef2f7;
+    padding:10px;
+    border-radius:12px;
 }
-
 /* ===== المستوى ===== */
 .level{
     background:#f8fafc;
