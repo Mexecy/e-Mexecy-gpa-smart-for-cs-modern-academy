@@ -5,6 +5,7 @@ body{
     margin:0;
     padding:8px;
     direction:rtl;
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* ===== الإطار الرئيسي ===== */
@@ -89,6 +90,7 @@ th, td{
     font-size:13px;
     text-align:center;
     vertical-align:middle;
+    word-wrap:break-word;
 }
 
 /* صفوف متناوبة */
@@ -123,13 +125,18 @@ td:nth-child(4){
     text-align:left;
 }
 
-/* ===== الحقول ===== */
-td input{
-    width:100%;
-    box-sizing:border-box;
-    text-align:center;
+/* ===== مادة قابلة للتعديل ===== */
+td[contenteditable="true"]{
+    outline:none;
+    transition:0.2s ease;
+    border-radius:6px;
 }
 
+td[contenteditable="true"]:focus{
+    background:#f1f5f9;
+}
+
+/* ===== Select ===== */
 select{
     width:100%;
     box-sizing:border-box;
@@ -142,14 +149,12 @@ select{
     transition:0.2s ease;
 }
 
-/* تأثير تركيز احترافي */
 select:focus{
     outline:none;
     border-color:#94a3b8;
     box-shadow:0 0 0 2px rgba(148,163,184,0.25);
 }
 
-/* Select خاص بالساعات */
 .hours{
     min-width:50px;
 }
@@ -189,31 +194,27 @@ button:active{
     transform:scale(0.97);
 }
 
-/* ===== زرار مسح المستوى ===== */
 .clear-btn{
     background:linear-gradient(135deg, #ef4444, #dc2626) !important;
     color:#fff;
 }
 
 /* ===== مادة تم تحديثها ===== */
-/* المرحلة الأولى (أخضر أوضح) */
 .updated-subject{
     background:#86efac !important;
-    transition:background 0.6s ease;
+    transition:background 0.6s ease, transform 0.3s ease;
 }
 
-/* المرحلة الدائمة (أخضر فاتح ثابت) */
 .updated-subject.final{
     background:#dcfce7 !important;
 }
 
-/* ===== اختفاء تدريجي ===== */
 .fade-out{
     opacity:0;
     transition: opacity 0.6s ease;
 }
-/* ===== GPA Box ===== */
 
+/* ===== GPA Box ===== */
 .gpa-box{
     background:#f8fafc;
     padding:14px;
