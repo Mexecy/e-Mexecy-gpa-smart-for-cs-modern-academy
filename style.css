@@ -13,9 +13,9 @@ body{
     max-width:600px;
     margin:auto;
     background:#ffffff;
-    padding:10px 8px;
-    border-radius:16px;
-    box-shadow:0 6px 20px rgba(0,0,0,0.06);
+    padding:12px 10px;
+    border-radius:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.05);
     box-sizing:border-box;
 }
 
@@ -24,6 +24,7 @@ h1{
     text-align:center;
     margin-bottom:20px;
     font-size:20px;
+    letter-spacing:.5px;
 }
 
 /* ===== الملخص ===== */
@@ -35,22 +36,23 @@ h1{
     margin-bottom:20px;
     font-weight:bold;
     font-size:13px;
-    background:#eef2f7;
-    padding:10px;
-    border-radius:12px;
+    background:#f1f5f9;
+    padding:12px;
+    border-radius:14px;
 }
 
 /* ===== المستوى ===== */
 .level{
-    background:#f8fafc;
+    background:#ffffff;
     padding:14px;
     margin-bottom:20px;
-    border-radius:16px;
+    border-radius:18px;
     border:1px solid #eef2f7;
+    box-shadow:0 4px 12px rgba(0,0,0,0.03);
 }
 
 .level h2{
-    margin:0 0 10px 0;
+    margin:0 0 12px 0;
     font-size:18px;
 }
 
@@ -60,7 +62,7 @@ h1{
 }
 
 .semester h3{
-    margin:12px 0 8px 0;
+    margin:12px 0 10px 0;
     font-size:15px;
 }
 
@@ -70,13 +72,14 @@ table{
     border-collapse:collapse;
     margin-bottom:15px;
     background:#ffffff;
-    border-radius:10px;
+    border-radius:12px;
     overflow:hidden;
     table-layout:fixed;
+    box-shadow:0 2px 8px rgba(0,0,0,0.03);
 }
 
 th{
-    background:#f1f5f9;
+    background:#f8fafc;
     font-weight:600;
 }
 
@@ -88,28 +91,32 @@ th, td{
     vertical-align:middle;
 }
 
-/* ===== توزيع الأعمدة ===== */
+/* صفوف متناوبة */
+tbody tr:nth-child(even){
+    background:#fafafa;
+}
 
-/* اسم المادة */
+tbody tr:active{
+    background:#f1f5f9;
+}
+
+/* ===== توزيع الأعمدة ===== */
 th:first-child,
 td:first-child{
     width:48%;
     text-align:right;
 }
 
-/* الساعات */
 th:nth-child(2),
 td:nth-child(2){
-    width:15%; /* وسعناها شوية عشان الرقم يظهر */
+    width:15%;
 }
 
-/* التقدير */
 th:nth-child(3),
 td:nth-child(3){
     width:27%;
 }
 
-/* الإجمالي */
 th:nth-child(4),
 td:nth-child(4){
     width:10%;
@@ -123,7 +130,6 @@ td input{
     text-align:center;
 }
 
-/* Select عام */
 select{
     width:100%;
     box-sizing:border-box;
@@ -131,16 +137,24 @@ select{
     padding:4px;
     text-align:center;
     border:1px solid #e5e7eb;
-    border-radius:6px;
+    border-radius:8px;
     background:#ffffff;
+    transition:0.2s ease;
+}
+
+/* تأثير تركيز احترافي */
+select:focus{
+    outline:none;
+    border-color:#94a3b8;
+    box-shadow:0 0 0 2px rgba(148,163,184,0.25);
 }
 
 /* Select خاص بالساعات */
 .hours{
-    min-width:50px; /* يمنع اختفاء الرقم */
+    min-width:50px;
 }
 
-/* تحسين للموبايل */
+/* ===== تحسين للموبايل ===== */
 @media (max-width:480px){
 
     th, td{
@@ -161,37 +175,36 @@ select{
 /* ===== الأزرار ===== */
 button{
     width:100%;
-    padding:8px;
+    padding:9px;
     font-size:14px;
     margin-top:8px;
     border:none;
-    border-radius:10px;
-    background:#0f172a;
+    border-radius:12px;
+    background:linear-gradient(135deg, #0f172a, #1e293b);
     color:#ffffff;
+    transition:0.2s ease;
 }
 
 button:active{
-    transform:scale(0.98);
+    transform:scale(0.97);
 }
 
 /* ===== زرار مسح المستوى ===== */
 .clear-btn{
-    background:#ef4444 !important;
+    background:linear-gradient(135deg, #ef4444, #dc2626) !important;
     color:#fff;
 }
 
-.clear-btn:hover{
-    background:#dc2626 !important;
-}
-
-.clear-btn:active{
-    transform:scale(0.97);
-}
-
 /* ===== مادة تم تحديثها ===== */
+/* المرحلة الأولى (أخضر أوضح) */
 .updated-subject{
+    background:#86efac !important;
+    transition:background 0.6s ease;
+}
+
+/* المرحلة الدائمة (أخضر فاتح ثابت) */
+.updated-subject.final{
     background:#dcfce7 !important;
-    transition: background 0.3s ease;
 }
 
 /* ===== اختفاء تدريجي ===== */
