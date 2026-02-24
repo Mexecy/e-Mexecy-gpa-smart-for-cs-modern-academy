@@ -47,18 +47,28 @@ function handleDuplicate(row){
 
   if(duplicateRow){
 
-    const existingGrade = duplicateRow.querySelector(".grade").value;
-    const existingGradeValue = gradeMap[existingGrade] || 0;
+  const existingGrade = duplicateRow.querySelector(".grade").value;
+  const existingGradeValue = gradeMap[existingGrade] || 0;
 
-    if(gradeValue > existingGradeValue){
-      duplicateRow.querySelector(".grade").value = grade;
-      duplicateRow.querySelector(".hours").value = hours;
-    }
+  if(gradeValue > existingGradeValue){
 
+    duplicateRow.querySelector(".grade").value = grade;
+    duplicateRow.querySelector(".hours").value = hours;
+
+    // الصف القديم يبقى أخضر دائم
+    duplicateRow.classList.add("updated-subject");
+  }
+
+  // الصف الجديد يتلاشى
+  row.classList.add("fade-out");
+
+  setTimeout(()=>{
     row.remove();
     calculate();
-    return true;
-  }
+  },400);
+
+  return true;
+}
 
   return false;
 }
