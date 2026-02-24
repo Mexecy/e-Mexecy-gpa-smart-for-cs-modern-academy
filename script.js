@@ -309,6 +309,3 @@ function loadData(){
   calculate();
 }
 
-window.onload = function () {
-  loadData();
-};
