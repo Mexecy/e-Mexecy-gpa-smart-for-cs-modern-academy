@@ -203,6 +203,13 @@ td:nth-child(4){
   font-weight:600;
 }
 
+/* تثبيت اتجاه عمود التقدير */
+td:nth-child(3),
+th:nth-child(3){
+  direction:ltr;
+  unicode-bidi:isolate;
+}
+
 /* =========================
    Inputs
 ========================= */
