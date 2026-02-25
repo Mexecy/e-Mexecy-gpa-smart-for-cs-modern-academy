@@ -30,7 +30,7 @@ body{
   background:var(--bg);
   color:var(--text);
   margin:0;
-  padding:12px;
+  padding:6px;
   direction:rtl;
   transition:background .3s ease,color .3s ease;
   -webkit-tap-highlight-color:transparent;
@@ -40,7 +40,7 @@ body{
   max-width:680px;
   margin:auto;
   background:var(--card);
-  padding:18px 16px;
+  padding:18px 10px;
   border-radius:22px;
   box-shadow:0 15px 40px rgba(0,0,0,.08);
   transition:.3s ease;
@@ -183,18 +183,18 @@ th,td{
 /* توزيع متوازن للموبايل */
 th:first-child,
 td:first-child{
-  width:44%;
+  width:50%;
   text-align:right;
 }
 
 th:nth-child(2),
 td:nth-child(2){
-  width:18%;
+  width:15%;
 }
 
 th:nth-child(3),
 td:nth-child(3){
-  width:26%;
+  width:23%;
 }
 
 th:nth-child(4),
