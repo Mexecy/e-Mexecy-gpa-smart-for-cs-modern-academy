@@ -175,33 +175,31 @@ th{
 
 th,td{
   border:1px solid var(--border);
-  padding:7px 5px;
+  padding:6px 4px; /* قللنا البادينج */
   font-size:13px;
   text-align:center;
 }
 
+/* توزيع متوازن للموبايل */
 th:first-child,
 td:first-child{
-  width:40%;
+  width:44%;
   text-align:right;
 }
 
 th:nth-child(2),
 td:nth-child(2){
-  width:20%;
-  min-width:70px;
+  width:18%;
 }
 
 th:nth-child(3),
 td:nth-child(3){
-  width:25%;
-  min-width:90px;
+  width:26%;
 }
 
 th:nth-child(4),
 td:nth-child(4){
-  width:15%;
-  min-width:75px;
+  width:12%;
   font-weight:600;
 }
 
@@ -216,35 +214,29 @@ td[contenteditable="true"]:focus{
   background:rgba(22,163,74,.08);
 }
 
-select {
+select{
   width:100%;
-  background-color: #0f172a !important;
-  color: #ffffff !important;
-  border: 1px solid #1f2937;
-  padding: 6px 8px; /* قللنا البادينج عشان يناسب الجدول */
-  border-radius: 10px;
-  font-size: 14px;
-  text-align: center;
-  text-align-last: center; /* مهم للأندرويد */
-  appearance: none;
-  -webkit-appearance: none;
+  box-sizing:border-box;
+  background:#0f172a;
+  color:#fff;
+  border:1px solid #1f2937;
+  padding:4px 4px;   /* مهم جداً */
+  border-radius:8px;
+  font-size:13px;
+  text-align:center;
+  appearance:none;
+  -webkit-appearance:none;
 }
 
-select option {
-  background-color: #0f172a;
-  color: #ffffff;
+select:focus{
+  outline:none;
+  border-color:#22c55e;
 }
 
-select:focus {
-  outline: none;
-  border-color: #22c55e;
-  box-shadow: 0 0 0 2px rgba(34,197,94,0.2);
-}
-
-/* نخلي direction بس للـ input مش select */
-input {
-  direction: ltr;
-  text-align: center;
+/* نخلي direction للمدخلات بس */
+input{
+  direction:ltr;
+  text-align:center;
 }
 /* =========================
    Buttons
