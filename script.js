@@ -20,7 +20,7 @@ let previousGPA = 0;
 // ================== Generate Grade Options ==================
 function generateGradeOptions(){
   return grades.map(g =>
-    `<option value="${g.value}">\u202A${g.letter} (${g.value.toFixed(1)})\u202C</option>`
+    `<option value="${g.value}">(${g.value.toFixed(1)}) ${g.letter}</option>`
   ).join("");
 }
 
