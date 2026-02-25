@@ -15,65 +15,13 @@ const gradeMap = {
   "F (0.0)": 0.0
 };
 
-// ================== GPA Memory ==================
 let previousGPA = 0;
 
 // ================== Generate Grade Options ==================
 function generateGradeOptions(){
-  return Object.keys(gradeMap).map(g => {
-    return `<option value="${g}">${g}</option>`;
-  }).join("");
-}
-
-// ================== Handle Duplicate ==================
-function handleDuplicate(row){
-
-  const name = row.children[0].textContent.trim().toLowerCase();
-  const hours = parseFloat(row.querySelector(".hours").value) || 0;
-  const grade = row.querySelector(".grade").value;
-
-  if(!name || hours === 0 || !grade) return false;
-
-  const gradeValue = gradeMap[grade] || 0;
-  let duplicateRow = null;
-
-  document.querySelectorAll(".semester tbody tr").forEach(r=>{
-    if(r === row) return;
-    const existingName = r.children[0].textContent.trim().toLowerCase();
-    if(existingName === name){
-      duplicateRow = r;
-    }
-  });
-
-  if(duplicateRow){
-
-    const existingGrade = duplicateRow.querySelector(".grade").value;
-    const existingGradeValue = gradeMap[existingGrade] || 0;
-
-    if(gradeValue > existingGradeValue){
-      duplicateRow.querySelector(".grade").value = grade;
-      duplicateRow.querySelector(".hours").value = hours;
-
-      duplicateRow.classList.remove("final");
-      duplicateRow.classList.add("updated-subject");
-
-      setTimeout(()=>{
-        duplicateRow.classList.add("final");
-        saveData();
-      },1500);
-    }
-
-    row.classList.add("fade-out");
-
-    row.addEventListener("transitionend", function(){
-      row.remove();
-      calculate();
-    }, { once: true });
-
-    return true;
-  }
-
-  return false;
+  return Object.keys(gradeMap).map(g =>
+    `<option value="${g}">${g}</option>`
+  ).join("");
 }
 
 // ================== Add Subject ==================
@@ -81,8 +29,8 @@ function addSubject(btn){
 
   const semester = btn.closest(".semester");
   const tbody = semester.querySelector("tbody");
-  const row = document.createElement("tr");
 
+  const row = document.createElement("tr");
   row.innerHTML = `
     <td contenteditable="true"></td>
     <td>
@@ -103,6 +51,14 @@ function addSubject(btn){
     <td class="total">0.00</td>
   `;
 
+  addRowEvents(row);
+  tbody.appendChild(row);
+  calculate();
+}
+
+// ================== Row Events ==================
+function addRowEvents(row){
+
   row.querySelector(".hours").addEventListener("change", ()=>{
     if(!handleDuplicate(row)) calculate();
   });
@@ -114,43 +70,83 @@ function addSubject(btn){
   row.children[0].addEventListener("blur", ()=>{
     if(!handleDuplicate(row)) calculate();
   });
+}
 
-  tbody.appendChild(row);
-  calculate();
+// ================== Handle Duplicate ==================
+function handleDuplicate(row){
+
+  const name = row.children[0].textContent.trim().toLowerCase();
+  if(!name) return false;
+
+  let duplicate = null;
+
+  document.querySelectorAll(".semester tbody tr").forEach(r=>{
+    if(r !== row){
+      const existing = r.children[0].textContent.trim().toLowerCase();
+      if(existing === name) duplicate = r;
+    }
+  });
+
+  if(duplicate){
+
+    const newGrade = gradeMap[row.querySelector(".grade").value] || 0;
+    const oldGrade = gradeMap[duplicate.querySelector(".grade").value] || 0;
+
+    if(newGrade > oldGrade){
+      duplicate.querySelector(".grade").value = row.querySelector(".grade").value;
+      duplicate.querySelector(".hours").value = row.querySelector(".hours").value;
+
+      duplicate.classList.remove("final");
+      duplicate.classList.add("updated-subject");
+
+      setTimeout(()=>{
+        duplicate.classList.add("final");
+      },1200);
+    }
+
+    row.classList.add("fade-out");
+    setTimeout(()=>{
+      row.remove();
+      calculate();
+    },500);
+
+    return true;
+  }
+
+  return false;
 }
 
 // ================== Calculate ==================
 function calculate(){
 
-  let globalPoints = 0;
-  let globalHours = 0;
+  let totalPoints = 0;
+  let totalHours = 0;
 
-  const rows = document.querySelectorAll(".semester tbody tr");
-
-  rows.forEach(row => {
+  document.querySelectorAll(".semester tbody tr").forEach(row => {
 
     const hours = parseFloat(row.querySelector(".hours").value) || 0;
     const grade = row.querySelector(".grade").value;
-    const gradeValue = gradeMap[grade] || 0;
+    const value = gradeMap[grade] || 0;
 
-    const total = gradeValue * hours;
+    const total = value * hours;
     row.querySelector(".total").textContent = total.toFixed(2);
 
-    globalPoints += total;
-    globalHours += hours;
+    totalPoints += total;
+    totalHours += hours;
   });
 
-  const globalGPA = globalHours ? (globalPoints / globalHours) : 0;
+  const gpa = totalHours ? (totalPoints / totalHours) : 0;
 
-  document.getElementById("global-hours").textContent = globalHours;
-  document.getElementById("global-points").textContent = globalPoints.toFixed(2);
+  document.getElementById("global-hours").textContent = totalHours;
+  document.getElementById("global-points").textContent = totalPoints.toFixed(2);
 
-  animateGPA(previousGPA, globalGPA);
-  updateProgressBar(globalGPA);
-  previousGPA = globalGPA;
+  animateGPA(previousGPA, gpa);
+  updateProgressBar(gpa);
+
+  previousGPA = gpa;
 
   document.getElementById("global-letter").textContent =
-    globalHours === 0 ? "0" : getLetter(globalGPA);
+    totalHours === 0 ? "0" : getLetter(gpa);
 
   saveData();
 }
@@ -160,18 +156,14 @@ function animateGPA(start, end){
 
   const duration = 400;
   const startTime = performance.now();
-  const gpaElement = document.getElementById("global-gpa");
+  const el = document.getElementById("global-gpa");
 
   function update(currentTime){
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
+    const progress = Math.min((currentTime - startTime) / duration, 1);
     const value = start + (end - start) * progress;
+    el.textContent = value.toFixed(2);
 
-    gpaElement.textContent = value.toFixed(2);
-
-    if(progress < 1){
-      requestAnimationFrame(update);
-    }
+    if(progress < 1) requestAnimationFrame(update);
   }
 
   requestAnimationFrame(update);
@@ -181,21 +173,16 @@ function animateGPA(start, end){
 function updateProgressBar(gpa){
 
   const bar = document.getElementById("gpa-bar");
-  if(!bar) return;
-
   const percent = (gpa / 4) * 100;
   bar.style.width = percent + "%";
 
   if(gpa >= 3.7){
     bar.style.background = "#16a34a";
-  }
-  else if(gpa >= 3.0){
-    bar.style.background = "#65a30d";
-  }
-  else if(gpa >= 2.0){
+  } else if(gpa >= 3.0){
+    bar.style.background = "#22c55e";
+  } else if(gpa >= 2.0){
     bar.style.background = "#eab308";
-  }
-  else{
+  } else {
     bar.style.background = "#dc2626";
   }
 }
@@ -206,19 +193,12 @@ function getLetter(gpa){
   if (gpa >= 4.0) return "A+ ممتاز مرتفع";
   if (gpa >= 3.7) return "A ممتاز";
   if (gpa >= 3.4) return "A- ممتاز منخفض";
-  if (gpa >= 3.2) return "B+ جيد جداً مرتفع";
   if (gpa >= 3.0) return "B جيد جداً";
-  if (gpa >= 2.8) return "B- جيد جداً منخفض";
-  if (gpa >= 2.6) return "C+ جيد مرتفع";
-  if (gpa >= 2.4) return "C جيد";
-  if (gpa >= 2.2) return "C- جيد منخفض";
-  if (gpa >= 2.0) return "D+ مقبول مرتفع";
-  if (gpa >= 1.5) return "D مقبول";
-  if (gpa >= 1.0) return "D- مقبول منخفض";
+  if (gpa >= 2.0) return "C مقبول";
   return "F راسب";
 }
 
-// ================== Save Data ==================
+// ================== Save ==================
 function saveData(){
 
   const data = [];
@@ -235,6 +215,7 @@ function saveData(){
         grade: row.querySelector(".grade").value,
         updated: row.classList.contains("updated-subject")
       });
+
     });
 
     data.push(subjects);
@@ -243,7 +224,7 @@ function saveData(){
   localStorage.setItem("gpaData", JSON.stringify(data));
 }
 
-// ================== Load Data ==================
+// ================== Load ==================
 function loadData(){
 
   const saved = localStorage.getItem("gpaData");
@@ -283,24 +264,13 @@ function loadData(){
       `;
 
       row.querySelector(".grade").value = subject.grade;
-      row.querySelector(".hours").value = subject.hours || "0";
+      row.querySelector(".hours").value = subject.hours;
 
       if(subject.updated){
         row.classList.add("updated-subject","final");
       }
 
-      row.querySelector(".hours").addEventListener("change", ()=>{
-        if(!handleDuplicate(row)) calculate();
-      });
-
-      row.querySelector(".grade").addEventListener("change", ()=>{
-        if(!handleDuplicate(row)) calculate();
-      });
-
-      row.children[0].addEventListener("blur", ()=>{
-        if(!handleDuplicate(row)) calculate();
-      });
-
+      addRowEvents(row);
       tbody.appendChild(row);
     });
 
@@ -318,6 +288,6 @@ function clearLevel(button){
     tbody.innerHTML = "";
   });
 
-  calculate();   // نعيد الحساب
-  saveData();    // نحفظ التغييرات
+  calculate();
+  saveData();
 }
