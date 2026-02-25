@@ -214,15 +214,36 @@ td[contenteditable="true"]:focus{
   background:rgba(22,163,74,.08);
 }
 
-select{
+select {
   width:100%;
-  border-radius:10px;
-  border:1px solid var(--border);
-  padding:4px;
-  background:var(--card);
-  color:var(--text);
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  border: 1px solid #1f2937;
+  padding: 6px 8px; /* قللنا البادينج عشان يناسب الجدول */
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: center;
+  text-align-last: center; /* مهم للأندرويد */
+  appearance: none;
+  -webkit-appearance: none;
 }
 
+select option {
+  background-color: #0f172a;
+  color: #ffffff;
+}
+
+select:focus {
+  outline: none;
+  border-color: #22c55e;
+  box-shadow: 0 0 0 2px rgba(34,197,94,0.2);
+}
+
+/* نخلي direction بس للـ input مش select */
+input {
+  direction: ltr;
+  text-align: center;
+}
 /* =========================
    Buttons
 ========================= */
