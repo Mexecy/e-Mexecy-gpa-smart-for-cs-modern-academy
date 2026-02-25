@@ -189,12 +189,12 @@ td:first-child{
 
 th:nth-child(2),
 td:nth-child(2){
-  width:10%;
+  width:8%;
 }
 
 th:nth-child(3),
 td:nth-child(3){
-  width:23%;
+  width:25%;
 }
 
 th:nth-child(4),
