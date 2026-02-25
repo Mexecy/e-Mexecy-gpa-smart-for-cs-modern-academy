@@ -309,3 +309,15 @@ function loadData(){
   calculate();
 }
 
+// ================== Clear Level ==================
+function clearLevel(button){
+
+  const level = button.closest(".level");
+
+  level.querySelectorAll("tbody").forEach(tbody=>{
+    tbody.innerHTML = "";
+  });
+
+  calculate();   // نعيد الحساب
+  saveData();    // نحفظ التغييرات
+}
