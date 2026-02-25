@@ -3,44 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>كشف الدرجات التراكمي</title>
+
+<title>Mexcecy GPA CS Modern Academy</title>
+
+<meta name="theme-color" content="#0f172a">
 
 <link rel="stylesheet" href="style.css">
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0f172a">
-</head>
 
+</head>
 <body>
 
 <div class="container">
 
-<h1>كشف الدرجات التراكمي</h1>
+  <!-- ===== App Header ===== -->
+  <div class="app-header">
 
-<div class="global-summary">
-  <span>إجمالي الساعات: <b id="global-hours">0</b></span>
-  <span>إجمالي النقاط: <b id="global-points">0</b></span>
-</div>
+    <img src="icon-512.png" alt="App Logo" class="app-logo">
 
-<!-- ✅ صندوق GPA الاحترافي -->
-<div class="gpa-box">
-  <div class="gpa-value">
-    GPA: <span id="global-gpa">0.00</span>
+    <h1 class="app-title">
+      Mexcecy GPA CS Modern Academy
+    </h1>
+
+    <p class="app-subtitle">
+      GPA Tracker
+    </p>
+
+    <!-- Dark Mode Toggle -->
+    <button id="theme-toggle" class="theme-toggle">
+      🌙
+    </button>
+
   </div>
 
-  <div class="gpa-progress">
-    <div class="gpa-bar" id="gpa-bar"></div>
+  <!-- ===== Global Summary ===== -->
+  <div class="global-summary">
+    <span>إجمالي الساعات: <b id="global-hours">0</b></span>
+    <span>إجمالي النقاط: <b id="global-points">0.00</b></span>
   </div>
 
-  <div class="gpa-letter" id="global-letter">0</div>
-</div>
+  <!-- ===== GPA Box ===== -->
+  <div class="gpa-box">
+    <div class="gpa-value">
+      GPA: <span id="global-gpa">0.00</span>
+    </div>
 
-<div class="levels" id="levels-container"></div>
+    <div class="gpa-progress">
+      <div class="gpa-bar" id="gpa-bar"></div>
+    </div>
+
+    <div class="gpa-letter" id="global-letter">0</div>
+  </div>
+
+  <div class="levels" id="levels-container"></div>
 
 </div>
 
 <script src="script.js"></script>
 
 <script>
+// ===== Create Levels =====
 function createLevels() {
   const container = document.getElementById("levels-container");
 
@@ -91,13 +113,30 @@ function createLevels() {
   }
 }
 
+// ===== Theme System =====
+function initTheme(){
+  const savedTheme = localStorage.getItem("theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  if(savedTheme === "dark" || (!savedTheme && prefersDark)){
+    document.body.classList.add("dark");
+  }
+
+  document.getElementById("theme-toggle").addEventListener("click", ()=>{
+    document.body.classList.toggle("dark");
+    localStorage.setItem("theme",
+      document.body.classList.contains("dark") ? "dark" : "light"
+    );
+  });
+}
+
 window.addEventListener("DOMContentLoaded", () => {
   createLevels();
   loadData();
+  initTheme();
 });
-</script>
 
-<script>
+// ===== Register Service Worker =====
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
 }
