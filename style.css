@@ -234,7 +234,12 @@ select{
   appearance:none;
   -webkit-appearance:none;
 }
-
+/* تثبيت اتجاه قائمة التقدير */
+select.grade{
+  direction:ltr !important;
+  text-align:center;
+  text-align-last:center;
+}
 select:focus{
   outline:none;
   border-color:#22c55e;
