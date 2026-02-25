@@ -1,7 +1,7 @@
 {
   "name": "Mexcecy GPA CS Modern Academy",
   "short_name": "Mexcecy GPA",
-  "description": "GPA Tracker for CS Modern Academy",
+  "description": "Ahmed Taher for CS Modern Academy",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
