@@ -128,23 +128,27 @@ function updateProgressBar(gpa){
 // ================== Letter System ==================
 function getLetter(gpa){
 
-  if (gpa >= 4.0) return "A+ ممتاز مرتفع";
-  if (gpa >= 3.7) return "A ممتاز";
-  if (gpa >= 3.4) return "A- ممتاز منخفض";
+  function fix(text){
+    return "\u202A" + text + "\u202C";
+  }
 
-  if (gpa >= 3.2) return "B+ جيد جداً مرتفع";
-  if (gpa >= 3.0) return "B جيد جداً";
-  if (gpa >= 2.8) return "B- جيد";
+  if (gpa >= 4.0) return fix("A+") + " ممتاز مرتفع";
+  if (gpa >= 3.7) return fix("A") + " ممتاز";
+  if (gpa >= 3.4) return fix("A-") + " ممتاز منخفض";
 
-  if (gpa >= 2.6) return "C+ مقبول مرتفع";
-  if (gpa >= 2.4) return "C مقبول";
-  if (gpa >= 2.2) return "C- مقبول منخفض";
+  if (gpa >= 3.2) return fix("B+") + " جيد جداً مرتفع";
+  if (gpa >= 3.0) return fix("B") + " جيد جداً";
+  if (gpa >= 2.8) return fix("B-") + " جيد";
 
-  if (gpa >= 2.0) return "D+ ضعيف مرتفع";
-  if (gpa >= 1.5) return "D ضعيف";
-  if (gpa >= 1.0) return "D- ضعيف جداً";
+  if (gpa >= 2.6) return fix("C+") + " مقبول مرتفع";
+  if (gpa >= 2.4) return fix("C") + " مقبول";
+  if (gpa >= 2.2) return fix("C-") + " مقبول منخفض";
 
-  return "F راسب";
+  if (gpa >= 2.0) return fix("D+") + " ضعيف مرتفع";
+  if (gpa >= 1.5) return fix("D") + " ضعيف";
+  if (gpa >= 1.0) return fix("D-") + " ضعيف جداً";
+
+  return fix("F") + " راسب";
 }
 // ================== Save ==================
 function saveData(){
