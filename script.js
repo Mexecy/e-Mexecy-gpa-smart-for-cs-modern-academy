@@ -1,26 +1,26 @@
-// ================== Grade Map ==================
-const gradeMap = {
-  "A+ (4.0)": 4.0,
-  "A (3.7)": 3.7,
-  "A- (3.4)": 3.4,
-  "B+ (3.2)": 3.2,
-  "B (3.0)": 3.0,
-  "B- (2.8)": 2.8,
-  "C+ (2.6)": 2.6,
-  "C (2.4)": 2.4,
-  "C- (2.2)": 2.2,
-  "D+ (2.0)": 2.0,
-  "D (1.5)": 1.5,
-  "D- (1.0)": 1.0,
-  "F (0.0)": 0.0
-};
+// ================== Grade List ==================
+const grades = [
+  { letter: "A+", value: 4.0 },
+  { letter: "A",  value: 3.7 },
+  { letter: "A-", value: 3.4 },
+  { letter: "B+", value: 3.2 },
+  { letter: "B",  value: 3.0 },
+  { letter: "B-", value: 2.8 },
+  { letter: "C+", value: 2.6 },
+  { letter: "C",  value: 2.4 },
+  { letter: "C-", value: 2.2 },
+  { letter: "D+", value: 2.0 },
+  { letter: "D",  value: 1.5 },
+  { letter: "D-", value: 1.0 },
+  { letter: "F",  value: 0.0 }
+];
 
 let previousGPA = 0;
 
 // ================== Generate Grade Options ==================
 function generateGradeOptions(){
-  return Object.keys(gradeMap).map(g =>
-    `<option value="${g}">${g}</option>`
+  return grades.map(g =>
+    `<option value="${g.value}">${g.letter} (${g.value.toFixed(1)})</option>`
   ).join("");
 }
 
@@ -35,16 +35,12 @@ function addSubject(btn){
     <td contenteditable="true"></td>
     <td>
       <select class="hours">
-        <option value="0" selected>0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
+        ${[0,1,2,3,4].map(h=>`<option value="${h}">${h}</option>`).join("")}
       </select>
     </td>
     <td>
       <select class="grade">
-        <option value="">0</option>
+        <option value="0">0</option>
         ${generateGradeOptions()}
       </select>
     </td>
@@ -59,61 +55,9 @@ function addSubject(btn){
 // ================== Row Events ==================
 function addRowEvents(row){
 
-  row.querySelector(".hours").addEventListener("change", ()=>{
-    if(!handleDuplicate(row)) calculate();
-  });
-
-  row.querySelector(".grade").addEventListener("change", ()=>{
-    if(!handleDuplicate(row)) calculate();
-  });
-
-  row.children[0].addEventListener("blur", ()=>{
-    if(!handleDuplicate(row)) calculate();
-  });
-}
-
-// ================== Handle Duplicate ==================
-function handleDuplicate(row){
-
-  const name = row.children[0].textContent.trim().toLowerCase();
-  if(!name) return false;
-
-  let duplicate = null;
-
-  document.querySelectorAll(".semester tbody tr").forEach(r=>{
-    if(r !== row){
-      const existing = r.children[0].textContent.trim().toLowerCase();
-      if(existing === name) duplicate = r;
-    }
-  });
-
-  if(duplicate){
-
-    const newGrade = gradeMap[row.querySelector(".grade").value] || 0;
-    const oldGrade = gradeMap[duplicate.querySelector(".grade").value] || 0;
-
-    if(newGrade > oldGrade){
-      duplicate.querySelector(".grade").value = row.querySelector(".grade").value;
-      duplicate.querySelector(".hours").value = row.querySelector(".hours").value;
-
-      duplicate.classList.remove("final");
-      duplicate.classList.add("updated-subject");
-
-      setTimeout(()=>{
-        duplicate.classList.add("final");
-      },1200);
-    }
-
-    row.classList.add("fade-out");
-    setTimeout(()=>{
-      row.remove();
-      calculate();
-    },500);
-
-    return true;
-  }
-
-  return false;
+  row.querySelector(".hours").addEventListener("change", calculate);
+  row.querySelector(".grade").addEventListener("change", calculate);
+  row.children[0].addEventListener("blur", calculate);
 }
 
 // ================== Calculate ==================
@@ -125,17 +69,16 @@ function calculate(){
   document.querySelectorAll(".semester tbody tr").forEach(row => {
 
     const hours = parseFloat(row.querySelector(".hours").value) || 0;
-    const grade = row.querySelector(".grade").value;
-    const value = gradeMap[grade] || 0;
+    const gradeValue = parseFloat(row.querySelector(".grade").value) || 0;
 
-    const total = value * hours;
+    const total = gradeValue * hours;
     row.querySelector(".total").textContent = total.toFixed(2);
 
     totalPoints += total;
     totalHours += hours;
   });
 
-  const gpa = totalHours ? (totalPoints / totalHours) : 0;
+  const gpa = totalHours ? totalPoints / totalHours : 0;
 
   document.getElementById("global-hours").textContent = totalHours;
   document.getElementById("global-points").textContent = totalPoints.toFixed(2);
@@ -151,7 +94,7 @@ function calculate(){
   saveData();
 }
 
-// ================== Animated GPA ==================
+// ================== GPA Animation ==================
 function animateGPA(start, end){
 
   const duration = 400;
@@ -176,15 +119,10 @@ function updateProgressBar(gpa){
   const percent = (gpa / 4) * 100;
   bar.style.width = percent + "%";
 
-  if(gpa >= 3.7){
-    bar.style.background = "#16a34a";
-  } else if(gpa >= 3.0){
-    bar.style.background = "#22c55e";
-  } else if(gpa >= 2.0){
-    bar.style.background = "#eab308";
-  } else {
-    bar.style.background = "#dc2626";
-  }
+  if(gpa >= 3.7) bar.style.background = "#16a34a";
+  else if(gpa >= 3.0) bar.style.background = "#22c55e";
+  else if(gpa >= 2.0) bar.style.background = "#eab308";
+  else bar.style.background = "#dc2626";
 }
 
 // ================== Letter System ==================
@@ -193,11 +131,21 @@ function getLetter(gpa){
   if (gpa >= 4.0) return "A+ ممتاز مرتفع";
   if (gpa >= 3.7) return "A ممتاز";
   if (gpa >= 3.4) return "A- ممتاز منخفض";
+
+  if (gpa >= 3.2) return "B+ جيد جداً مرتفع";
   if (gpa >= 3.0) return "B جيد جداً";
-  if (gpa >= 2.0) return "C مقبول";
+  if (gpa >= 2.8) return "B- جيد";
+
+  if (gpa >= 2.6) return "C+ مقبول مرتفع";
+  if (gpa >= 2.4) return "C مقبول";
+  if (gpa >= 2.2) return "C- مقبول منخفض";
+
+  if (gpa >= 2.0) return "D+ ضعيف مرتفع";
+  if (gpa >= 1.5) return "D ضعيف";
+  if (gpa >= 1.0) return "D- ضعيف جداً";
+
   return "F راسب";
 }
-
 // ================== Save ==================
 function saveData(){
 
@@ -212,8 +160,7 @@ function saveData(){
       subjects.push({
         name: row.children[0].textContent,
         hours: row.querySelector(".hours").value,
-        grade: row.querySelector(".grade").value,
-        updated: row.classList.contains("updated-subject")
+        grade: row.querySelector(".grade").value
       });
 
     });
@@ -247,16 +194,12 @@ function loadData(){
         <td contenteditable="true">${subject.name}</td>
         <td>
           <select class="hours">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
+            ${[0,1,2,3,4].map(h=>`<option value="${h}">${h}</option>`).join("")}
           </select>
         </td>
         <td>
           <select class="grade">
-            <option value="">0</option>
+            <option value="0">0</option>
             ${generateGradeOptions()}
           </select>
         </td>
@@ -265,10 +208,6 @@ function loadData(){
 
       row.querySelector(".grade").value = subject.grade;
       row.querySelector(".hours").value = subject.hours;
-
-      if(subject.updated){
-        row.classList.add("updated-subject","final");
-      }
 
       addRowEvents(row);
       tbody.appendChild(row);
@@ -283,10 +222,7 @@ function loadData(){
 function clearLevel(button){
 
   const level = button.closest(".level");
-
-  level.querySelectorAll("tbody").forEach(tbody=>{
-    tbody.innerHTML = "";
-  });
+  level.querySelectorAll("tbody").forEach(tbody=> tbody.innerHTML = "");
 
   calculate();
   saveData();
