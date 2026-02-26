@@ -216,7 +216,7 @@ button:active{
 
 .fade-out{
     opacity:0;
-    transition: opacity 0.6s ease;
+    transition: opacity 0.8s ease;
 }
 
 /* ===== GPA Box ===== */
@@ -239,7 +239,8 @@ button:active{
 /* كلمة GPA */
 .gpa-label{
     font-weight:700;
-    font-size:1em;
+    font-size:0.85em;
+    opacity:.85;
 }
 #global-gpa{
     font-family: monospace;
