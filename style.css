@@ -222,9 +222,9 @@ button:active{
 /* ===== GPA Box ===== */
 .gpa-box{
     background:linear-gradient(145deg,#ffffff,#e2e8f0);
-    padding:22px;
-    border-radius:22px;
-    margin-bottom:28px;
+    padding:16px 20px;   /* قللنا المساحة الرأسية */
+    border-radius:20px;
+    margin-bottom:20px;  /* قللنا المسافة تحت الصندوق */
     text-align:center;
     box-shadow:
         0 15px 35px rgba(0,0,0,.08),
