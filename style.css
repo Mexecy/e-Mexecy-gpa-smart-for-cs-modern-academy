@@ -240,7 +240,7 @@ button:active{
 /* كلمة GPA */
 .gpa-label{
     font-weight:700;
-    font-size:0.9em;
+    font-size:1em;
 }
 #global-gpa{
     font-family: monospace;
