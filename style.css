@@ -179,24 +179,29 @@ select:focus{
 
 /* ===== الأزرار ===== */
 button{
-    width:100%;
-    padding:9px;
-    font-size:14px;
-    margin-top:8px;
-    border:none;
-    border-radius:12px;
-    background:linear-gradient(135deg, #0f172a, #1e293b);
-    color:#ffffff;
-    transition:0.2s ease;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:18px;
+  background:linear-gradient(135deg,#0f172a,#1e293b);
+  color:#fff;
+  font-weight:700;
+  margin-top:12px;
+  transition:all .25s ease;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 25px rgba(0,0,0,.2);
 }
 
 button:active{
-    transform:scale(0.97);
+  transform:scale(.97);
 }
 
 .clear-btn{
-    background:linear-gradient(135deg, #ef4444, #dc2626) !important;
-    color:#fff;
+  background:linear-gradient(135deg,#ef4444,#dc2626);
 }
 
 /* ===== مادة تم تحديثها ===== */
@@ -254,4 +259,19 @@ button:active{
 .gpa-letter{
     font-size:14px;
     font-weight:bold;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(15px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.container{
+  animation:fadeUp .6s ease;
 }
