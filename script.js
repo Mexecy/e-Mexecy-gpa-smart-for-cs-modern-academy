@@ -186,17 +186,19 @@ function updateProgressBar(gpa){
   const percent = (gpa / 4) * 100;
   bar.style.width = percent + "%";
 
+  bar.className = "gpa-bar"; // reset classes
+
   if(gpa >= 3.7){
-    bar.style.background = "#16a34a";
+    bar.classList.add("excellent");
   }
   else if(gpa >= 3.0){
-    bar.style.background = "#65a30d";
+    bar.classList.add("verygood");
   }
   else if(gpa >= 2.0){
-    bar.style.background = "#eab308";
+    bar.classList.add("good");
   }
   else{
-    bar.style.background = "#dc2626";
+    bar.classList.add("danger");
   }
 }
 
