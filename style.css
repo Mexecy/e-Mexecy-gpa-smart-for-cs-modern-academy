@@ -221,17 +221,19 @@ button:active{
 
 /* ===== GPA Box ===== */
 .gpa-box{
-    background:linear-gradient(145deg,#ffffff,#f1f5f9);
+    background:linear-gradient(145deg,#ffffff,#e2e8f0);
     padding:22px;
     border-radius:22px;
     margin-bottom:28px;
     text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.08),
+        inset 0 1px 0 rgba(255,255,255,.6);
     transition:.3s ease;
 }
 .gpa-value{
-    font-size:32px;
-    font-weight:800;
+    font-size:34px;
+    font-weight:700;
     margin-bottom:12px;
     letter-spacing:1px;
 }
