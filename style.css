@@ -231,7 +231,6 @@ button:active{
         inset 0 1px 0 rgba(255,255,255,.6);
     transition:.3s ease;
 }
-}
 .gpa-value{
     font-size:clamp(24px,4.5vw,28px);
     font-weight:800;
@@ -246,6 +245,7 @@ button:active{
     font-family: monospace;
     display:inline-block;
     min-width:60px;
+     font-weight:800;
 }
 
 .gpa-progress{
