@@ -235,7 +235,7 @@ button:active{
 .gpa-value{
     font-size:clamp(24px,4.5vw,28px);
     font-weight:800;
-    margin-bottom:10px;
+    margin-bottom:8px;
 }
 #global-gpa{
     font-family: monospace;
