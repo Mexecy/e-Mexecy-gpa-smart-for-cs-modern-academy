@@ -257,6 +257,21 @@ button:active{
   transition:width .8s cubic-bezier(.4,0,.2,1);
 }
 
+.gpa-bar.excellent{
+  background:linear-gradient(90deg,#16a34a,#22c55e);
+}
+
+.gpa-bar.verygood{
+  background:linear-gradient(90deg,#65a30d,#84cc16);
+}
+
+.gpa-bar.good{
+  background:linear-gradient(90deg,#eab308,#facc15);
+}
+
+.gpa-bar.danger{
+  background:linear-gradient(90deg,#dc2626,#ef4444);
+}
 .gpa-letter{
     font-size:14px;
     font-weight:bold;
