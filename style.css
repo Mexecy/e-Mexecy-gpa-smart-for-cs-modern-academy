@@ -232,11 +232,10 @@ button:active{
     transition:.3s ease;
 }
 .gpa-value{
-    font-size:28px;
+    font-size:clamp(24px,4.5vw,28px);
     font-weight:800;
     margin-bottom:10px;
 }
-
 #global-gpa{
     font-family: monospace;
     display:inline-block;
