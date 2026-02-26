@@ -293,3 +293,8 @@ button:active{
 .container{
   animation:fadeUp .6s ease;
 }
+/* ===== Global Summary ===== */
+.global-summary span{
+    font-size:16px;
+    font-weight:600;
+}
