@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>كشف الدرجات التراكمي</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f172a">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>كشف الدرجات التراكمي</h1>
+
+<div class="global-summary">
+  <span>إجمالي الساعات: <b id="global-hours">0</b></span>
+  <span>إجمالي النقاط: <b id="global-points">0</b></span>
+</div>
+
+<!-- ✅ صندوق GPA الاحترافي -->
+<div class="gpa-box">
+  <div class="gpa-value">
+    GPA: <span id="global-gpa">0.00</span>
+  </div>
+
+  <div class="gpa-progress">
+    <div class="gpa-bar" id="gpa-bar"></div>
+  </div>
+
+  <div class="gpa-letter" id="global-letter">0</div>
+</div>
+
+<div class="levels" id="levels-container"></div>
+
+</div>
+
+<script src="script.js"></script>
+
+<script>
+function createLevels() {
+  const container = document.getElementById("levels-container");
+
+  for (let i = 1; i <= 4; i++) {
+
+    const level = document.createElement("div");
+    level.className = "level";
+
+    level.innerHTML = `
+      <h2>المستوى ${i}</h2>
+
+      <div class="semester">
+        <h3>الفصل الأول</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>اسم المادة</th>
+              <th>ساعات</th>
+              <th>تقدير</th>
+              <th>الإجمالي</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <button onclick="addSubject(this)">إضافة مادة</button>
+      </div>
+
+      <div class="semester">
+        <h3>الفصل الثاني</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>اسم المادة</th>
+              <th>ساعات</th>
+              <th>تقدير</th>
+              <th>الإجمالي</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <button onclick="addSubject(this)">إضافة مادة</button>
+      </div>
+
+      <button class="clear-btn" onclick="clearLevel(this)">مسح المستوى</button>
+    `;
+
+    container.appendChild(level);
+  }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  createLevels();
+  loadData();
+});
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
+</body>
+</html>
