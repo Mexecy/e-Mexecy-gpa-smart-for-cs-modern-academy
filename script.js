@@ -323,3 +323,6 @@ function clearLevel(button){
   calculate();   // نعيد الحساب
   saveData();    // نحفظ التغييرات
 }
+
+/* ================== Start App ================== */
+document.addEventListener("DOMContentLoaded", loadData);
