@@ -137,10 +137,9 @@ td:nth-child(3){
 
 th:nth-child(4),
 td:nth-child(4){
-    width:10%;
+    width:11%;
     text-align:left;
  white-space: nowrap;
-    min-width: 65px;
 }
 
 /* ===== مادة قابلة للتعديل ===== */
