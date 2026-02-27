@@ -65,8 +65,7 @@ h1{
     margin:0 0 12px 0;
     display:inline-block;
     padding-bottom:6px;
-    border-bottom:3px solid transparent;
-    border-image:linear-gradient(to left,#16a34a,#22c55e) 1;
+    border-bottom:3px solid #16a34a;
 }
 
 /* ===== الفصل ===== */
