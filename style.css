@@ -1,4 +1,4 @@
- /* ===== الأساس ===== */
+/* ===== الأساس ===== */
 body{
     font-family: system-ui;
     background:#f5f7fa;
@@ -58,7 +58,6 @@ h1{
 }
 
 /* ===== Level Title Enhanced ===== */
-
 .level-title{
     font-weight:800;
     font-size:22px;
@@ -83,7 +82,8 @@ h1{
     color:#1f2937;
     line-height:1.4;
 }
- /*===== الجدول ===== */
+
+/*===== الجدول ===== */
 table{
     width:100%;
     border-collapse:collapse;
@@ -106,10 +106,9 @@ th, td{
     text-align:center;
     vertical-align:middle;
     overflow-wrap: break-word;
-word-wrap: break-word;
+    word-wrap: break-word;
 }
 
-/* صفوف متناوبة */
 tbody tr:nth-child(even){
     background:#fafafa;
 }
@@ -118,7 +117,6 @@ tbody tr:active{
     background:#f1f5f9;
 }
 
-/* ===== توزيع الأعمدة ===== */
 th:first-child,
 td:first-child{
     width:48%;
@@ -139,10 +137,9 @@ th:nth-child(4),
 td:nth-child(4){
     width:11%;
     text-align:left;
- white-space: nowrap;
+    white-space: nowrap;
 }
 
-/* ===== مادة قابلة للتعديل ===== */
 td[contenteditable="true"]{
     outline:none;
     transition:0.2s ease;
@@ -153,7 +150,6 @@ td[contenteditable="true"]:focus{
     background:#f1f5f9;
 }
 
-/* ===== Select ===== */
 select{
     width:100%;
     box-sizing:border-box;
@@ -176,9 +172,7 @@ select:focus{
     min-width:50px;
 }
 
-/* ===== تحسين للموبايل ===== */
 @media (max-width:480px){
-
     th, td{
         font-size:12px;
         padding:5px 3px;
@@ -193,6 +187,7 @@ select:focus{
         min-width:45px;
     }
 }
+
 /* ===== الأزرار ===== */
 button{
   width:100%;
@@ -220,32 +215,6 @@ button:active{
   background:linear-gradient(135deg,#ef4444,#dc2626);
 }
 
-/* ===== زرار الحفظ فقط ===== */
-#manual-save{
-  background: transparent;
-  color: #0f172a;
-  border: 2px solid #0f172a;
-  box-shadow: none;
-  width: auto;
-  padding: 8px 16px;
-  font-size: 14px;
-  border-radius: 10px;
-  opacity: .6;
-  font-weight: 600;
-}
-
-/* لما يتفعل */
-#manual-save:not(:disabled){
-  opacity: 1;
-  background: #0f172a;
-  color: #fff;
-}
-
-/* نشيل الحركة القديمة */
-#manual-save:hover{
-  transform: none;
-  box-shadow: none;
-}
 /* ===== مادة تم تحديثها ===== */
 .updated-subject{
     background:#86efac !important;
@@ -264,31 +233,33 @@ button:active{
 /* ===== GPA Box ===== */
 .gpa-box{
     background:linear-gradient(145deg,#ffffff,#e2e8f0);
-    padding:16px 20px;   /* قللنا المساحة الرأسية */
+    padding:16px 20px;
     border-radius:20px;
-    margin-bottom:20px;  /* قللنا المسافة تحت الصندوق */
+    margin-bottom:20px;
     text-align:center;
     box-shadow:
         0 15px 35px rgba(0,0,0,.08),
         inset 0 1px 0 rgba(255,255,255,.6);
     transition:.3s ease;
 }
+
 .gpa-value{
     font-size:clamp(24px,4.5vw,28px);
     font-weight:800;
     margin-bottom:8px;
 }
-/* كلمة GPA */
+
 .gpa-label{
     font-weight:700;
     font-size:0.85em;
     opacity:.85;
 }
+
 #global-gpa{
     font-family: monospace;
     display:inline-block;
     min-width:60px;
-     font-weight:800;
+    font-weight:800;
 }
 
 .gpa-progress{
@@ -322,17 +293,19 @@ button:active{
 .gpa-bar.danger{
   background:linear-gradient(90deg,#dc2626,#ef4444);
 }
+
 .gpa-letter{
     display:inline-block;
     margin-top:8px;
     padding:8px 18px;
-    font-size:16px;          /* كبرنا الخط */
+    font-size:16px;
     font-weight:700;
     border-radius:25px;
     background:rgba(34,197,94,.12);
     color:#16a34a;
     box-shadow:0 4px 10px rgba(34,197,94,.15);
 }
+
 @keyframes fadeUp{
   from{
     opacity:0;
@@ -347,7 +320,7 @@ button:active{
 .container{
   animation:fadeUp .6s ease;
 }
-/* ===== Global Summary ===== */
+
 .global-summary span{
     font-size:16px;
     font-weight:600;
