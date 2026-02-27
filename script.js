@@ -17,6 +17,7 @@ const gradeMap = {
 
 // ================== GPA Memory ==================
 let previousGPA = 0;
+let isLoading = false;
 
 // ================== Generate Grade Options ==================
 function generateGradeOptions(){
@@ -152,7 +153,9 @@ function calculate(){
   document.getElementById("global-letter").textContent =
     globalHours === 0 ? "0" : getLetter(globalGPA);
 
-  saveData();
+  if(!isLoading){
+    saveData();
+  }
 }
 
 // ================== Animated GPA ==================
@@ -248,8 +251,13 @@ function saveData(){
 // ================== Load Data ==================
 function loadData(){
 
+  isLoading = true;
+
   const saved = localStorage.getItem("gpaData");
-  if(!saved) return;
+  if(!saved){
+    isLoading = false;
+    return;
+  }
 
   const data = JSON.parse(saved);
 
@@ -258,7 +266,9 @@ function loadData(){
     const tbody = semester.querySelector("tbody");
     tbody.innerHTML = "";
 
-    if(!data[index]) return;
+    if(!data[index]){
+      return;   // دي بترجع من forEach بس
+    }
 
     data[index].forEach(subject=>{
 
@@ -309,8 +319,9 @@ function loadData(){
   });
 
   calculate();
-}
 
+  isLoading = false;   // ⬅️ مهم جدًا يكون في الآخر
+}
 // ================== Clear Level ==================
 function clearLevel(button){
 
