@@ -325,3 +325,13 @@ button:active{
     font-size:16px;
     font-weight:600;
 }
+.app-title{
+  text-align:center;
+}
+
+.app-subtitle{
+  text-align:center;
+  opacity:.6;
+  margin-top:-10px;
+  font-size:14px;
+}
