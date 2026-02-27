@@ -340,6 +340,7 @@ button:active{
 }
 
 .hero-title{
+  line-height:1.3;
   font-size:28px;
   margin:0;
   font-weight:700;
