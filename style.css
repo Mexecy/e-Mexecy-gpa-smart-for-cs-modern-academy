@@ -49,7 +49,7 @@ h1{
     margin-bottom:20px;
     border-radius:18px;
     border:1px solid #eef2f7;
-    box-shadow:0 4px 12px rgba(0,0,0,0.03);
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
 }
 
 .level h2{
@@ -65,7 +65,7 @@ h1{
     margin:0 0 12px 0;
     display:inline-block;
     padding-bottom:6px;
-    border-bottom:3px solid #16a34a;
+    border-bottom:4px solid #16a34a;
 }
 
 /* ===== الفصل ===== */
@@ -192,7 +192,6 @@ select:focus{
         min-width:45px;
     }
 }
-
 /* ===== الأزرار ===== */
 button{
   width:100%;
@@ -266,7 +265,7 @@ button:active{
 }
 
 .gpa-progress{
-  height:8px;
+  height:10px;
   background:#e5e7eb;
   border-radius:20px;
   overflow:hidden;
