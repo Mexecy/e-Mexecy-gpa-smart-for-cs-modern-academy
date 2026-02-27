@@ -226,7 +226,10 @@ button:active{
   color: #0f172a;
   border: 2px solid #0f172a;
   box-shadow: none;
-  border-radius: 14px;
+  width: auto;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 10px;
   opacity: .6;
   font-weight: 600;
 }
