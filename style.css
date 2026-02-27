@@ -101,11 +101,12 @@ th{
 
 th, td{
     border:1px solid #e5e7eb;
-    padding:6px 4px;
+    padding:8px 4px;
     font-size:13px;
     text-align:center;
     vertical-align:middle;
-    word-wrap:break-word;
+    overflow-wrap: break-word;
+word-wrap: break-word;
 }
 
 /* صفوف متناوبة */
