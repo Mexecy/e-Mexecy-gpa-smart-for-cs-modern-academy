@@ -220,6 +220,25 @@ button:active{
   background:linear-gradient(135deg,#ef4444,#dc2626);
 }
 
+/* ===== زرار الحفظ فقط ===== */
+#manual-save{
+  background: transparent;
+  color: #0f172a;
+  border: 2px solid #0f172a;
+  box-shadow: none;
+  border-radius: 12px;
+  opacity: .6;
+}
+
+#manual-save:not(:disabled){
+  opacity: 1;
+  transform: none;
+}
+
+#manual-save:hover{
+  transform: none;
+  box-shadow: none;
+}
 /* ===== مادة تم تحديثها ===== */
 .updated-subject{
     background:#86efac !important;
