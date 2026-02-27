@@ -74,10 +74,13 @@ h1{
 }
 
 .semester h3{
-    margin:12px 0 10px 0;
-    font-size:15px;
+    font-size:18px;
+    font-weight:700;
+    margin:18px 0 10px 0;
+    padding-right:10px;
+    border-right:4px solid #16a34a;
+    color:#1f2937;
 }
-
 /* ===== الجدول ===== */
 table{
     width:100%;
