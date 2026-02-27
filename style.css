@@ -69,7 +69,7 @@ h1{
 .level-title::after{
     content:"";
     display:block;
-    width:50%;
+    width:100%;
     height:3px;
     background:#16a34a;
     margin-top:6px;
