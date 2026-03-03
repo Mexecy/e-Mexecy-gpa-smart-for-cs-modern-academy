@@ -202,7 +202,7 @@ button{
   color:#fff;
   font-weight:700;
   margin: 12px auto 0 auto;
-  transition:all .25s ease;
+  transition:all .3s ease;
   box-shadow:0 8px 20px rgba(0,0,0,.15);
 }
 
