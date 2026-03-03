@@ -135,9 +135,10 @@ td:nth-child(3){
 
 th:nth-child(4),
 td:nth-child(4){
-    width:11%;
+    width:14%;
     text-align:left;
     white-space: nowrap;
+    padding-left:12px;
 }
 
 td[contenteditable="true"]{
