@@ -232,7 +232,7 @@ button:active{
 
 .fade-out{
     opacity:0;
-    transition: opacity 0.8s ease;
+    transition: opacity 0.9s ease;
 }
 
 /* ===== GPA Box ===== */
