@@ -195,7 +195,7 @@ select:focus{
 button{
  display: block;  
   width:80%;
-  padding:12px;
+  padding:10px;
   border:none;
   border-radius:18px;
   background:linear-gradient(135deg,#0f172a,#1e293b);
