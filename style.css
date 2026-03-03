@@ -6,6 +6,7 @@ body{
     padding:8px;
     direction:rtl;
     -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased
 }
 
 /* ===== الإطار الرئيسي ===== */
