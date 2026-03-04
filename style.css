@@ -1,7 +1,7 @@
 /* ===== الأساس ===== */
 body{
     font-family: system-ui;
-    background:#f5f7fa;
+    background:#eef2f7;
     margin:0;
     padding:8px;
     direction:rtl;
@@ -17,7 +17,7 @@ body{
     background:#ffffff;
     padding:12px 6px;
     border-radius:18px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.05);
+    box-shadow:0 20px 40px rgba(0,0,0,0.08);
     box-sizing:border-box;
 }
 
@@ -51,6 +51,12 @@ h1{
     border-radius:18px;
     border:1px solid #eef2f7;
     box-shadow:0 4px 15px rgba(0,0,0,0.05);
+}
+transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.level:active{
+    transform: scale(.995);
 }
 
 .level h2{
@@ -111,9 +117,16 @@ th, td{
     overflow-wrap: break-word;
     word-wrap: break-word;
 }
+tbody tr{
+    transition: background 0.2s ease;
+}
 
 tbody tr:nth-child(even){
     background:#fafafa;
+}
+
+tbody tr:hover{
+    background:#f8fafc;
 }
 
 tbody tr:active{
@@ -366,4 +379,7 @@ button:active{
   margin-top:0;
   line-height:1.2;
   letter-spacing:0.5px;
+}
+html{
+    scroll-behavior:smooth;
 }
