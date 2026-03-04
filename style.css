@@ -251,9 +251,9 @@ button:active{
 /* ===== GPA Box ===== */
 .gpa-box{
     background:linear-gradient(145deg,#ffffff,#e2e8f0);
-    padding:8px 20px;
+    padding:6px 20px;
     border-radius:20px;
-    margin-bottom:20px;
+    margin-bottom:10px;
     text-align:center;
     box-shadow:
         0 15px 35px rgba(0,0,0,.08),
@@ -281,11 +281,11 @@ button:active{
 }
 
 .gpa-progress{
-  height:10px;
+  height:8px;
   background:#e5e7eb;
   border-radius:20px;
   overflow:hidden;
-  margin:12px 0;
+  margin:6px 0;
 }
 
 .gpa-bar{
@@ -314,8 +314,8 @@ button:active{
 
 .gpa-letter{
     display:inline-block;
-    margin-top:8px;
-    padding:8px 18px;
+    margin-top:2px;
+    padding:4px 16px;
     font-size:16px;
     font-weight:700;
     border-radius:25px;
