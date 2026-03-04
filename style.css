@@ -51,8 +51,7 @@ h1{
     border-radius:18px;
     border:1px solid #eef2f7;
     box-shadow:0 4px 15px rgba(0,0,0,0.05);
-}
-transition: transform .25s ease, box-shadow .25s ease;
+    transition: transform .25s ease, box-shadow .25s ease;
 }
 
 .level:active{
@@ -383,4 +382,48 @@ button:active{
 }
 html{
     scroll-behavior:smooth;
+}
+
+/* ================= DARK MODE ================= */
+
+body.dark-mode{
+    background:#0f172a;
+    color:#f1f5f9;
+}
+
+body.dark-mode .container{
+    background:#1e293b;
+    box-shadow:0 20px 40px rgba(0,0,0,0.4);
+}
+
+body.dark-mode .level{
+    background:#0f172a;
+    border:1px solid #1e293b;
+}
+
+body.dark-mode table{
+    background:#0f172a;
+}
+
+body.dark-mode th{
+    background:#1e293b;
+}
+
+body.dark-mode td,
+body.dark-mode th{
+    border-color:#334155;
+}
+
+body.dark-mode .global-summary{
+    background:#1e293b;
+}
+
+body.dark-mode select{
+    background:#0f172a;
+    color:#f1f5f9;
+    border-color:#334155;
+}
+
+body.dark-mode .gpa-box{
+    background:linear-gradient(145deg,#1e293b,#0f172a);
 }
