@@ -421,7 +421,7 @@ body.dark-mode .global-summary{
 body.dark-mode select{
     background:#0f172a;
     color:#f1f5f9;
-    border-color:#334155;
+    border:1px solid #334155;
 }
 
 body.dark-mode .gpa-box{
@@ -443,4 +443,20 @@ body.dark-mode .gpa-box{
 
 #dark-mode-toggle:hover{
     transform:rotate(15deg) scale(1.05);
+}
+
+/* إصلاح لون اسم الفصل في الدارك مود */
+body.dark-mode .semester h3{
+    color:#f1f5f9;
+    opacity:0.9;
+}
+/* إصلاح حقول الإدخال في الدارك مود */
+body.dark-mode input{
+    background:#0f172a;
+    color:#f1f5f9;
+    border:1px solid #334155;
+}
+
+body.dark-mode input::placeholder{
+    color:#94a3b8;
 }
