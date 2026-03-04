@@ -427,3 +427,20 @@ body.dark-mode select{
 body.dark-mode .gpa-box{
     background:linear-gradient(145deg,#1e293b,#0f172a);
 }
+#dark-mode-toggle{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    margin:8px auto;
+    display:block;
+    font-size:18px;
+    background:#1e293b;
+    color:#f1f5f9;
+    border:none;
+    cursor:pointer;
+    transition:all .3s ease;
+}
+
+#dark-mode-toggle:hover{
+    transform:rotate(15deg) scale(1.05);
+}
