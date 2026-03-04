@@ -1,4 +1,4 @@
-/* ===== الأساس ===== */
+ /* ===== الأساس ===== */
 body{
     font-family: system-ui;
     background:#eef2f7;
@@ -384,3 +384,30 @@ button:active{
 html{
     scroll-behavior:smooth;
 }
+function applyInitialTheme() {
+    const hour = new Date().getHours();
+    const isNightTime = (hour >= 18 || hour < 6); // من 6 مساءً لـ 6 صباحاً
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // تفعيل الدارك مود إذا كان الوقت ليلاً أو الهاتف مضبوط على الداكن
+    if (isNightTime || prefersDark) {
+        document.body.classList.add('dark-mode');
+        updateToggleButton(true);
+    }
+}
+
+function toggleDarkMode() {
+    const isDark = document.body.classList.toggle('dark-mode');
+    updateToggleButton(isDark);
+}
+
+function updateToggleButton(isDark) {
+    const btn = document.getElementById('dark-mode-toggle');
+    btn.innerHTML = isDark ? '☀️' : '🌙';
+    btn.style.background = isDark ? '#f1f5f9' : '#1e293b';
+    btn.style.color = isDark ? '#1e293b' : '#f1f5f9';
+}
+
+// تشغيل الفحص عند فتح الصفحة
+window.addEventListener('DOMContentLoaded', applyInitialTheme);
+
