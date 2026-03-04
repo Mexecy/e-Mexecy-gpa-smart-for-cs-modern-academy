@@ -337,3 +337,53 @@ function clearLevel(button){
 
 /* ================== Start App ================== */
 document.addEventListener("DOMContentLoaded", loadData);
+
+// ================== DARK MODE ==================
+
+function applyInitialTheme() {
+
+  const savedTheme = localStorage.getItem("theme");
+
+  if(savedTheme){
+    document.body.classList.toggle("dark-mode", savedTheme === "dark");
+    updateToggleButton(savedTheme === "dark");
+    return;
+  }
+
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const hour = new Date().getHours();
+  const isNight = (hour >= 18 || hour < 6);
+
+  const shouldDark = prefersDark || isNight;
+
+  document.body.classList.toggle("dark-mode", shouldDark);
+  updateToggleButton(shouldDark);
+}
+
+function toggleDarkMode(){
+
+  const isDark = document.body.classList.toggle("dark-mode");
+
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+
+  updateToggleButton(isDark);
+}
+
+function updateToggleButton(isDark){
+
+  const btn = document.getElementById("dark-mode-toggle");
+  if(!btn) return;
+
+  btn.innerHTML = isDark ? "☀️" : "🌙";
+}
+
+window.matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", e => {
+
+    if(!localStorage.getItem("theme")){
+      document.body.classList.toggle("dark-mode", e.matches);
+      updateToggleButton(e.matches);
+    }
+});
+
+document.addEventListener("DOMContentLoaded", applyInitialTheme);
