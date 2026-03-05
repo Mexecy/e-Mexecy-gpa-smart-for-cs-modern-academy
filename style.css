@@ -1,0 +1,483 @@
+ /* ===== الأساس ===== */
+body{
+    font-family: system-ui;
+    background:#eef2f7;
+    margin:0;
+    padding:8px;
+    direction:rtl;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ===== الإطار الرئيسي ===== */
+.container{
+    width:100%;
+    max-width:600px;
+    margin:auto;
+    background:#ffffff;
+    padding:12px 6px;
+    border-radius:18px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.08);
+    box-sizing:border-box;
+}
+
+/* ===== العنوان ===== */
+h1{
+    text-align:center;
+    margin-bottom:20px;
+    font-size:20px;
+    letter-spacing:.5px;
+}
+
+/* ===== الملخص ===== */
+.global-summary{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    justify-content:space-between;
+    margin-bottom:8px;
+    font-weight:bold;
+    font-size:13px;
+    background:#f1f5f9;
+    padding: 8px 14px;
+    border-radius:14px;
+}
+
+/* ===== المستوى ===== */
+.level{
+    background:#ffffff;
+    padding:14px;
+    margin-bottom:20px;
+    border-radius:18px;
+    border:1px solid #eef2f7;
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.level:active{
+    transform: scale(.995);
+}
+
+.level h2{
+    margin:0 0 12px 0;
+    font-size:18px;
+}
+
+/* ===== Level Title Enhanced ===== */
+.level-title{
+    font-weight:800;
+    font-size:22px;
+    margin:0 0 12px 0;
+    display:inline-block;
+    padding-bottom:6px;
+    border-bottom:4px solid #16a34a;
+}
+
+/* ===== الفصل ===== */
+.semester{
+    margin-bottom:20px;
+}
+
+.semester h3{
+    display:inline-block;
+    font-size:18px;
+    font-weight:700;
+    margin:18px 0 10px 0;
+    padding:4px 12px 4px 12px;
+    border-right:3px solid #16a34a;
+    color:#1f2937;
+    line-height:1.4;
+}
+
+/*===== الجدول ===== */
+table{
+    width:100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    margin-bottom:15px;
+    background:#ffffff;
+    border-radius:14px;
+    table-layout:fixed;
+    box-shadow:0 6px 18px rgba(0,0,0,0.05);
+}
+
+th{
+    background:#f8fafc;
+    font-weight:600;
+}
+
+th, td{
+    border:1px solid #e5e7eb;
+    padding:8px 4px;
+    font-size:13px;
+    text-align:center;
+    vertical-align:middle;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+tbody tr{
+    transition: background 0.2s ease;
+}
+
+tbody tr:nth-child(even){
+    background:#fafafa;
+}
+
+tbody tr:hover{
+    background:#f8fafc;
+}
+
+tbody tr:active{
+    background:#f1f5f9;
+}
+
+th:first-child,
+td:first-child{
+    width:48%;
+    text-align:right;
+}
+
+th:nth-child(2),
+td:nth-child(2){
+    width:15%;
+}
+
+th:nth-child(3),
+td:nth-child(3){
+    width:27%;
+}
+
+th:nth-child(4),
+td:nth-child(4){
+    width:14%;
+    text-align: center;
+    white-space: nowrap;
+    padding-left:12px;
+}
+
+td[contenteditable="true"]{
+    outline:none;
+    transition:0.2s ease;
+    border-radius:6px;
+}
+
+td[contenteditable="true"]:focus{
+    background:#f1f5f9;
+}
+
+select{
+    width:100%;
+    box-sizing:border-box;
+    font-size:13px;
+    padding:4px;
+    text-align:center;
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+    background:#ffffff;
+    transition:0.2s ease;
+}
+
+select:focus{
+    outline:none;
+    border-color:#94a3b8;
+    box-shadow:0 0 0 2px rgba(148,163,184,0.25);
+}
+
+.hours{
+    min-width:50px;
+}
+
+@media (max-width:480px){
+    th, td{
+        font-size:12px;
+        padding:5px 3px;
+    }
+
+    select{
+        font-size:12px;
+        padding:3px;
+    }
+
+    .hours{
+        min-width:45px;
+    }
+}
+
+/* ===== الأزرار ===== */
+button{
+ display: block;  
+  width:80%;
+  padding:8px;
+  border:none;
+  border-radius:18px;
+  background:linear-gradient(135deg,#0f172a,#1e293b);
+  color:#fff;
+  font-weight:700;
+  margin: 12px auto 0 auto;
+  transition:all .3s ease;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 18px rgba(0,0,0,.15);
+}
+
+button:active{
+  transform:scale(.97);
+}
+
+.clear-btn{
+  background:linear-gradient(135deg,#ef4444,#dc2626);
+}
+
+/* ===== مادة تم تحديثها ===== */
+.updated-subject{
+    background:#86efac !important;
+    transition:background 0.6s ease, transform 0.3s ease;
+}
+
+.updated-subject.final{
+    background:#dcfce7 !important;
+}
+
+.fade-out{
+    opacity:0;
+    transition: opacity 0.9s ease;
+}
+
+/* ===== GPA Box ===== */
+.gpa-box{
+    background:linear-gradient(145deg,#ffffff,#e2e8f0);
+    padding:6px 20px;
+    border-radius:20px;
+    margin-bottom:10px;
+    text-align:center;
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.08),
+        inset 0 1px 0 rgba(255,255,255,.6);
+    transition:.3s ease;
+}
+
+.gpa-value{
+    font-size:clamp(24px,4.5vw,28px);
+    font-weight:800;
+    margin-bottom:8px;
+}
+
+.gpa-label{
+    font-weight:700;
+    font-size:0.85em;
+    opacity:.85;
+}
+
+#global-gpa{
+    font-family: monospace;
+    display:inline-block;
+    min-width:60px;
+    font-weight:800;
+}
+
+.gpa-progress{
+  height:8px;
+  background:#e5e7eb;
+  border-radius:20px;
+  overflow:hidden;
+  margin:6px 0;
+}
+
+.gpa-bar{
+  height:100%;
+  width:0%;
+  border-radius:20px;
+  background:linear-gradient(90deg,#16a34a,#22c55e);
+  transition:width .8s cubic-bezier(.4,0,.2,1);
+}
+
+.gpa-bar.excellent{
+  background:linear-gradient(90deg,#16a34a,#22c55e);
+}
+
+.gpa-bar.verygood{
+  background:linear-gradient(90deg,#65a30d,#84cc16);
+}
+
+.gpa-bar.good{
+  background:linear-gradient(90deg,#eab308,#facc15);
+}
+
+.gpa-bar.danger{
+  background:linear-gradient(90deg,#dc2626,#ef4444);
+}
+
+.gpa-letter{
+    display:inline-block;
+    margin-top:2px;
+    padding:4px 16px;
+    font-size:16px;
+    font-weight:700;
+    border-radius:25px;
+    background:rgba(34,197,94,.12);
+    color:#16a34a;
+    box-shadow:0 4px 10px rgba(34,197,94,.15);
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(15px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.container{
+  animation:fadeUp .6s ease;
+}
+
+.global-summary span{
+    font-size:16px;
+    font-weight:600;
+
+}
+.hero-header{
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.hero-icon{
+  width:140px;
+  height:140px;
+  border-radius:30px;
+  margin-bottom:8px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.hero-title{
+  line-height:1.3;
+  font-size:clamp(18px,5vw,24px);
+  margin:0;
+  font-weight:800;
+  white-space:nowrap;
+  letter-spacing:-0.5px;
+}
+
+.hero-subtitle{
+  font-size:16px;
+  font-weight:600;
+  margin-top:4px;
+  margin-bottom:2px;
+}
+
+.hero-role{
+  font-size:13px;
+  opacity:.6;
+  margin-top:0;
+  margin-bottom: 5px;
+  line-height:1.2;
+  letter-spacing:0.5px;
+}
+html{
+    scroll-behavior:smooth;
+}
+
+/* ================= DARK MODE ================= */
+
+body.dark-mode{
+    background:#0f172a;
+    color:#f1f5f9;
+}
+
+/* ===== Container ===== */
+body.dark-mode .container{
+    background:#1e293b;
+    box-shadow:0 20px 40px rgba(0,0,0,0.4);
+}
+
+/* ===== Level ===== */
+body.dark-mode .level{
+    background:#0f172a;
+    border:1px solid #1e293b;
+}
+
+/* ===== Tables ===== */
+body.dark-mode table{
+    background:#0f172a;
+}
+
+body.dark-mode th{
+    background:#1e293b;
+}
+
+body.dark-mode td,
+body.dark-mode th{
+    border-color:#334155;
+}
+
+/* ===== Editable Cells Fix (المهم) ===== */
+body.dark-mode td[contenteditable="true"]{
+    color:#f1f5f9;
+    caret-color:#22c55e;
+}
+
+body.dark-mode td[contenteditable="true"]:focus{
+    background:#1e293b !important;
+    color:#f1f5f9 !important;
+    box-shadow:0 0 0 2px rgba(34,197,94,.25);
+}
+
+/* ===== Global Summary ===== */
+body.dark-mode .global-summary{
+    background:#1e293b;
+}
+
+/* ===== Select ===== */
+body.dark-mode select{
+    background:#0f172a;
+    color:#f1f5f9;
+    border:1px solid #334155;
+}
+
+/* ===== Input (لو استخدمتهم لاحقًا) ===== */
+body.dark-mode input{
+    background:#0f172a;
+    color:#f1f5f9;
+    border:1px solid #334155;
+}
+
+body.dark-mode input::placeholder{
+    color:#94a3b8;
+}
+
+/* ===== GPA Box ===== */
+body.dark-mode .gpa-box{
+    background:linear-gradient(145deg,#1e293b,#0f172a);
+}
+
+/* ===== Semester Title ===== */
+body.dark-mode .semester h3{
+    color:#f1f5f9;
+    opacity:0.9;
+}
+
+/* ===== Dark Mode Button ===== */
+#dark-mode-toggle{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    margin:8px auto;
+    display:block;
+    font-size:18px;
+    background:#1e293b;
+    color:#f1f5f9;
+    border:none;
+    cursor:pointer;
+    transition:all .3s ease;
+}
+
+#dark-mode-toggle:hover{
+    transform:rotate(15deg) scale(1.05);
+}
