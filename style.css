@@ -235,13 +235,25 @@ button:active{
 /* ===== مادة تم تحديثها ===== */
 .updated-subject{
     background:#86efac !important;
+    color:#111827 !important;
     transition:background 0.6s ease, transform 0.3s ease;
 }
 
 .updated-subject.final{
     background:#dcfce7 !important;
+    color:#111827 !important;
 }
 
+/* إصلاح المشكلة في الدارك مود */
+body.dark-mode .updated-subject{
+    background:#14532d !important;
+    color:#f1f5f9 !important;
+}
+
+body.dark-mode .updated-subject.final{
+    background:#166534 !important;
+    color:#f1f5f9 !important;
+}
 .fade-out{
     opacity:0;
     transition: opacity 0.9s ease;
