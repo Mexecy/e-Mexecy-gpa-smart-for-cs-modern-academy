@@ -395,7 +395,6 @@ body.dark-mode .updated-subject.final{
 html{
     scroll-behavior:smooth;
 }
-
 /* ================= DARK MODE ================= */
 
 body.dark-mode{
@@ -403,25 +402,28 @@ body.dark-mode{
     color:#f1f5f9;
 }
 
-/* ===== Container ===== */
 body.dark-mode .container{
     background:#1e293b;
     box-shadow:0 20px 40px rgba(0,0,0,0.4);
 }
 
-/* ===== Level ===== */
 body.dark-mode .level{
     background:#0f172a;
     border:1px solid #1e293b;
 }
 
-/* ===== Tables ===== */
 body.dark-mode table{
     background:#0f172a;
 }
 
 body.dark-mode th{
     background:#1e293b;
+    color:#f1f5f9;
+}
+
+body.dark-mode td{
+    background:#0f172a;
+    color:#f1f5f9;
 }
 
 body.dark-mode td,
@@ -429,53 +431,30 @@ body.dark-mode th{
     border-color:#334155;
 }
 
-/* ===== Editable Cells Fix (المهم) ===== */
-body.dark-mode td[contenteditable="true"]{
-    color:#f1f5f9;
-    caret-color:#22c55e;
+body.dark-mode tbody tr:nth-child(even){
+    background:#020617;
 }
 
-body.dark-mode td[contenteditable="true"]:focus{
-    background:#1e293b !important;
-    color:#f1f5f9 !important;
-    box-shadow:0 0 0 2px rgba(34,197,94,.25);
+body.dark-mode tbody tr:hover{
+    background:#1e293b;
 }
 
-/* ===== Global Summary ===== */
 body.dark-mode .global-summary{
     background:#1e293b;
 }
 
-/* ===== Select ===== */
 body.dark-mode select{
-    background:#0f172a;
+    background:#020617;
     color:#f1f5f9;
     border:1px solid #334155;
 }
 
-/* ===== Input (لو استخدمتهم لاحقًا) ===== */
-body.dark-mode input{
-    background:#0f172a;
-    color:#f1f5f9;
-    border:1px solid #334155;
-}
-
-body.dark-mode input::placeholder{
-    color:#94a3b8;
-}
-
-/* ===== GPA Box ===== */
 body.dark-mode .gpa-box{
     background:linear-gradient(145deg,#1e293b,#0f172a);
 }
 
-/* ===== Semester Title ===== */
-body.dark-mode .semester h3{
-    color:#f1f5f9;
-    opacity:0.9;
-}
+/* زر الدارك مود */
 
-/* ===== Dark Mode Button ===== */
 #dark-mode-toggle{
     width:45px;
     height:45px;
@@ -492,4 +471,37 @@ body.dark-mode .semester h3{
 
 #dark-mode-toggle:hover{
     transform:rotate(15deg) scale(1.05);
+}
+
+/* اسم الفصل */
+
+body.dark-mode .semester h3{
+    color:#f1f5f9;
+    opacity:0.9;
+}
+
+/* إصلاح contenteditable (اسم المادة) */
+
+td[contenteditable="true"]{
+    background:#ffffff;
+    color:#111827;
+}
+
+body.dark-mode td[contenteditable="true"]{
+    background:#0f172a !important;
+    color:#f1f5f9 !important;
+}
+
+/* أثناء الكتابة */
+
+body.dark-mode td[contenteditable="true"]:focus{
+    background:#1e293b !important;
+    color:#f1f5f9 !important;
+}
+
+/* إصلاح خانة الإجمالي */
+
+body.dark-mode td:last-child{
+    background:#020617;
+    color:#f1f5f9;
 }
