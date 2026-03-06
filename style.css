@@ -421,33 +421,47 @@ body.dark-mode th{
     color:#f1f5f9;
 }
 
+/* كل خلايا الجدول */
+
 body.dark-mode td{
     background:#0f172a;
     color:#f1f5f9;
 }
+
+/* الحدود */
 
 body.dark-mode td,
 body.dark-mode th{
     border-color:#334155;
 }
 
+/* الصفوف الزوجية */
+
 body.dark-mode tbody tr:nth-child(even){
     background:#020617;
 }
+
+/* عند المرور */
 
 body.dark-mode tbody tr:hover{
     background:#1e293b;
 }
 
+/* ملخص */
+
 body.dark-mode .global-summary{
     background:#1e293b;
 }
+
+/* القوائم */
 
 body.dark-mode select{
     background:#020617;
     color:#f1f5f9;
     border:1px solid #334155;
 }
+
+/* صندوق GPA */
 
 body.dark-mode .gpa-box{
     background:linear-gradient(145deg,#1e293b,#0f172a);
@@ -480,12 +494,7 @@ body.dark-mode .semester h3{
     opacity:0.9;
 }
 
-/* إصلاح contenteditable (اسم المادة) */
-
-td[contenteditable="true"]{
-    background:#ffffff;
-    color:#111827;
-}
+/* اسم المادة */
 
 body.dark-mode td[contenteditable="true"]{
     background:#0f172a !important;
@@ -499,9 +508,9 @@ body.dark-mode td[contenteditable="true"]:focus{
     color:#f1f5f9 !important;
 }
 
-/* إصلاح خانة الإجمالي */
+/* الإجمالي */
 
 body.dark-mode td:last-child{
-    background:#020617;
-    color:#f1f5f9;
+    background:#020617 !important;
+    color:#f1f5f9 !important;
 }
