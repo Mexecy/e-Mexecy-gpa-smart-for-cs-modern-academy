@@ -348,6 +348,12 @@ body.dark-mode .global-summary{
     border:none;
     cursor:pointer;
 }
+/* عنوان الفصل في الدارك مود */
+body.dark-mode .semester h3{
+    color:#22c55e;
+    font-weight:800;
+    opacity:1;
+}
 /* المادة التي تم تحديثها */
 .updated-subject{
     animation:highlightRow 1s ease;
