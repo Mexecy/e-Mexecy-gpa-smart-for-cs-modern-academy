@@ -84,69 +84,109 @@ Software Engineer
 
 
 
-<!-- سكريبت إنشاء المستويات -->
+<!-- إنشاء المستويات -->
 <script>
-function createLevels() {
-  const container = document.getElementById("levels-container");
 
-  for (let i = 1; i <= 4; i++) {
+function createLevels(){
 
-    const level = document.createElement("div");
-    level.className = "level";
+const container =
+document.getElementById("levels-container");
 
-    level.innerHTML = `
-      <h2 class="level-title">المستوى ${i}</h2>
+for(let i=1;i<=4;i++){
 
-      <div class="semester">
-        <h3>الفصل الأول</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>اسم المادة</th>
-              <th>ساعات</th>
-              <th>تقدير</th>
-              <th>الإجمالي</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-        <button onclick="addSubject(this)">إضافة مادة</button>
-      </div>
+const level=document.createElement("div");
 
-      <div class="semester">
-        <h3>الفصل الثاني</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>اسم المادة</th>
-              <th>ساعات</th>
-              <th>تقدير</th>
-              <th>الإجمالي</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-        <button onclick="addSubject(this)">إضافة مادة</button>
-      </div>
+level.className="level";
 
-      <button class="clear-btn" onclick="clearLevel(this)">مسح المستوى</button>
-    `;
+level.innerHTML=`
 
-    container.appendChild(level);
-  }
+<h2 class="level-title">المستوى ${i}</h2>
+
+<div class="semester">
+
+<h3>الفصل الأول</h3>
+
+<table>
+<thead>
+<tr>
+<th>اسم المادة</th>
+<th>ساعات</th>
+<th>تقدير</th>
+<th>الإجمالي</th>
+</tr>
+</thead>
+
+<tbody></tbody>
+
+</table>
+
+<button onclick="addSubject(this)">
+إضافة مادة
+</button>
+
+</div>
+
+
+<div class="semester">
+
+<h3>الفصل الثاني</h3>
+
+<table>
+<thead>
+<tr>
+<th>اسم المادة</th>
+<th>ساعات</th>
+<th>تقدير</th>
+<th>الإجمالي</th>
+</tr>
+</thead>
+
+<tbody></tbody>
+
+</table>
+
+<button onclick="addSubject(this)">
+إضافة مادة
+</button>
+
+</div>
+
+<button class="clear-btn"
+onclick="clearLevel(this)">
+مسح المستوى
+</button>
+
+`;
+
+container.appendChild(level);
+
 }
+
+}
+
 </script>
 
-<!-- ملف الجافاسكربت -->
+
+
+<!-- ملف الجافاسكربت الرئيسي -->
 <script src="script.js"></script>
+
 
 <!-- تشغيل الموقع -->
 <script>
-window.addEventListener("DOMContentLoaded", () => {
-  createLevels();
-  loadData();
-});
+
+window.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+createLevels();
+loadData();
+
+}
+);
+
 </script>
+
 
 <!-- Service Worker -->
 <script>
