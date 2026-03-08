@@ -349,23 +349,20 @@ border:none;
 cursor:pointer;
 }
 /* المادة التي تم تحديثها */
+* ===== مادة تم تحديثها ===== */
 .updated-subject{
-    animation:highlightRow 1s ease;
+    background:#86efac !important;
+    transition:background 0.6s ease, transform 0.3s ease;
 }
 
-/* اللون النهائي للمادة الأفضل */
 .updated-subject.final{
     background:#dcfce7 !important;
-    color:#065f46;
 }
 
-/* عند حذف مادة مكررة */
 .fade-out{
     opacity:0;
-    transform:translateX(-20px);
-    transition:all .4s ease;
+    transition: opacity 0.9s ease;
 }
-
 /* أنيميشن */
 @keyframes highlightRow{
     0%{background:#fef9c3;}
