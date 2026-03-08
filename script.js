@@ -62,17 +62,13 @@ function createRow(name="",hours="0",grade=""){
 // ================== Row Events ==================
 function attachRowEvents(row){
 
-  row.querySelector(".hours").addEventListener("change",()=>{
-    if(!handleDuplicate(row)) calculate();
-  });
+  const hours = row.querySelector(".hours");
+  const grade = row.querySelector(".grade");
+  const name = row.children[0];
 
-  row.querySelector(".grade").addEventListener("change",()=>{
-    if(!handleDuplicate(row)) calculate();
-  });
-
-  row.children[0].addEventListener("blur",()=>{
-    if(!handleDuplicate(row)) calculate();
-  });
+  hours.addEventListener("change",()=>{ if(!handleDuplicate(row)) calculate(); });
+  grade.addEventListener("change",()=>{ if(!handleDuplicate(row)) calculate(); });
+  name.addEventListener("blur",()=>{ if(!handleDuplicate(row)) calculate(); });
 
 }
 
