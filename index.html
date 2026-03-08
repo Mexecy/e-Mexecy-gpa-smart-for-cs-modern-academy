@@ -101,17 +101,18 @@ function createLevels() {
     container.appendChild(level);
   }
 }
+</script>
 
+<!-- ملف الجافاسكربت -->
+<script src="script.js"></script>
+
+<script>
 window.addEventListener("DOMContentLoaded", () => {
   createLevels();
-  loadData();        // من script.js
+  loadData();
 });
 </script>
 
-<!-- ملف الجافاسكربت الأساسي -->
-<script src="script.js"></script>
-
-<!-- Service Worker -->
 <script>
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
