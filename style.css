@@ -264,26 +264,29 @@ line-height:1.15;
 font-weight:800;
 }
 
-.hero-subtitle{
-font-size:16px;
-font-weight:600;
-margin:0;
-margin-top:-10px;
-line-height:1.1;
-opacity:0.85;
-}
-.hero-role{
-font-size:13px;
-opacity:.6;
- margin-top: -8px;
- display: block;
-}
 
 /* ===== مادة تم تحديثها ===== */
 .updated-subject{
 background:#86efac !important;
 transition:background 0.6s ease, transform 0.3s ease;
 animation:highlightRow 0.7s ease;
+}
+.hero-subtitle {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    margin-bottom: -5px; /* يقلل المسافة من الأسفل لرفع الكلمة التالية */
+    line-height: 1;      /* تقليل ارتفاع السطر الافتراضي */
+    opacity: 0.85;
+}
+
+.hero-role {
+    font-size: 13px;
+    opacity: .6;
+    margin: 0;           /* تصفير كل المسافات الافتراضية */
+    margin-top: -4px;    /* سحب الكلمة للأعلى باتجاه الاسم */
+    display: block;      /* لضمان تطبيق الهوامش بشكل صحيح */
+    line-height: 1.2;
 }
 
 .updated-subject.final{
