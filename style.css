@@ -1,4 +1,4 @@
- /* ===== الأساس ===== */
+/* ===== الأساس ===== */
 body{
 font-family: system-ui;
 background:#eef2f7;
@@ -115,7 +115,7 @@ vertical-align:middle;
 }
 
 tbody tr{
-transition:background .2s ease;
+transition:background .2s ease, transform .2s ease;
 }
 
 tbody tr:nth-child(even){
@@ -124,6 +124,7 @@ background:#fafafa;
 
 tbody tr:hover{
 background:#f8fafc;
+transform:scale(1.01);
 }
 
 th:first-child,
@@ -185,6 +186,10 @@ color:#fff;
 font-weight:700;
 margin:12px auto 0 auto;
 transition:.3s ease;
+}
+
+button:hover{
+transform:scale(1.04);
 }
 
 .clear-btn{
@@ -263,6 +268,27 @@ font-size:13px;
 opacity:.6;
 }
 
+/* ===== مادة تم تحديثها ===== */
+.updated-subject{
+background:#86efac !important;
+transition:background 0.6s ease, transform 0.3s ease;
+animation:highlightRow 0.7s ease;
+}
+
+.updated-subject.final{
+background:#dcfce7 !important;
+}
+
+.fade-out{
+opacity:0;
+transition: opacity 0.9s ease;
+}
+
+@keyframes highlightRow{
+0%{background:#fef9c3;}
+100%{background:#dcfce7;}
+}
+
 /* ================= DARK MODE ================= */
 
 body.dark-mode{
@@ -298,12 +324,11 @@ body.dark-mode th{
 border-color:#334155;
 }
 
-/* الصفوف الزوجية */
+/* الصفوف */
 body.dark-mode tbody tr:nth-child(even) td{
 background:#020617;
 }
 
-/* hover */
 body.dark-mode tbody tr:hover td{
 background:#1e293b;
 }
@@ -335,6 +360,19 @@ body.dark-mode .global-summary{
 background:#1e293b;
 }
 
+/* عنوان الفصل */
+body.dark-mode .semester h3{
+color:#22c55e;
+font-weight:800;
+opacity:1;
+}
+
+/* إصلاح لون المادة المحدثة في الدارك مود */
+body.dark-mode .updated-subject td{
+background:#166534 !important;
+color:#dcfce7 !important;
+}
+
 /* زر الدارك مود */
 #dark-mode-toggle{
 width:45px;
@@ -347,30 +385,4 @@ background:#1e293b;
 color:#f1f5f9;
 border:none;
 cursor:pointer;
-}
-/* المادة التي تم تحديثها */
-* ===== مادة تم تحديثها ===== */
-.updated-subject{
-    background:#86efac !important;
-    transition:background 0.6s ease, transform 0.3s ease;
-}
-
-.updated-subject.final{
-    background:#dcfce7 !important;
-}
-
-.fade-out{
-    opacity:0;
-    transition: opacity 0.9s ease;
-}
-/* أنيميشن */
-@keyframes highlightRow{
-    0%{background:#fef9c3;}
-    100%{background:#dcfce7;}
-}
-/* عنوان الفصل في الدارك مود */
-body.dark-mode .semester h3{
-    color:#22c55e;
-    font-weight:800;
-    opacity:1;
 }
