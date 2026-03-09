@@ -344,9 +344,6 @@ calculate();
 saveData();
 
 }
-
-// ================== DARK MODE ==================
-
 // ================== DARK MODE ==================
 
 function applyInitialTheme(){
