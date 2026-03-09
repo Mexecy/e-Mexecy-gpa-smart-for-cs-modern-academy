@@ -398,8 +398,9 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 applyInitialTheme();
 
+requestAnimationFrame(()=>{
 loadData();
-
 calculate();
+});
 
 });
