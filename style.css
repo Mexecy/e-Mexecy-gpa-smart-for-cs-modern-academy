@@ -53,7 +53,7 @@ font-weight:600;
 .level{
 background:#ffffff;
 padding:14px;
-margin-bottom:20px;
+margin-bottom:15px;
 border-radius:18px;
 border:1px solid #eef2f7;
 box-shadow:0 4px 15px rgba(0,0,0,0.05);
@@ -75,6 +75,7 @@ border-bottom:4px solid #16a34a;
 
 /* ===== الفصل ===== */
 .semester{
+ margin-top:6px;
 margin-bottom:10px;
 }
 
@@ -82,7 +83,7 @@ margin-bottom:10px;
 display:inline-block;
 font-size:18px;
 font-weight:700;
-margin:10px 0 6px 0;
+margin:4px 0;
 padding:4px 12px;
 border-right:3px solid #16a34a;
 color:#1f2937;
@@ -245,26 +246,30 @@ margin-bottom:10px;
 }
 
 .hero-icon{
-width:140px;
-height:140px;
+width:130px;
+height:130px;
 border-radius:30px;
-margin-bottom:8px;
+margin-bottom:4px;
+display:block;
+margin-left:auto;
+margin-right:auto;
 }
 
 .hero-title{
 font-size:24px;
 margin:0;
-line-height:1.1;
+margin-bottom:2px;
+line-height:1.15;
 font-weight:800;
 }
 
 .hero-subtitle{
 font-size:16px;
 font-weight:600;
- margin:0;
-margin-top:-8px;
+margin:0;
+margin-top:-10px;
 line-height:1.1;
- opacity:0.85;
+opacity:0.85;
 }
 .hero-role{
 font-size:13px;
@@ -388,4 +393,11 @@ background:#1e293b;
 color:#f1f5f9;
 border:none;
 cursor:pointer;
+}
+*{
+-webkit-tap-highlight-color: transparent;
+}
+
+body{
+will-change: transform;
 }
