@@ -181,7 +181,10 @@ const gpa = globalHours ? (globalPoints/globalHours) : 0;
 document.getElementById("global-hours").textContent = globalHours;
 document.getElementById("global-points").textContent = globalPoints.toFixed(2);
 
+requestAnimationFrame(()=>{
 animateGPA(previousGPA,gpa);
+});
+
 updateProgressBar(gpa);
 
 previousGPA = gpa;
@@ -194,7 +197,6 @@ saveData();
 }
 
 }
-
 // ================== GPA Animation ==================
 function animateGPA(start,end){
 
