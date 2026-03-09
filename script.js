@@ -346,63 +346,56 @@ saveData();
 }
 
 // ================== DARK MODE ==================
+
+// ================== DARK MODE ==================
+
 function applyInitialTheme(){
 
-const saved = localStorage.getItem("theme");
+  const saved = localStorage.getItem("theme");
 
-if(saved){
+  // لو المستخدم اختار وضع يدوي
+  if(saved){
 
-const dark = saved==="dark";
+    const dark = saved === "dark";
 
-document.body.classList.toggle("dark-mode",dark);
+    document.body.classList.toggle("dark-mode", dark);
 
-updateToggleButton(dark);
+    updateToggleButton(dark);
 
-return;
+    return;
 
-}
+  }
 
-const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  // تحديد الليل
+  const hour = new Date().getHours();
 
-document.body.classList.toggle("dark-mode",prefersDark);
+  const isNight = (hour >= 18 || hour < 6);
 
-updateToggleButton(prefersDark);
+  document.body.classList.toggle("dark-mode", isNight);
+
+  updateToggleButton(isNight);
 
 }
 
 function toggleDarkMode(){
 
-const dark = document.body.classList.toggle("dark-mode");
+  const dark = document.body.classList.toggle("dark-mode");
 
-localStorage.setItem("theme",dark?"dark":"light");
+  localStorage.setItem("theme", dark ? "dark" : "light");
 
-updateToggleButton(dark);
+  updateToggleButton(dark);
 
 }
 
 function updateToggleButton(isDark){
 
-const btn = document.getElementById("dark-mode-toggle");
+  const btn = document.getElementById("dark-mode-toggle");
 
-if(!btn) return;
+  if(!btn) return;
 
-btn.innerHTML = isDark ? "☀️" : "🌙";
-
-}
-
-window.matchMedia("(prefers-color-scheme: dark)")
-.addEventListener("change",e=>{
-
-if(!localStorage.getItem("theme")){
-
-document.body.classList.toggle("dark-mode",e.matches);
-
-updateToggleButton(e.matches);
+  btn.innerHTML = isDark ? "☀️" : "🌙";
 
 }
-
-});
-
 // ================== Start App ==================
 document.addEventListener("DOMContentLoaded",()=>{
 
