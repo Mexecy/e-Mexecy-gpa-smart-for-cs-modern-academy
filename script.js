@@ -406,3 +406,39 @@ calculate();
 });
 
 });
+async function shareGPA(){
+
+const gpa = document.getElementById("global-gpa").textContent;
+const hours = document.getElementById("global-hours").textContent;
+const grade = document.getElementById("global-letter").textContent;
+
+const text =
+`My GPA 🎓
+
+GPA: ${gpa}
+Hours: ${hours}
+Grade: ${grade}
+
+Mexicy GPA Calculator`;
+
+try{
+
+if(navigator.share){
+
+await navigator.share({
+title:"My GPA",
+text:text
+});
+
+}else{
+
+navigator.clipboard.writeText(text);
+alert("تم نسخ النتيجة 👍");
+
+}
+
+}catch(err){
+console.log("Share cancelled");
+}
+
+}
