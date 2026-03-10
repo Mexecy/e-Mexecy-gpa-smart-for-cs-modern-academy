@@ -97,7 +97,8 @@ border-spacing:0;
 overflow:hidden;
 margin-bottom:15px;
 background:#ffffff;
-border-radius:14px;
+border-radius:16px;
+border: 1px solid #e5e7eb;
 table-layout:fixed;
 box-shadow:0 6px 18px rgba(0,0,0,0.05);
 }
@@ -323,6 +324,7 @@ border:1px solid #1e293b;
 
 body.dark-mode table{
 background:#0f172a;
+ border-color: #334155;
 }
 
 body.dark-mode th{
