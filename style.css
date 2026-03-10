@@ -267,7 +267,7 @@ font-weight:800;
     font-size: 16px;
     font-weight: 600;
     margin: 0;
-    margin-bottom: -8px; /* يقلل المسافة من الأسفل لرفع الكلمة التالية */
+    margin-bottom: -5px; /* يقلل المسافة من الأسفل لرفع الكلمة التالية */
     line-height: 1;      /* تقليل ارتفاع السطر الافتراضي */
     opacity: 0.85;
 }
