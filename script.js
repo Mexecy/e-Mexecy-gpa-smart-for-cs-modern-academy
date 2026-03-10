@@ -188,6 +188,11 @@ animateGPA(previousGPA,gpa);
 updateProgressBar(gpa);
 
 previousGPA = gpa;
+const shareBtn = document.querySelector(".share-btn");
+
+if(shareBtn){
+shareBtn.style.display = gpa > 0 ? "block" : "none";
+}  
 
 document.getElementById("global-letter").textContent =
 globalHours===0 ? "0" : getLetter(gpa);
