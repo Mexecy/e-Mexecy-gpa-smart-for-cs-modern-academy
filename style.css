@@ -266,20 +266,20 @@ font-weight:800;
 .hero-subtitle {
     font-size: 16px;
     font-weight: 600;
-    margin-top: 5px;      /* إضافة مسافة فوق الاسم ليفصل عن الأكاديمية */
-    margin-bottom: 8px;   /* زيادة المسافة تحت الاسم لإبعاد المسمى الوظيفي */
-    line-height: 1.4;     /* زيادة ارتفاع السطر لفك التداخل */
+    margin: 0;
+    margin-bottom: 0px;  /* تصفير المسافة السفلية تماماً */
+    line-height: 1.1;     /* ارتفاع سطر بسيط لمنع التداخل */
     opacity: 0.85;
-    display: block;       /* لضمان استجابة الهوامش */
+    display: block;
 }
 
 .hero-role {
     font-size: 13px;
     opacity: .6;
     margin: 0;
-    margin-top: 4px;      /* مسافة إضافية بسيطة فوق كلمة Software Engineer */
+    margin-top: 2px;      /* مسافة بسيطة جداً (2 بكسل) لفصل الكلمة عن الاسم */
     display: block;
-    line-height: 1.4;
+    line-height: 1;
 }
 
 /* ===== مادة تم تحديثها ===== */
