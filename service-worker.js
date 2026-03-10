@@ -1,4 +1,4 @@
-const CACHE_NAME = "mexicy-gpa-v12";
+const CACHE_NAME = "mexicy-gpa-v13";
 
 const FILES_TO_CACHE = [
   "./",
