@@ -276,7 +276,7 @@ font-weight:800;
     font-size: 13px;
     opacity: .6;
     margin: 0;           /* تصفير كل المسافات الافتراضية */
-    margin-top: -4px;    /* سحب الكلمة للأعلى باتجاه الاسم */
+    margin-top: -8px;    /* سحب الكلمة للأعلى باتجاه الاسم */
     display: block;      /* لضمان تطبيق الهوامش بشكل صحيح */
     line-height: 1.2;
 }
