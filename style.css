@@ -106,6 +106,7 @@ box-shadow:0 6px 18px rgba(0,0,0,0.05);
 th{
 background:#f8fafc;
 font-weight:600;
+ padding: 6px 4px;
 }
 
 th,td{
