@@ -267,17 +267,17 @@ font-weight:800;
     font-size: 16px;
     font-weight: 600;
     margin: 0;
-    margin-bottom: -5px; /* يقلل المسافة من الأسفل لرفع الكلمة التالية */
-    line-height: 1;      /* تقليل ارتفاع السطر الافتراضي */
+    margin-bottom: 2px; /* تغيير من -5px إلى 2px لإعطاء مساحة صغيرة */
+    line-height: 1.2;    /* زيادة بسيطة لارتفاع السطر */
     opacity: 0.85;
 }
 
 .hero-role {
     font-size: 13px;
     opacity: .6;
-    margin: 0;           /* تصفير كل المسافات الافتراضية */
-    margin-top: -1px;    /* سحب الكلمة للأعلى باتجاه الاسم */
-    display: block;      /* لضمان تطبيق الهوامش بشكل صحيح */
+    margin: 0;
+    margin-top: 0;       /* إزالة القيمة السالبة (-1px) وجعلها صفر */
+    display: block;
     line-height: 1.2;
 }
 
