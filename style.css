@@ -267,7 +267,7 @@ font-weight:800;
     font-size: 16px;
     font-weight: 600;
     margin: 0;
-    margin-bottom: 2px; /* تغيير من -5px إلى 2px لإعطاء مساحة صغيرة */
+    margin-bottom: 4px; /* تغيير من -5px إلى 2px لإعطاء مساحة صغيرة */
     line-height: 1.2;    /* زيادة بسيطة لارتفاع السطر */
     opacity: 0.85;
 }
