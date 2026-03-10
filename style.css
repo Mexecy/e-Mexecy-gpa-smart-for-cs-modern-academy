@@ -472,3 +472,13 @@ transform:translateY(0);
 }
 
 }
+
+.share-btn{
+width:auto;
+padding:6px 14px;
+font-size:13px;
+margin-top:8px;
+border-radius:14px;
+background:#16a34a;
+display:inline-block;
+}
