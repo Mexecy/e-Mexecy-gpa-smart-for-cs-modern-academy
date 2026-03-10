@@ -130,11 +130,18 @@ background:#f8fafc;
 transform:scale(1.01);
 }
 
-th:first-child,
-td:first-child{
-width:48%;
-text-align: center !important;
- vertical-align: middle !important;
+/* 1. هذا الجزء للعنوان (اسم المادة) ليكون في المنتصف */
+th:first-child {
+    width: 48%;
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+/* 2. هذا الجزء للخانات (التي تكتب فيها الأسماء) لتظل من اليمين */
+td:first-child {
+    width: 48%;
+    text-align: right;
+    vertical-align: middle;
 }
 
 th:nth-child(2),
@@ -398,10 +405,8 @@ color:#dcfce7 !important;
 width:45px;
 height:45px;
 border-radius:50%;
-margin: 8px auto 2px auto !important; 
+margin: 8px auto -8px auto !important; 
 display: block;
-display: block;
-display:block;
 font-size:18px;
 background:#1e293b;
 color:#f1f5f9;
