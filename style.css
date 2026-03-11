@@ -511,7 +511,7 @@ transition:opacity .6s ease, visibility .6s;
 width:120px;
 height:120px;
 border-radius:25px;
-animation:splashPop .6s ease;
+animation:splashPop .6s ease, splashPulse 1.4s infinite ease-in-out;
 }
 
 @keyframes splashPop{
