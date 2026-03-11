@@ -191,8 +191,14 @@ previousGPA = gpa;
 const shareBtn = document.querySelector(".share-btn");
 
 if(shareBtn){
-shareBtn.style.display = gpa > 0 ? "block" : "none";
-}  
+
+if(gpa > 0){
+shareBtn.classList.add("show");
+}else{
+shareBtn.classList.remove("show");
+}
+
+}
 
 document.getElementById("global-letter").textContent =
 globalHours===0 ? "0" : getLetter(gpa);
