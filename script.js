@@ -478,3 +478,16 @@ window.open(url);
 });
 
 }
+window.addEventListener("load",()=>{
+
+setTimeout(()=>{
+
+const splash = document.getElementById("splash-screen");
+
+if(splash){
+splash.classList.add("hide");
+}
+
+},900);
+
+});
