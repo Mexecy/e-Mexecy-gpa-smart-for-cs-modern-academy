@@ -423,33 +423,58 @@ const gpa = document.getElementById("global-gpa").textContent;
 const hours = document.getElementById("global-hours").textContent;
 const grade = document.getElementById("global-letter").textContent;
 
-const text =
-`My GPA 🎓
+const canvas = document.createElement("canvas");
+canvas.width = 600;
+canvas.height = 400;
 
-GPA: ${gpa}
-Hours: ${hours}
-Grade: ${grade}
+const ctx = canvas.getContext("2d");
 
-Mexicy GPA Calculator`;
+/* الخلفية */
+ctx.fillStyle = "#0f172a";
+ctx.fillRect(0,0,canvas.width,canvas.height);
 
-try{
+/* العنوان */
+ctx.fillStyle = "#ffffff";
+ctx.font = "bold 36px system-ui";
+ctx.textAlign = "center";
+ctx.fillText("My GPA 🎓",300,90);
 
-if(navigator.share){
+/* GPA */
+ctx.font = "bold 80px system-ui";
+ctx.fillStyle = "#22c55e";
+ctx.fillText(gpa,300,200);
+
+/* الساعات */
+ctx.font = "24px system-ui";
+ctx.fillStyle = "#cbd5f5";
+ctx.fillText(`Hours: ${hours}`,300,260);
+
+/* التقدير */
+ctx.fillText(`Grade: ${grade}`,300,300);
+
+/* اسم التطبيق */
+ctx.font = "20px system-ui";
+ctx.fillStyle = "#94a3b8";
+ctx.fillText("Mexicy GPA Calculator",300,350);
+
+canvas.toBlob(async blob=>{
+
+const file = new File([blob],"gpa.png",{type:"image/png"});
+
+if(navigator.share && navigator.canShare({files:[file]})){
 
 await navigator.share({
 title:"My GPA",
-text:text
+files:[file]
 });
 
 }else{
 
-navigator.clipboard.writeText(text);
-alert("تم نسخ النتيجة 👍");
+const url = URL.createObjectURL(blob);
+window.open(url);
 
 }
 
-}catch(err){
-console.log("Share cancelled");
-}
+});
 
 }
