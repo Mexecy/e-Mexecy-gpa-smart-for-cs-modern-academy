@@ -187,7 +187,17 @@ animateGPA(previousGPA,gpa);
 
 updateProgressBar(gpa);
 
-previousGPA = gpa;
+ if(gpa >= 4 && previousGPA < 4){
+
+confetti({
+particleCount:120,
+spread:70,
+origin:{ y:0.6 }
+});
+
+}
+
+previousGPA = gpa; 
 const shareBtn = document.querySelector(".share-btn");
 
 if(shareBtn){
