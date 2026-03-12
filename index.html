@@ -200,16 +200,19 @@ loadData();
 
 <!-- Service Worker -->
 <script>
-
 if("serviceWorker" in navigator){
 
-navigator.serviceWorker.register(
-"service-worker.js"
-);
+window.addEventListener("load",()=>{
+
+navigator.serviceWorker.register("service-worker.js");
+
+});
 
 }
-
 </script>
+
+<!-- Confetti Library -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 </body>
 </html>
