@@ -546,28 +546,34 @@ visibility:hidden;
 }
 #install-btn{
 position:fixed;
-bottom:20px;
-left:20px;
-width:50px;
-height:50px;
+bottom:25px;
+right:20px;
+
+width:55px;
+height:55px;
+
 border:none;
 border-radius:50%;
-background:#16a34a;
+
+background:#22c55e;
 color:#fff;
-font-size:22px;
+font-size:26px;
+
 display:flex;
 align-items:center;
 justify-content:center;
+
 cursor:pointer;
-box-shadow:0 4px 12px rgba(0,0,0,.25);
+
+box-shadow:0 6px 18px rgba(0,0,0,.35);
 
 opacity:0;
 transform:translateY(15px);
 pointer-events:none;
 
-transition:opacity .35s ease, transform .35s ease;
+transition:all .35s ease;
 
-z-index:999;
+z-index:9999;
 }
 
 #install-btn.show{
