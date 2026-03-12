@@ -568,7 +568,7 @@ cursor:pointer;
 box-shadow:0 6px 18px rgba(0,0,0,.35);
 
 opacity:0;
-transform:translateY(15px);
+transform:scale(.8);
 pointer-events:none;
 
 transition:all .35s ease;
@@ -578,6 +578,6 @@ z-index:9999;
 
 #install-btn.show{
 opacity:1;
-transform:translateY(0);
+transform:scale(1);
 pointer-events:auto;
 }
