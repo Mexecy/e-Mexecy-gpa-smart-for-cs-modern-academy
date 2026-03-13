@@ -2,20 +2,16 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mexicy GPA (CS Modern Academy)</title>
+<title>Mexicy GPA CS Modern Academy</title>
+
 <meta name="theme-color" content="#0f172a">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 <link rel="manifest" href="manifest.json">
-<link rel="icon" href="icon-192.png" type="image/png">
-  
-<link rel="preload" href="style.css" as="style">
-<link rel="preload" href="script.js" as="script">
+<link rel="icon" href="icon-192.png">
 
 <link rel="stylesheet" href="style.css">
 
@@ -23,60 +19,42 @@
 
 <body>
 
-<button id="install-btn">📲</button>
+<button id="install-btn">⬇️ Install</button>
 
 <div id="splash-screen">
-<img src="icon-192.png" alt="logo">
+<img src="icon-192.png">
 </div>
 
 <div class="container">
 
-<!-- Header -->
 <div class="hero-header">
 
-<img src="icon-512.png" class="hero-icon" alt="App Icon">
+<img src="icon-512.png" class="hero-icon">
 
 <h1 class="hero-title">
 Mexicy GPA CS Modern Academy
 </h1>
 
-<p class="hero-subtitle">
-Ahmed Taher
-</p>
+<p class="hero-subtitle">Ahmed Taher</p>
 
-<p class="hero-role">
-Software Engineer
-</p>
+<p class="hero-role">Software Engineer</p>
 
-<button id="dark-mode-toggle" onclick="toggleDarkMode()">
-🌙
-</button>
+<button id="dark-mode-toggle">🌙</button>
 
 </div>
 
-
-<!-- ملخص الساعات والنقاط -->
 <div class="global-summary">
 
-<span>
-إجمالي الساعات:
-<b id="global-hours">0</b>
-</span>
+<span>إجمالي الساعات: <b id="global-hours">0</b></span>
 
-<span>
-إجمالي النقاط:
-<b id="global-points">0.00</b>
-</span>
+<span>إجمالي النقاط: <b id="global-points">0.00</b></span>
 
 </div>
-
-
-<!-- صندوق GPA -->
 
 <div class="gpa-box">
 
 <div class="gpa-value">
-<span class="gpa-label">GPA:</span>
+<span>GPA:</span>
 <span id="global-gpa">0.00</span>
 </div>
 
@@ -84,9 +62,7 @@ Software Engineer
 <div class="gpa-bar" id="gpa-bar"></div>
 </div>
 
-<div class="gpa-letter" id="global-letter">
-0
-</div>
+<div class="gpa-letter" id="global-letter">0</div>
 
 <button onclick="shareGPA()" class="share-btn">
 📤 مشاركة الـ GPA
@@ -94,129 +70,22 @@ Software Engineer
 
 </div>
 
-<!-- المستويات -->
 <div class="levels" id="levels-container"></div>
 
 </div>
-<!-- إنشاء المستويات -->
-<script>
 
-function createLevels(){
-
-const container =
-document.getElementById("levels-container");
-
-for(let i=1;i<=4;i++){
-
-const level=document.createElement("div");
-
-level.className="level";
-
-level.innerHTML=`
-
-<h2 class="level-title">المستوى ${i}</h2>
-
-<div class="semester">
-
-<h3>الفصل الأول</h3>
-
-<table>
-<thead>
-<tr>
-<th>اسم المادة</th>
-<th>ساعات</th>
-<th>تقدير</th>
-<th>الإجمالي</th>
-</tr>
-</thead>
-
-<tbody></tbody>
-
-</table>
-
-<button onclick="addSubject(this)">
-إضافة مادة
-</button>
-
-</div>
-
-
-<div class="semester">
-
-<h3>الفصل الثاني</h3>
-
-<table>
-<thead>
-<tr>
-<th>اسم المادة</th>
-<th>ساعات</th>
-<th>تقدير</th>
-<th>الإجمالي</th>
-</tr>
-</thead>
-
-<tbody></tbody>
-
-</table>
-
-<button onclick="addSubject(this)">
-إضافة مادة
-</button>
-
-</div>
-
-<button class="clear-btn"
-onclick="clearLevel(this)">
-مسح المستوى
-</button>
-
-`;
-
-container.appendChild(level);
-
-}
-
-}
-
-</script>
-
-
-
-<!-- ملف الجافاسكربت الرئيسي -->
 <script src="script.js"></script>
 
-
-<!-- تشغيل الموقع -->
 <script>
 
-window.addEventListener(
-"DOMContentLoaded",
-()=>{
-
-createLevels();
-
-setTimeout(()=>{
-loadData();
-},50);
-
-}
-);
-</script>
-
-<!-- Service Worker -->
-<script>
 if("serviceWorker" in navigator){
-
-window.addEventListener("load",()=>{
 
 navigator.serviceWorker.register("service-worker.js");
 
-});
-
 }
+
 </script>
 
-<!-- Confetti Library -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 </body>
