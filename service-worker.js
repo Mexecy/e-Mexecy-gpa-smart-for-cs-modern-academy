@@ -1,6 +1,7 @@
-const CACHE_NAME = "gpa-clean-v11";
+const CACHE = "mexicy-gpa-v12";
 
-const APP_FILES = [
+const ASSETS = [
+
 "./",
 "./index.html",
 "./style.css",
@@ -8,65 +9,52 @@ const APP_FILES = [
 "./manifest.json",
 "./icon-192.png",
 "./icon-512.png"
+
 ];
 
-// Install
-self.addEventListener("install", event => {
+self.addEventListener("install",e=>{
 
 self.skipWaiting();
 
-event.waitUntil(
-caches.open(CACHE_NAME)
-.then(cache => cache.addAll(APP_FILES))
+e.waitUntil(
+
+caches.open(CACHE)
+
+.then(cache=>cache.addAll(ASSETS))
+
 );
 
 });
 
-// Activate
-self.addEventListener("activate", event => {
+self.addEventListener("activate",e=>{
 
-event.waitUntil(
-caches.keys().then(keys => 
-Promise.all(
-keys
-.filter(key => key !== CACHE_NAME)
-.map(key => caches.delete(key))
-)
-).then(() => self.clients.claim())
+e.waitUntil(
+
+caches.keys()
+
+.then(keys=>Promise.all(
+
+keys.filter(k=>k!==CACHE)
+
+.map(k=>caches.delete(k))
+
+))
+
 );
 
+self.clients.claim();
+
 });
 
-// Fetch
-self.addEventListener("fetch", event => {
+self.addEventListener("fetch",e=>{
 
-if(event.request.method !== "GET") return;
+if(e.request.method!=="GET") return;
 
-event.respondWith(
+e.respondWith(
 
-caches.match(event.request).then(cachedResponse => {
+caches.match(e.request)
 
-if(cachedResponse){
-return cachedResponse;
-}
-
-return fetch(event.request).then(networkResponse => {
-
-if(!networkResponse || networkResponse.status !== 200){
-return networkResponse;
-}
-
-const responseClone = networkResponse.clone();
-
-caches.open(CACHE_NAME).then(cache=>{
-cache.put(event.request,responseClone);
-});
-
-return networkResponse;
-
-}).catch(()=>caches.match("./index.html"));
-
-})
+.then(res=>res || fetch(e.request))
 
 );
 
