@@ -503,8 +503,6 @@ splash.classList.add("hide");
 });
 let deferredPrompt;
 
-document.addEventListener("DOMContentLoaded",()=>{
-
 const installBtn = document.getElementById("install-btn");
 
 window.addEventListener("beforeinstallprompt",(e)=>{
@@ -517,7 +515,7 @@ installBtn.classList.add("show");
 
 });
 
-installBtn.addEventListener("click",async ()=>{
+installBtn.addEventListener("click",async()=>{
 
 if(!deferredPrompt) return;
 
@@ -526,7 +524,9 @@ deferredPrompt.prompt();
 const choice = await deferredPrompt.userChoice;
 
 if(choice.outcome==="accepted"){
+
 installBtn.style.display="none";
+
 }
 
 deferredPrompt=null;
