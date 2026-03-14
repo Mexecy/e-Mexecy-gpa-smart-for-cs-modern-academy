@@ -53,7 +53,7 @@ font-weight:600;
 .level{
 background:#ffffff;
 padding:14px;
-margin-bottom:8px;
+margin-bottom:4px;
 border-radius:18px;
 border:1px solid #eef2f7;
 box-shadow:0 4px 15px rgba(0,0,0,0.05);
@@ -75,14 +75,14 @@ border-bottom:4px solid #16a34a;
 
 /* ===== الفصل ===== */
 .semester{
-margin-bottom:6px;
+margin-bottom:2px;
 }
 
 .semester h3{
 display:inline-block;
 font-size:18px;
 font-weight:700;
-margin:6px 0 6px 0;
+margin:2px 0 4px 0;
 padding:4px 12px;
 border-right:3px solid #16a34a;
 color:#1f2937;
@@ -402,22 +402,22 @@ cursor:pointer;
 
 #install-btn{
 position:fixed;
-top:10px;
-left:10px;
+top:8px;
+left:8px;
 
 display:flex;
 align-items:center;
 gap:6px;
 
-padding:6px 12px;
+padding:4px 10px;
 
 border:none;
-border-radius:20px;
+border-radius:16px;
 
 background:#22c55e;
 color:#fff;
 
-font-size:13px;
+font-size:12px;
 font-weight:700;
 
 cursor:pointer;
