@@ -1,7 +1,7 @@
 {
   "name": "Mexicy GPA (CS Modern Academy)",
   "short_name": "Mexicy GPA",
-  "start_url": "/e-Mexicy-gpa-smart-for-cs-modern-academy/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0f172a",
