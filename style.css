@@ -53,7 +53,7 @@ font-weight:600;
 .level{
 background:#ffffff;
 padding:14px;
-margin-bottom:20px;
+margin-bottom:8px;
 border-radius:18px;
 border:1px solid #eef2f7;
 box-shadow:0 4px 15px rgba(0,0,0,0.05);
@@ -75,14 +75,14 @@ border-bottom:4px solid #16a34a;
 
 /* ===== الفصل ===== */
 .semester{
-margin-bottom:20px;
+margin-bottom:6px;
 }
 
 .semester h3{
 display:inline-block;
 font-size:18px;
 font-weight:700;
-margin:18px 0 10px 0;
+margin:6px 0 6px 0;
 padding:4px 12px;
 border-right:3px solid #16a34a;
 color:#1f2937;
@@ -252,20 +252,32 @@ margin-bottom:8px;
 }
 
 .hero-title{
-font-size:24px;
+font-size:clamp(18px,5vw,24px);
 margin:0;
+margin-bottom:2px;
 font-weight:800;
+
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+
+line-height:1.1;
 }
 
 .hero-subtitle{
 font-size:16px;
 font-weight:600;
-margin-top:4px;
+margin:0;
+margin-bottom:1px;
+line-height:1.1;
 }
 
 .hero-role{
 font-size:13px;
 opacity:.6;
+margin:0;
+margin-top:1px;
+line-height:1;
 }
 
 /* ===== مادة تم تحديثها ===== */
@@ -390,22 +402,22 @@ cursor:pointer;
 
 #install-btn{
 position:fixed;
-top:15px;
-left:15px;
+top:10px;
+left:10px;
 
 display:flex;
 align-items:center;
 gap:6px;
 
-padding:8px 14px;
+padding:6px 12px;
 
 border:none;
-border-radius:25px;
+border-radius:20px;
 
 background:#22c55e;
 color:#fff;
 
-font-size:14px;
+font-size:13px;
 font-weight:700;
 
 cursor:pointer;
