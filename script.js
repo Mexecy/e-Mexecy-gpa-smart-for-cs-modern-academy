@@ -396,3 +396,34 @@ document.addEventListener("DOMContentLoaded",()=>{
   loadData();
 
 });
+
+// ================== PWA INSTALL ==================
+
+let deferredPrompt;
+const installBtn = document.getElementById("install-btn");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+
+  e.preventDefault();
+
+  deferredPrompt = e;
+
+  if(installBtn){
+    installBtn.classList.add("show");
+  }
+
+});
+
+installBtn?.addEventListener("click", async ()=>{
+
+  if(!deferredPrompt) return;
+
+  deferredPrompt.prompt();
+
+  await deferredPrompt.userChoice;
+
+  deferredPrompt = null;
+
+  installBtn.classList.remove("show");
+
+});
