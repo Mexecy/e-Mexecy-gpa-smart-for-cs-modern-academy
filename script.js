@@ -431,9 +431,23 @@ installBtn?.addEventListener("click", async () => {
 
   const choice = await deferredPrompt.userChoice;
 
-  if (choice.outcome === "accepted") {
-    installBtn.style.display = "none";
-  }
+  if(choice.outcome === "accepted"){
+
+// تغيير النص
+installBtn.innerHTML = "Installed ✅";
+
+// تغيير اللون
+installBtn.style.background = "#16a34a";
+
+// منع الضغط تاني
+installBtn.disabled = true;
+
+// اختفاء بعد ثانيتين
+setTimeout(()=>{
+installBtn.style.display = "none";
+},2000);
+
+}
 
   deferredPrompt = null;
 
