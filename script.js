@@ -409,20 +409,20 @@ document.addEventListener("DOMContentLoaded",()=>{
 });
 
 // ================== PWA INSTALL ==================
-
 let deferredPrompt;
+
 const installBtn = document.getElementById("install-btn");
 
-// إظهار زر التثبيت
+// يظهر الزر لما يكون التثبيت متاح
 window.addEventListener("beforeinstallprompt", (e) => {
-
   e.preventDefault();
-
   deferredPrompt = e;
 
-  // إظهار الزر
-  installBtn.classList.add("show");
+  installBtn.style.display = "inline-flex";
 
+  setTimeout(() => {
+    installBtn.classList.add("show");
+  }, 50);
 });
 
 // عند الضغط على الزر
@@ -435,27 +435,23 @@ installBtn.addEventListener("click", async () => {
   const choice = await deferredPrompt.userChoice;
 
   if (choice.outcome === "accepted") {
-
-    // إخفاء الزر بأنيميشن
-    installBtn.classList.remove("show");
-
-    setTimeout(() => {
-      installBtn.style.display = "none";
-    }, 300);
-
+    hideInstallButton();
   }
 
   deferredPrompt = null;
 
 });
 
-// عند تثبيت التطبيق (حتى لو من المتصفح)
+// عند التثبيت من أي مكان
 window.addEventListener("appinstalled", () => {
+  hideInstallButton();
+});
 
+// function موحدة للإخفاء
+function hideInstallButton(){
   installBtn.classList.remove("show");
 
   setTimeout(() => {
     installBtn.style.display = "none";
   }, 300);
-
-});
+}
