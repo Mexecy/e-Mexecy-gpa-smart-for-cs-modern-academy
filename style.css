@@ -402,7 +402,7 @@ cursor:pointer;
 
 #install-btn{
 
-position:absolute;
+position:fixed;
 top:10px;
 left:50%;
 transform:translateX(-50%) scale(.85);
@@ -412,28 +412,25 @@ align-items:center;
 gap:6px;
 
 width:auto;
-
 padding:5px 14px;
 
 border:none;
 border-radius:20px;
 
-background:linear-gradient(135deg,#a855f7,#7c3aed);
+background:#22c55e;
 color:#fff;
-box-shadow:0 4px 15px rgba(0,0,0,.4),
-0 0 10px rgba(255,255,255,.1);
 
-font-size:12px;
+font-size:13px;
 font-weight:700;
 
 cursor:pointer;
 
-box-shadow:0 6px 18px rgba(0,0,0,.35);
+box-shadow:0 8px 20px rgba(0,0,0,.35);
 
 opacity:0;
 pointer-events:none;
 
-transition:all .35s ease;
+transition:all .3s ease;
 
 z-index:9999;
 }
