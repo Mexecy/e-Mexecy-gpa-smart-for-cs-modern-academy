@@ -405,19 +405,22 @@ cursor:pointer;
 position:fixed;
 top:10px;
 left:50%;
-transform:translateX(-50%) scale(.85);
+transform:translateX(-50%) scale(.8);
 
 display:inline-flex;
 align-items:center;
 gap:6px;
 
 width:auto;
-padding:5px 14px;
+min-width:100px;
+
+padding:6px 14px;
 
 border:none;
 border-radius:20px;
 
-background:#22c55e;
+/* اللون الأزرق */
+background:linear-gradient(135deg,#2563eb,#3b82f6);
 color:#fff;
 
 font-size:13px;
@@ -425,18 +428,30 @@ font-weight:700;
 
 cursor:pointer;
 
-box-shadow:0 8px 20px rgba(0,0,0,.35);
+/* اللمعة */
+box-shadow:
+0 6px 18px rgba(37,99,235,.5),
+0 0 12px rgba(59,130,246,.6);
 
 opacity:0;
 pointer-events:none;
 
-transition:all .3s ease;
+transition:all .35s ease;
 
 z-index:9999;
 }
 
+/* عند الظهور */
 #install-btn.show{
 opacity:1;
 transform:translateX(-50%) scale(1);
 pointer-events:auto;
+}
+
+/* حركة Hover */
+#install-btn:hover{
+transform:translateX(-50%) scale(1.05);
+box-shadow:
+0 8px 22px rgba(37,99,235,.6),
+0 0 18px rgba(59,130,246,.9);
 }
