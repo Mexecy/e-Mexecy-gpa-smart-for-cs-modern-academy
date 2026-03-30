@@ -400,30 +400,35 @@ document.addEventListener("DOMContentLoaded",()=>{
 // ================== PWA INSTALL ==================
 
 let deferredPrompt;
+
 const installBtn = document.getElementById("install-btn");
 
+// إظهار زر التثبيت
 window.addEventListener("beforeinstallprompt", (e) => {
-
   e.preventDefault();
-
   deferredPrompt = e;
 
-  if(installBtn){
-    installBtn.classList.add("show");
-  }
-
+  installBtn.classList.add("show");
 });
 
-installBtn?.addEventListener("click", async ()=>{
+// عند الضغط على الزر
+installBtn?.addEventListener("click", async () => {
 
-  if(!deferredPrompt) return;
+  if (!deferredPrompt) return;
 
   deferredPrompt.prompt();
 
-  await deferredPrompt.userChoice;
+  const choice = await deferredPrompt.userChoice;
+
+  if (choice.outcome === "accepted") {
+    installBtn.style.display = "none";
+  }
 
   deferredPrompt = null;
 
-  installBtn.classList.remove("show");
+});
 
+// عند تثبيت التطبيق
+window.addEventListener("appinstalled", () => {
+  installBtn.style.display = "none";
 });
