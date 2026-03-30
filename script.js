@@ -328,44 +328,56 @@ function clearLevel(button){
 }
 
 // ================== DARK MODE ==================
+// ================== DARK MODE PRO ==================
+
 function applyInitialTheme(){
 
   const saved = localStorage.getItem("theme");
 
+  // 1️⃣ لو المستخدم مختار يدوي
   if(saved){
-
-    document.body.classList.toggle("dark-mode",saved==="dark");
-
-    updateToggleButton(saved==="dark");
-
+    const isDark = saved === "dark";
+    setTheme(isDark);
     return;
-
   }
 
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  // 2️⃣ لو الجهاز بيدعم الوضع الليلي
+  const media = window.matchMedia("(prefers-color-scheme: dark)");
 
+  if(media.matches !== undefined){
+    setTheme(media.matches);
+    return;
+  }
+
+  // 3️⃣ fallback: حسب الوقت
   const hour = new Date().getHours();
+  const isNight = hour >= 18 || hour < 6;
 
-  const isNight = hour>=18 || hour<6;
-
-  const dark = prefersDark || isNight;
-
-  document.body.classList.toggle("dark-mode",dark);
-
-  updateToggleButton(dark);
-
+  setTheme(isNight);
 }
 
+
+// تغيير يدوي
 function toggleDarkMode(){
 
-  const dark = document.body.classList.toggle("dark-mode");
+  const isDark = !document.body.classList.contains("dark-mode");
 
-  localStorage.setItem("theme",dark?"dark":"light");
+  setTheme(isDark);
 
-  updateToggleButton(dark);
-
+  localStorage.setItem("theme", isDark ? "dark" : "light");
 }
 
+
+// تطبيق الثيم
+function setTheme(isDark){
+
+  document.body.classList.toggle("dark-mode", isDark);
+
+  updateToggleButton(isDark);
+}
+
+
+// تحديث شكل الزر
 function updateToggleButton(isDark){
 
   const btn = document.getElementById("dark-mode-toggle");
@@ -373,21 +385,20 @@ function updateToggleButton(isDark){
   if(!btn) return;
 
   btn.innerHTML = isDark ? "☀️" : "🌙";
-
 }
 
+
+// يتغير تلقائي لو نظام الجهاز اتغير
 window.matchMedia("(prefers-color-scheme: dark)")
-.addEventListener("change",e=>{
+.addEventListener("change", e => {
 
+  // لو المستخدم مختارش يدوي
   if(!localStorage.getItem("theme")){
-
-    document.body.classList.toggle("dark-mode",e.matches);
-
-    updateToggleButton(e.matches);
-
+    setTheme(e.matches);
   }
 
 });
+
 
 // ================== Start App ==================
 document.addEventListener("DOMContentLoaded",()=>{
