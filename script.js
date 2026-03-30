@@ -411,19 +411,22 @@ document.addEventListener("DOMContentLoaded",()=>{
 // ================== PWA INSTALL ==================
 
 let deferredPrompt;
-
 const installBtn = document.getElementById("install-btn");
 
 // إظهار زر التثبيت
 window.addEventListener("beforeinstallprompt", (e) => {
+
   e.preventDefault();
+
   deferredPrompt = e;
 
+  // إظهار الزر
   installBtn.classList.add("show");
+
 });
 
 // عند الضغط على الزر
-installBtn?.addEventListener("click", async () => {
+installBtn.addEventListener("click", async () => {
 
   if (!deferredPrompt) return;
 
@@ -431,29 +434,28 @@ installBtn?.addEventListener("click", async () => {
 
   const choice = await deferredPrompt.userChoice;
 
-  if(choice.outcome === "accepted"){
+  if (choice.outcome === "accepted") {
 
-// تغيير النص
-installBtn.innerHTML = "Installed ✅";
+    // إخفاء الزر بأنيميشن
+    installBtn.classList.remove("show");
 
-// تغيير اللون
-installBtn.style.background = "#16a34a";
+    setTimeout(() => {
+      installBtn.style.display = "none";
+    }, 300);
 
-// منع الضغط تاني
-installBtn.disabled = true;
-
-// اختفاء بعد ثانيتين
-setTimeout(()=>{
-installBtn.style.display = "none";
-},2000);
-
-}
+  }
 
   deferredPrompt = null;
 
 });
 
-// عند تثبيت التطبيق
+// عند تثبيت التطبيق (حتى لو من المتصفح)
 window.addEventListener("appinstalled", () => {
-  installBtn.style.display = "none";
+
+  installBtn.classList.remove("show");
+
+  setTimeout(() => {
+    installBtn.style.display = "none";
+  }, 300);
+
 });
