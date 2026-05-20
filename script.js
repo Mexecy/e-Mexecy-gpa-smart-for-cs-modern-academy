@@ -76,9 +76,6 @@ name:subjectName,
 hours:"3"
 });
 
-}
-
-updateSubjectsList();
 
 }
 
@@ -547,7 +544,6 @@ window.matchMedia("(prefers-color-scheme: dark)")
 
 // ================== Start App ==================
 document.addEventListener("DOMContentLoaded",()=>{
-  updateSubjectsList();
 
   applyInitialTheme();
   loadData();
