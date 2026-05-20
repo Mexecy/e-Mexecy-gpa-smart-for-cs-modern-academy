@@ -118,7 +118,17 @@ function createRow(name="",hours="0",grade=""){
   const row = document.createElement("tr");
 
   row.innerHTML = `
-  <td contenteditable="true">${name}</td>
+  <td>
+
+<input
+type="text"
+class="subject-input"
+list="subjects-list"
+placeholder="اسم المادة"
+value="${name}"
+>
+
+</td>
   <td>
     <select class="hours">
       <option value="0">0</option>
@@ -150,12 +160,38 @@ function attachRowEvents(row){
 
   const hours = row.querySelector(".hours");
   const grade = row.querySelector(".grade");
-  const name = row.children[0];
+  const subjectInput =
+row.querySelector(".subject-input");
 
   hours.addEventListener("change",()=>{ if(!handleDuplicate(row)) calculate(); });
   grade.addEventListener("change",()=>{ if(!handleDuplicate(row)) calculate(); });
-  name.addEventListener("blur",()=>{ if(!handleDuplicate(row)) calculate(); });
+subjectInput.addEventListener("change",()=>{
 
+const subjectName =
+subjectInput.value.trim();
+
+if(subjectName){
+
+saveNewSubject(subjectName);
+
+const found =
+subjectsData.find(
+s => s.name.toLowerCase()
+=== subjectName.toLowerCase()
+);
+
+if(found){
+
+row.querySelector(".hours").value =
+found.hours;
+
+}
+
+}
+
+if(!handleDuplicate(row)) calculate();
+
+});  
 }
 
 // ================== Add Subject ==================
@@ -174,7 +210,11 @@ function addSubject(btn){
 // ================== Handle Duplicate ==================
 function handleDuplicate(row){
 
-  const name = row.children[0].textContent.trim().toLowerCase();
+  const name =
+row.querySelector(".subject-input")
+.value
+.trim()
+.toLowerCase();
   const hours = parseFloat(row.querySelector(".hours").value)||0;
   const grade = row.querySelector(".grade").value;
 
@@ -188,7 +228,11 @@ function handleDuplicate(row){
 
     if(r===row) return;
 
-    const existingName = r.children[0].textContent.trim().toLowerCase();
+    const existingName =
+r.querySelector(".subject-input")
+.value
+.trim()
+.toLowerCase();
 
     if(existingName===name){
       duplicateRow = r;
@@ -351,7 +395,8 @@ function saveData(){
 
       subjects.push({
 
-        name: row.children[0].textContent,
+        name:
+row.querySelector(".subject-input").value,
         hours: row.querySelector(".hours").value,
         grade: row.querySelector(".grade").value,
         updated: row.classList.contains("updated-subject")
@@ -496,6 +541,7 @@ window.matchMedia("(prefers-color-scheme: dark)")
 
 // ================== Start App ==================
 document.addEventListener("DOMContentLoaded",()=>{
+  updateSubjectsList();
 
   applyInitialTheme();
   loadData();
