@@ -160,7 +160,11 @@ let passedHours = 0;
 
     globalPoints += total;
     globalHours += hours;
-
+    
+// لو المادة ناجحة
+if(grade !== "F (0.0)" && grade !== ""){
+  passedHours += hours;
+}
   });
 
   const gpa = globalHours ? (globalPoints/globalHours) : 0;
