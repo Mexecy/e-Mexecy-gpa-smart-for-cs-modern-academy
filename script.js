@@ -15,6 +15,92 @@ const gradeMap = {
   "F (0.0)":0.0
 };
 
+// ================== Subjects ==================
+
+const subjectsData = [
+
+{name:"Human rights",hours:"2"},
+{name:"Calcuse",hours:"3"},
+{name:"Physecs",hours:"3"},
+{name:"Introduction to computer science",hours:"3"},
+{name:"Computer programing",hours:"3"},
+{name:"Introduction to information system",hours:"3"},
+{name:"English language",hours:"2"},
+{name:"Linear Algebra",hours:"3"},
+{name:"Statistics and probability",hours:"3"},
+{name:"Object-oriented programming",hours:"3"},
+{name:"Introduction to database",hours:"3"},
+{name:"Logic design",hours:"3"},
+{name:"Discrart mathematics",hours:"3"},
+{name:"Operation research",hours:"3"},
+{name:"Data structures",hours:"3"},
+{name:"Microprocessor and assembly language",hours:"3"},
+{name:"System analysis and design",hours:"3"},
+{name:"Web programing",hours:"3"},
+{name:"Human computer introduction",hours:"3"},
+{name:"Mobile application development",hours:"3"},
+{name:"Numerical analysis",hours:"3"},
+{name:"Analysis of algorithms",hours:"3"},
+{name:"Computer graphic",hours:"3"},
+{name:"Computer architecture",hours:"3"},
+{name:"Software engineering",hours:"3"},
+{name:"Computer ethics",hours:"2"},
+{name:"Quality Assurance and Control",hours:"3"},
+{name:"Fundamentals of Multimedia",hours:"3"},
+{name:"Computer Design and Theory",hours:"3"},
+{name:"Embedded Systems",hours:"3"},
+{name:"Theory of Operating system",hours:"3"},
+{name:"Computer Networks",hours:"3"},
+{name:"Digital Image Processing",hours:"3"},
+{name:"Selected Topic in Computer Science",hours:"3"},
+{name:"Artificial Intelligence",hours:"3"},
+{name:"Cloud Computing",hours:"3"},
+{name:"Machine Learning",hours:"3"},
+{name:"Graduation Project 1",hours:"3"},
+{name:"Cyber Security",hours:"3"},
+{name:"Data Communication",hours:"3"},
+{name:"Graduation Project 2",hours:"3"}
+
+];
+// حفظ المواد الجديدة
+function saveNewSubject(subjectName){
+
+const exists = subjectsData.some(
+s => s.name.toLowerCase() === subjectName.toLowerCase()
+);
+
+if(!exists){
+
+subjectsData.push({
+name:subjectName,
+hours:"3"
+});
+
+}
+
+updateSubjectsList();
+
+}
+
+// تحديث قائمة الاقتراحات
+function updateSubjectsList(){
+
+const datalist =
+document.getElementById("subjects-list");
+
+datalist.innerHTML = "";
+
+subjectsData.forEach(subject=>{
+
+const option = document.createElement("option");
+
+option.value = subject.name;
+
+datalist.appendChild(option);
+
+});
+
+}
 // ================== State ==================
 let previousGPA = 0;
 let isLoading = false;
