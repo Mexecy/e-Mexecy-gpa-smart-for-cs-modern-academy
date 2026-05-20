@@ -119,7 +119,7 @@ function createRow(name="",hours="0",grade=""){
   const row = document.createElement("tr");
 
   row.innerHTML = `
-  <td>
+<td>
 
 <input
 type="text"
@@ -127,26 +127,31 @@ class="subject-input"
 list="subjects-list"
 placeholder="اسم المادة"
 value="${name}"
+autocomplete="off"
+spellcheck="false"
 >
 
 </td>
-  <td>
-    <select class="hours">
-      <option value="0">0</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-    </select>
-  </td>
-  <td>
-    <select class="grade">
-      <option value="">0</option>
-      ${generateGradeOptions()}
-    </select>
-  </td>
-  <td class="total">0.00</td>
-  `;
+
+<td>
+<select class="hours">
+<option value="0">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+</select>
+</td>
+
+<td>
+<select class="grade">
+<option value="">0</option>
+${generateGradeOptions()}
+</select>
+</td>
+
+<td class="total">0.00</td>
+`;
 
   row.querySelector(".hours").value = hours;
   row.querySelector(".grade").value = grade;
