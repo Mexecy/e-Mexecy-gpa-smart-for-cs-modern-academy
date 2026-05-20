@@ -190,6 +190,9 @@ color:#000;
 
 outline:none;
 
+-webkit-appearance:none;
+appearance:none;
+
 }
 
 .subject-input:focus{
