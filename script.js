@@ -169,8 +169,11 @@ if(grade !== "F (0.0)" && grade !== ""){
 
   const gpa = globalHours ? (globalPoints/globalHours) : 0;
 
-  document.getElementById("global-hours").textContent = globalHours;
-  document.getElementById("global-points").textContent = globalPoints.toFixed(2);
+  document.getElementById("passed-hours").textContent = passedHours;
+
+document.getElementById("global-hours").textContent = globalHours;
+
+document.getElementById("global-points").textContent = globalPoints.toFixed(2);
 
   animateGPA(previousGPA,gpa);
   updateProgressBar(gpa);
