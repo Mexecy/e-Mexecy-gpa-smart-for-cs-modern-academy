@@ -144,7 +144,8 @@ function handleDuplicate(row){
 function calculate(){
 
   let globalPoints = 0;
-  let globalHours = 0;
+let globalHours = 0;
+let passedHours = 0;
 
   document.querySelectorAll(".semester tbody tr").forEach(row=>{
 
