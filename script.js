@@ -94,7 +94,8 @@ subjectsData.forEach(subject=>{
 
 const option = document.createElement("option");
 
-option.value = subject.name;
+option.value =
+`${subject.name}`;
 
 datalist.appendChild(option);
 
