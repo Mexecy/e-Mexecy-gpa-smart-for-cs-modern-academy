@@ -395,6 +395,8 @@ function calculate() {
 
   document.getElementById("global-gpa").textContent = gpa.toFixed(2);
 
+ updateProgressBar(gpa);
+  
   previousGPA = gpa;
 
   document.getElementById("global-letter").textContent =
@@ -694,8 +696,6 @@ function hideInstallButton(){
 document.addEventListener("DOMContentLoaded", () => {
 
   createLevels();
-
-  updateSubjectsList();
 
   applyInitialTheme();
 
