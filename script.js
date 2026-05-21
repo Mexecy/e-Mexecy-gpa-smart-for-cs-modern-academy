@@ -118,54 +118,6 @@ const subjectsData = [
 
 ];
 
-// ================== Update Subject List ==================
-
-function updateSubjectsList() {
-
- const datalist = document.getElementById("subjects-list");
-
-  if (!datalist) return;
-
-  datalist.innerHTML = "";
-
-  subjectsData.forEach(subject => {
-
-    const option = document.createElement("option");
-
-    option.value = subject.name;
-
-    datalist.appendChild(option);
-
-  });
-
-}
-
-// ================== Save New Subject ==================
-
-function saveNewSubject(subjectName) {
-
-  const exists = subjectsData.some(
-
-    s => s.name.toLowerCase() === subjectName.toLowerCase()
-
-  );
-
-  if (!exists) {
-
-    subjectsData.push({
-
-      name: subjectName,
-
-      hours: "3"
-
-    });
-
-    updateSubjectsList();
-
-  }
-
-}
-
 // ================== State ==================
 
 let previousGPA = 0;
@@ -195,14 +147,13 @@ function createRow(name = "", hours = "0", grade = "") {
     <td>
     
    <input
- type="text"
- class="subject-input"
- list="subjects-list"
- placeholder="اسم المادة"
- value="${name}"
- autocomplete="off"
- spellcheck="false"
- >
+type="text"
+class="subject-input"
+placeholder="اسم المادة"
+value="${name}"
+autocomplete="off"
+spellcheck="false"
+>
  </td> 
   <td>
   <select class="hours">
@@ -259,31 +210,29 @@ function attachRowEvents(row) {
 
   });
 
-  subjectInput.addEventListener("change", () => {
+  subjectInput.addEventListener("input",()=>{
 
-    const subjectName = subjectInput.value.trim();
+const subjectName =
+subjectInput.value.trim().toLowerCase();
 
-    if (subjectName) {
+const found =
+subjectsData.find(
+s => s.name.toLowerCase().includes(subjectName)
+);
 
-      saveNewSubject(subjectName);
+if(found){
 
-      const found = subjectsData.find(
+row.querySelector(".subject-input").value =
+found.name;
 
-        s => s.name.toLowerCase() === subjectName.toLowerCase()
+row.querySelector(".hours").value =
+found.hours;
 
-      );
+}
 
-      if (found) {
+if(!handleDuplicate(row)) calculate();
 
-        row.querySelector(".hours").value = found.hours;
-
-      }
-
-    }
-
-    if (!handleDuplicate(row)) calculate();
-
-  });
+});
 
 }
 
