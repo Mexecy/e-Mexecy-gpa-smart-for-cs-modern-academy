@@ -25,14 +25,26 @@ function generateGradeOptions(){
   .map(g=>`<option value="${g}">${g}</option>`)
   .join("");
 }
-
 // ================== Create Row ==================
 function createRow(name="",hours="0",grade=""){
   
   const row = document.createElement("tr");
 
   row.innerHTML = `
-  <td contenteditable="true">${name}</td>
+  <td>
+
+    <input
+    type="text"
+    class="subject-input"
+    placeholder="اسم المادة"
+    value="${name}"
+    list="subjects-list"
+    autocomplete="off"
+    spellcheck="false"
+    >
+
+  </td>
+
   <td>
     <select class="hours">
       <option value="0">0</option>
@@ -42,12 +54,14 @@ function createRow(name="",hours="0",grade=""){
       <option value="4">4</option>
     </select>
   </td>
+
   <td>
     <select class="grade">
       <option value="">0</option>
       ${generateGradeOptions()}
     </select>
   </td>
+
   <td class="total">0.00</td>
   `;
 
@@ -64,14 +78,27 @@ function attachRowEvents(row){
 
   const hours = row.querySelector(".hours");
   const grade = row.querySelector(".grade");
-  const name = row.children[0];
+  const subjectInput = row.querySelector(".subject-input");
 
-  hours.addEventListener("change",()=>{ if(!handleDuplicate(row)) calculate(); });
-  grade.addEventListener("change",()=>{ if(!handleDuplicate(row)) calculate(); });
-  name.addEventListener("blur",()=>{ if(!handleDuplicate(row)) calculate(); });
+  hours.addEventListener("change",()=>{
+
+    if(!handleDuplicate(row)) calculate();
+
+  });
+
+  grade.addEventListener("change",()=>{
+
+    if(!handleDuplicate(row)) calculate();
+
+  });
+
+  subjectInput.addEventListener("change",()=>{
+
+    if(!handleDuplicate(row)) calculate();
+
+  });
 
 }
-
 // ================== Add Subject ==================
 function addSubject(btn){
 
@@ -88,7 +115,7 @@ function addSubject(btn){
 // ================== Handle Duplicate ==================
 function handleDuplicate(row){
 
-  const name = row.children[0].textContent.trim().toLowerCase();
+  const name = row.querySelector(".subject-input").value.trim().toLowerCase();
   const hours = parseFloat(row.querySelector(".hours").value)||0;
   const grade = row.querySelector(".grade").value;
 
@@ -102,7 +129,7 @@ function handleDuplicate(row){
 
     if(r===row) return;
 
-    const existingName = r.children[0].textContent.trim().toLowerCase();
+    const existingName = r.querySelector(".subject-input").value.trim().toLowerCase();
 
     if(existingName===name){
       duplicateRow = r;
@@ -257,7 +284,7 @@ function saveData(){
 
       subjects.push({
 
-        name: row.children[0].textContent,
+       name: row.querySelector(".subject-input").value, 
         hours: row.querySelector(".hours").value,
         grade: row.querySelector(".grade").value,
         updated: row.classList.contains("updated-subject")
