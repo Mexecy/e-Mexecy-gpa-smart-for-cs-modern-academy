@@ -222,26 +222,6 @@ function attachRowEvents(row) {
 
   const subjectInput = row.querySelector(".subject-input");
 
-  hours.addEventListener("change", () => {
-
-    if (!handleDuplicate(row)) calculate();
-
-  });
-
-  grade.addEventListener("change", () => {
-
-    if (!handleDuplicate(row)) calculate();
-
-  });
-
-function attachRowEvents(row) {
-
-  const hours = row.querySelector(".hours");
-
-  const grade = row.querySelector(".grade");
-
-  const subjectInput = row.querySelector(".subject-input");
-
   const suggestionsBox =
   row.querySelector(".suggestions-box");
 
@@ -309,6 +289,8 @@ function attachRowEvents(row) {
     suggestionsBox.style.display = "block";
 
   });
+
+}
 
 }
 
