@@ -189,7 +189,6 @@ ${generateGradeOptions()}
 }
 
 // ================== Row Events ==================
-
 function attachRowEvents(row) {
 
   const hours = row.querySelector(".hours");
@@ -210,31 +209,47 @@ function attachRowEvents(row) {
 
   });
 
-  subjectInput.addEventListener("input",()=>{
+ subjectInput.addEventListener("input",()=>{
 
-const subjectName =
-subjectInput.value.trim().toLowerCase();
+  const subjectName =
+  subjectInput.value.trim().toLowerCase();
 
-const found =
-subjectsData.find(
-s => s.name.toLowerCase().includes(subjectName)
-);
+  if(subjectName.length < 1){
 
-if(found){
+    row.querySelector(".hours").value = "0";
 
-row.querySelector(".subject-input").value =
-found.name;
+    calculate();
+    return;
+  }
 
-row.querySelector(".hours").value =
-found.hours;
+  const found = subjectsData.find(
+    s => s.name.toLowerCase().startsWith(subjectName)
+  );
 
-}
+  if(found){
 
-if(!handleDuplicate(row)) calculate();
+    subjectInput.value = found.name;
+
+    row.querySelector(".hours").value =
+    found.hours;
+
+    // يحدد الجزء المكمل تلقائي
+    setTimeout(()=>{
+
+      subjectInput.setSelectionRange(
+        subjectName.length,
+        found.name.length
+      );
+
+    },0);
+
+  }
+
+ if(!handleDuplicate(row)) calculate();
 
 });
 
-}
+} 
 
 // ================== Add Subject ==================
 
