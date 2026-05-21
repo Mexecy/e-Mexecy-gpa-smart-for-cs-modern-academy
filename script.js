@@ -90,7 +90,7 @@ const subjectsData = [
 
   { name: "Fundamentals of Multimedia", hours: "3" },
 
-  { name: "Computer Design and Theory", hours: "3" },
+  { name: "Compiler Design and Theory", hours: "3" },
 
   { name: "Embedded Systems", hours: "3" },
 
