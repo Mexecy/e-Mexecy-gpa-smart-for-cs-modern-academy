@@ -490,3 +490,45 @@ box-shadow:
 0 8px 22px rgba(37,99,235,.6),
 0 0 18px rgba(59,130,246,.9);
 }
+.suggestions-box{
+position:absolute;
+top:100%;
+right:0;
+left:0;
+background:#fff;
+border:1px solid #cbd5e1;
+border-radius:10px;
+max-height:180px;
+overflow-y:auto;
+z-index:999;
+box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+
+.suggestion-item{
+padding:10px;
+cursor:pointer;
+font-size:14px;
+border-bottom:1px solid #f1f5f9;
+}
+
+.suggestion-item:hover{
+background:#f1f5f9;
+}
+
+.subject-wrapper{
+position:relative;
+}
+
+body.dark-mode .suggestions-box{
+background:#020617;
+border-color:#334155;
+}
+
+body.dark-mode .suggestion-item{
+color:#f1f5f9;
+border-color:#1e293b;
+}
+
+body.dark-mode .suggestion-item:hover{
+background:#1e293b;
+}
