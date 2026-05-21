@@ -460,6 +460,25 @@ function calculate() {
 
 }
 
+// ================== Progress Bar ==================
+function updateProgressBar(gpa){
+
+  const bar = document.getElementById("gpa-bar");
+  if(!bar) return;
+
+  const percent = (gpa/4)*100;
+
+  bar.style.width = percent+"%";
+
+  bar.className = "gpa-bar";
+
+  if(gpa>=3.7) bar.classList.add("excellent");
+  else if(gpa>=3) bar.classList.add("verygood");
+  else if(gpa>=2) bar.classList.add("good");
+  else bar.classList.add("danger");
+
+}
+
 
 // ================== Letter ==================
 
@@ -600,54 +619,126 @@ function clearLevel(button) {
 }
 
 
-// ================== Dark Mode ==================
 
-function applyInitialTheme() {
+// ================== DARK MODE ==================
+// ================== DARK MODE PRO ==================
+
+function applyInitialTheme(){
 
   const saved = localStorage.getItem("theme");
 
-
-  if (saved) {
-
-    setTheme(saved === "dark");
-
+  // 1️⃣ لو المستخدم مختار يدوي
+  if(saved){
+    const isDark = saved === "dark";
+    setTheme(isDark);
     return;
-
   }
 
+  // 2️⃣ لو الجهاز بيدعم الوضع الليلي
   const media = window.matchMedia("(prefers-color-scheme: dark)");
 
-  setTheme(media.matches);
+  if(media.matches !== undefined){
+    setTheme(media.matches);
+    return;
+  }
 
+  // 3️⃣ fallback: حسب الوقت
+  const hour = new Date().getHours();
+  const isNight = hour >= 18 || hour < 6;
+
+  setTheme(isNight);
 }
 
-function toggleDarkMode() {
+
+// تغيير يدوي
+function toggleDarkMode(){
 
   const isDark = !document.body.classList.contains("dark-mode");
 
   setTheme(isDark);
 
   localStorage.setItem("theme", isDark ? "dark" : "light");
-
 }
 
-function setTheme(isDark) {
+
+// تطبيق الثيم
+function setTheme(isDark){
 
   document.body.classList.toggle("dark-mode", isDark);
 
   updateToggleButton(isDark);
-
 }
 
-function updateToggleButton(isDark) {
+
+// تحديث شكل الزر
+function updateToggleButton(isDark){
 
   const btn = document.getElementById("dark-mode-toggle");
 
-  if (!btn) return;
+  if(!btn) return;
 
   btn.innerHTML = isDark ? "☀️" : "🌙";
-
 }
+
+
+// يتغير تلقائي لو نظام الجهاز اتغير
+window.matchMedia("(prefers-color-scheme: dark)")
+.addEventListener("change", e => {
+
+  // لو المستخدم مختارش يدوي
+  if(!localStorage.getItem("theme")){
+    setTheme(e.matches);
+  }
+
+});
+// ================== PWA INSTALL ==================
+let deferredPrompt;
+
+const installBtn = document.getElementById("install-btn");
+
+// يظهر الزر لما يكون التثبيت متاح
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+
+  installBtn.style.display = "inline-flex";
+
+  setTimeout(() => {
+    installBtn.classList.add("show");
+  }, 50);
+});
+
+// عند الضغط على الزر
+installBtn.addEventListener("click", async () => {
+
+  if (!deferredPrompt) return;
+
+  deferredPrompt.prompt();
+
+  const choice = await deferredPrompt.userChoice;
+
+  if (choice.outcome === "accepted") {
+    hideInstallButton();
+  }
+
+  deferredPrompt = null;
+
+});
+
+// عند التثبيت من أي مكان
+window.addEventListener("appinstalled", () => {
+  hideInstallButton();
+});
+
+// function موحدة للإخفاء
+function hideInstallButton(){
+  installBtn.classList.remove("show");
+
+  setTimeout(() => {
+    installBtn.style.display = "none";
+  }, 300);
+}
+
 
 // ================== Start App ==================
 
