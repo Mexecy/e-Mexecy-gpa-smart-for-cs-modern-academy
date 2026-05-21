@@ -118,6 +118,26 @@ const subjectsData = [
 
 ];
 
+function createSubjectsList(){
+
+  const dataList = document.createElement("datalist");
+
+  dataList.id = "subjects-list";
+
+  subjectsData.forEach(subject=>{
+
+    const option = document.createElement("option");
+
+    option.value = subject.name;
+
+    dataList.appendChild(option);
+
+  });
+
+  document.body.appendChild(dataList);
+
+}
+
 // ================== State ==================
 
 let previousGPA = 0;
@@ -146,14 +166,15 @@ function createRow(name = "", hours = "0", grade = "") {
 
     <td>
     
-   <input
+  <input
 type="text"
 class="subject-input"
 placeholder="اسم المادة"
 value="${name}"
+list="subjects-list"
 autocomplete="off"
 spellcheck="false"
->
+> 
  </td> 
   <td>
   <select class="hours">
@@ -209,45 +230,22 @@ function attachRowEvents(row) {
 
   });
 
- subjectInput.addEventListener("input",()=>{
-
-  const subjectName =
-  subjectInput.value.trim().toLowerCase();
-
-  if(subjectName.length < 1){
-
-    row.querySelector(".hours").value = "0";
-
-    calculate();
-    return;
-  }
+subjectInput.addEventListener("change",()=>{
 
   const found = subjectsData.find(
-    s => s.name.toLowerCase().startsWith(subjectName)
+    s => s.name === subjectInput.value
   );
 
   if(found){
 
-    subjectInput.value = found.name;
-
     row.querySelector(".hours").value =
     found.hours;
 
-    // يحدد الجزء المكمل تلقائي
-    setTimeout(()=>{
-
-      subjectInput.setSelectionRange(
-        subjectName.length,
-        found.name.length
-      );
-
-    },0);
-
   }
 
- if(!handleDuplicate(row)) calculate();
+  if(!handleDuplicate(row)) calculate();
 
-});
+}); 
 
 } 
 
@@ -707,12 +705,14 @@ function hideInstallButton(){
 
 
 // ================== Start App ==================
-
 document.addEventListener("DOMContentLoaded", () => {
+
+  createSubjectsList();
 
   createLevels();
 
   applyInitialTheme();
 
   loadData();
+
 });
