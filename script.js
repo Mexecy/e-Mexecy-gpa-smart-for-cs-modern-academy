@@ -174,7 +174,7 @@ value="${name}"
 list="subjects-list"
 autocomplete="off"
 spellcheck="false"
-> 
+>
  </td> 
   <td>
   <select class="hours">
