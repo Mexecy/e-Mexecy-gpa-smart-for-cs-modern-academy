@@ -164,18 +164,23 @@ function createRow(name = "", hours = "0", grade = "") {
 
   row.innerHTML = `
 
-    <td>
-    
-  <input
+<td>
+
+<div class="subject-wrapper">
+
+<input
 type="text"
 class="subject-input"
 placeholder="اسم المادة"
 value="${name}"
-list="subjects-list"
 autocomplete="off"
 spellcheck="false"
 >
- </td> 
+<div class="suggestions-box"
+style="display:none"></div>
+
+</div>
+</td>
   <td>
   <select class="hours">
  <option value="0">0</option>
@@ -192,7 +197,6 @@ spellcheck="false"
 ${generateGradeOptions()}
 
   </select>
-
   </td>
 
  <td class="total">0.00</td>
@@ -230,24 +234,83 @@ function attachRowEvents(row) {
 
   });
 
-subjectInput.addEventListener("change",()=>{
+function attachRowEvents(row) {
 
-  const found = subjectsData.find(
-    s => s.name === subjectInput.value
-  );
+  const hours = row.querySelector(".hours");
 
-  if(found){
+  const grade = row.querySelector(".grade");
 
-    row.querySelector(".hours").value =
-    found.hours;
+  const subjectInput = row.querySelector(".subject-input");
 
-  }
+  const suggestionsBox =
+  row.querySelector(".suggestions-box");
 
-  if(!handleDuplicate(row)) calculate();
+  hours.addEventListener("change", () => {
 
-}); 
+    if (!handleDuplicate(row)) calculate();
 
-} 
+  });
+
+  grade.addEventListener("change", () => {
+
+    if (!handleDuplicate(row)) calculate();
+
+  });
+
+  subjectInput.addEventListener("input",()=>{
+
+    const value =
+    subjectInput.value.trim().toLowerCase();
+
+    suggestionsBox.innerHTML = "";
+
+    if(!value){
+
+      suggestionsBox.style.display = "none";
+      return;
+    }
+
+    const matches = subjectsData.filter(subject=>
+      subject.name.toLowerCase().includes(value)
+    );
+
+    if(matches.length === 0){
+
+      suggestionsBox.style.display = "none";
+      return;
+    }
+
+    matches.forEach(subject=>{
+
+      const item =
+      document.createElement("div");
+
+      item.className = "suggestion-item";
+
+      item.textContent = subject.name;
+
+      item.addEventListener("click",()=>{
+
+        subjectInput.value = subject.name;
+
+        row.querySelector(".hours").value =
+        subject.hours;
+
+        suggestionsBox.style.display = "none";
+
+        if(!handleDuplicate(row)) calculate();
+
+      });
+
+      suggestionsBox.appendChild(item);
+
+    });
+
+    suggestionsBox.style.display = "block";
+
+  });
+
+}
 
 // ================== Add Subject ==================
 
