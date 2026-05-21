@@ -1,4 +1,3 @@
-
 // ================== Grade Map ==================
 
 const gradeMap = {
@@ -30,7 +29,6 @@ const gradeMap = {
   "F (0.0)": 0.0
 
 };
-
 
 // ================== Subjects ==================
 
@@ -120,12 +118,11 @@ const subjectsData = [
 
 ];
 
-
 // ================== Update Subject List ==================
 
 function updateSubjectsList() {
 
-  const datalist = document.getElementById("subjects-list");
+ const datalist = document.getElementById("subjects-list");
 
   if (!datalist) return;
 
@@ -143,7 +140,6 @@ function updateSubjectsList() {
 
 }
 
-
 // ================== Save New Subject ==================
 
 function saveNewSubject(subjectName) {
@@ -153,7 +149,6 @@ function saveNewSubject(subjectName) {
     s => s.name.toLowerCase() === subjectName.toLowerCase()
 
   );
-
 
   if (!exists) {
 
@@ -189,7 +184,6 @@ function generateGradeOptions() {
 
 }
 
-
 // ================== Create Row ==================
 
 function createRow(name = "", hours = "0", grade = "") {
@@ -199,60 +193,40 @@ function createRow(name = "", hours = "0", grade = "") {
   row.innerHTML = `
 
     <td>
-
-      <input
-
-        type="text"
-
-        class="subject-input"
-
-        list="subjects-list"
-
-        placeholder="اسم المادة"
-
-        value="${name}"
-
-        autocomplete="off"
-
-        spellcheck="false"
-
-      >
-
-    </td>
     
-    <td>
+   <input
+ type="text"
+ class="subject-input"
+ list="subjects-list"
+ placeholder="اسم المادة"
+ value="${name}"
+ autocomplete="off"
+ spellcheck="false"
+ >
+ </td> 
+  <td>
+  <select class="hours">
+ <option value="0">0</option>
+ <option value="1">1</option>
+<option value="2">2</option>
+ <option value="3">3</option>
+ <option value="4">4</option>
+</select>
+ </td>
 
-      <select class="hours">
+  <td>
+ <select class="grade">
+ <option value="">0</option>
+${generateGradeOptions()}
 
-        <option value="0">0</option>
+  </select>
 
-        <option value="1">1</option>
+  </td>
 
-        <option value="2">2</option>
-
-        <option value="3">3</option>
-
-        <option value="4">4</option>
-
-      </select>
-
-    </td>
-
-    <td>
-
-      <select class="grade">
-
-        <option value="">0</option>
-
-        ${generateGradeOptions()}
-
-      </select>
-
-    </td>
-
-    <td class="total">0.00</td>
+ <td class="total">0.00</td>
 
   `;
+  
   row.querySelector(".hours").value = hours;
 
   row.querySelector(".grade").value = grade;
@@ -344,7 +318,6 @@ function handleDuplicate(row) {
 
     .toLowerCase();
 
-
   const hours = parseFloat(row.querySelector(".hours").value) || 0;
 
   const grade = row.querySelector(".grade").value;
@@ -406,8 +379,6 @@ function handleDuplicate(row) {
   }
 
   row.classList.add("fade-out");
-
-
 
   row.addEventListener(
 
@@ -603,7 +574,6 @@ if (!data[index]) return;
     });
 
   });
-
 
   calculate();
 
