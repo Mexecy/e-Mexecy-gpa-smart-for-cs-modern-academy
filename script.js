@@ -1,3 +1,109 @@
+// ================== قائمة المواد ==================
+const subjectsList = [
+  "Human rights",
+  "Calculus",
+  "Physics",
+  "Introduction to computer science (Computer programming)",
+  "Introduction to information system",
+  "English language",
+  "Linear Algebra",
+  "Statistics and probability",
+  "Object-oriented programming",
+  "Introduction to database",
+  "Logic design",
+  "Discrete mathematics",
+  "Operation research",
+  "Data structures",
+  "Microprocessor and assembly language",
+  "System analysis and design",
+  "Web programming",
+  "Human computer introduction",
+  "Mobile application development",
+  "Numerical analysis",
+  "Analysis of algorithms",
+  "Computer graphics",
+  "Computer architecture",
+  "Software engineering",
+  "Computer ethics",
+  "Quality Assurance and Control",
+  "Fundamentals of Multimedia",
+  "Computer Design and Theory",
+  "Embedded Systems",
+  "Theory of Operating system",
+  "Computer Networks",
+  "Digital Image Processing",
+  "Selected Topic in Computer Science 2",
+  "Artificial Intelligence",
+  "Cloud Computing",
+  "Machine Learning",
+  "Graduation Project 1",
+  "Cyber Security",
+  "Data Communication",
+  "Graduation Project 2"
+];
+
+// ================== Autocomplete ==================
+function setupAutocomplete(cell, row) {
+  let autocompleteList = null;
+
+  cell.addEventListener("input", function() {
+    const value = this.textContent.trim();
+
+    // إزالة القائمة القديمة
+    if (autocompleteList) {
+      autocompleteList.remove();
+      autocompleteList = null;
+    }
+
+    // إذا كان الحقل فارغ، لا تعرض القائمة
+    if (!value) return;
+
+    // تصفية المواد حسب ما تم إدخاله
+    const filtered = subjectsList.filter(subject =>
+      subject.toLowerCase().startsWith(value.toLowerCase())
+    );
+
+    // إذا لم توجد نتائج
+    if (filtered.length === 0) return;
+
+    // إنشاء قائمة الاقتراحات
+    autocompleteList = document.createElement("ul");
+    autocompleteList.className = "autocomplete-list";
+
+    filtered.forEach(subject => {
+      const li = document.createElement("li");
+      li.textContent = subject;
+      li.addEventListener("click", function() {
+        cell.textContent = subject;
+        autocompleteList.remove();
+        autocompleteList = null;
+        if (!handleDuplicate(row)) calculate();
+      });
+      autocompleteList.appendChild(li);
+    });
+
+    // إضافة القائمة بعد الخلية
+    cell.parentElement.style.position = "relative";
+    cell.parentElement.appendChild(autocompleteList);
+  });
+
+  // إغلاق القائمة عند الضغط بعيدًا
+  document.addEventListener("click", function(e) {
+    if (e.target !== cell && autocompleteList) {
+      autocompleteList.remove();
+      autocompleteList = null;
+    }
+  });
+
+  // إغلاق القائمة عند الضغط على Escape
+  cell.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && autocompleteList) {
+      autocompleteList.remove();
+      autocompleteList = null;
+    }
+  });
+}
+
 // ================== Grade Map ==================
 const gradeMap = {
   "A+ (4.0)":4.0,
@@ -25,7 +131,6 @@ function generateGradeOptions(){
   .map(g=>`<option value="${g}">${g}</option>`)
   .join("");
 }
-
 // ================== Create Row ==================
 function createRow(name="",hours="0",grade=""){
   
@@ -54,10 +159,15 @@ function createRow(name="",hours="0",grade=""){
   row.querySelector(".hours").value = hours;
   row.querySelector(".grade").value = grade;
 
+  // تفعيل الـ Autocomplete على خلية اسم المادة
+  const nameCell = row.children[0];
+  setupAutocomplete(nameCell, row);
+
   attachRowEvents(row);
 
   return row;
 }
+
 
 // ================== Row Events ==================
 function attachRowEvents(row){
