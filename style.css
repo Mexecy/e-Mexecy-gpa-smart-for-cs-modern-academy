@@ -455,3 +455,63 @@ box-shadow:
 0 8px 22px rgba(37,99,235,.6),
 0 0 18px rgba(59,130,246,.9);
 }
+
+/* ===== Autocomplete ===== */
+.autocomplete-list {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.autocomplete-list li {
+  padding: 10px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background .15s ease;
+  border-bottom: 1px solid #f3f4f6;
+  text-align: right;
+}
+
+.autocomplete-list li:last-child {
+  border-bottom: none;
+}
+
+.autocomplete-list li:hover {
+  background: #f1f5f9;
+  font-weight: 600;
+}
+
+.autocomplete-list li:active {
+  background: #e0e7ff;
+}
+
+/* ===== Dark Mode للـ Autocomplete ===== */
+body.dark-mode .autocomplete-list {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+body.dark-mode .autocomplete-list li {
+  color: #f1f5f9;
+  border-bottom-color: #0f172a;
+}
+
+body.dark-mode .autocomplete-list li:hover {
+  background: #334155;
+}
+
+body.dark-mode .autocomplete-list li:active {
+  background: #3b82f6;
+}
