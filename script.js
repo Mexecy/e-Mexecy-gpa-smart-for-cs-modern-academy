@@ -3,7 +3,7 @@ const subjectsList = [
   "Human rights",
   "Calculus",
   "Physics",
-  "Introduction to computer science (Computer programming)",
+  "Introduction to computer science",
   "Introduction to information system",
   "English language",
   "Linear Algebra",
@@ -42,68 +42,6 @@ const subjectsList = [
   "Graduation Project 2"
 ];
 
-// ================== Autocomplete ==================
-function setupAutocomplete(cell, row) {
-  let autocompleteList = null;
-
-  cell.addEventListener("input", function() {
-    const value = this.textContent.trim();
-
-    // إزالة القائمة القديمة
-    if (autocompleteList) {
-      autocompleteList.remove();
-      autocompleteList = null;
-    }
-
-    // إذا كان الحقل فارغ، لا تعرض القائمة
-    if (!value) return;
-
-    // تصفية المواد حسب ما تم إدخاله
-    const filtered = subjectsList.filter(subject =>
-      subject.toLowerCase().startsWith(value.toLowerCase())
-    );
-
-    // إذا لم توجد نتائج
-    if (filtered.length === 0) return;
-
-    // إنشاء قائمة الاقتراحات
-    autocompleteList = document.createElement("ul");
-    autocompleteList.className = "autocomplete-list";
-
-    filtered.forEach(subject => {
-      const li = document.createElement("li");
-      li.textContent = subject;
-      li.addEventListener("click", function() {
-        cell.textContent = subject;
-        autocompleteList.remove();
-        autocompleteList = null;
-        if (!handleDuplicate(row)) calculate();
-      });
-      autocompleteList.appendChild(li);
-    });
-
-    // إضافة القائمة بعد الخلية
-    cell.parentElement.style.position = "relative";
-    cell.parentElement.appendChild(autocompleteList);
-  });
-
-  // إغلاق القائمة عند الضغط بعيدًا
-  document.addEventListener("click", function(e) {
-    if (e.target !== cell && autocompleteList) {
-      autocompleteList.remove();
-      autocompleteList = null;
-    }
-  });
-
-  // إغلاق القائمة عند الضغط على Escape
-  cell.addEventListener("keydown", function(e) {
-    if (e.key === "Escape" && autocompleteList) {
-      autocompleteList.remove();
-      autocompleteList = null;
-    }
-  });
-}
-
 // ================== Grade Map ==================
 const gradeMap = {
   "A+ (4.0)":4.0,
@@ -131,6 +69,90 @@ function generateGradeOptions(){
   .map(g=>`<option value="${g}">${g}</option>`)
   .join("");
 }
+
+// ================== Autocomplete Setup ==================
+function setupAutocomplete(cell, row) {
+  let autocompleteList = null;
+
+  cell.addEventListener("input", function() {
+    const value = this.textContent.trim();
+
+    // إزالة القائمة القديمة
+    if (autocompleteList) {
+      autocompleteList.remove();
+      autocompleteList = null;
+    }
+
+    // إذا كان الحقل فارغ
+    if (!value) return;
+
+    // تصفية المواد
+    const filtered = subjectsList.filter(subject =>
+      subject.toLowerCase().startsWith(value.toLowerCase())
+    );
+
+    // لا توجد نتائج
+    if (filtered.length === 0) return;
+
+    // إنشاء قائمة الاقتراحات
+    autocompleteList = document.createElement("ul");
+    autocompleteList.className = "autocomplete-list";
+    autocompleteList.style.position = "absolute";
+    autocompleteList.style.top = "100%";
+    autocompleteList.style.right = "0";
+    autocompleteList.style.left = "0";
+    autocompleteList.style.zIndex = "1000";
+
+    filtered.slice(0, 8).forEach(subject => {
+      const li = document.createElement("li");
+      li.textContent = subject;
+      li.style.cursor = "pointer";
+      li.style.padding = "10px 12px";
+      li.style.borderBottom = "1px solid #f3f4f6";
+      li.style.transition = "background 0.15s";
+      
+      li.addEventListener("mouseenter", function() {
+        this.style.background = "#f1f5f9";
+      });
+      
+      li.addEventListener("mouseleave", function() {
+        this.style.background = "transparent";
+      });
+      
+      li.addEventListener("click", function() {
+        cell.textContent = subject;
+        if (autocompleteList) {
+          autocompleteList.remove();
+          autocompleteList = null;
+        }
+        if (!handleDuplicate(row)) calculate();
+      });
+      
+      autocompleteList.appendChild(li);
+    });
+
+    // إضافة القائمة
+    cell.parentElement.style.position = "relative";
+    cell.parentElement.appendChild(autocompleteList);
+  });
+
+  // إغلاق عند الضغط بعيداً
+  document.addEventListener("click", function(e) {
+    if (e.target !== cell && autocompleteList) {
+      autocompleteList.remove();
+      autocompleteList = null;
+    }
+  });
+
+  // إغلاق عند Escape
+  cell.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && autocompleteList) {
+      autocompleteList.remove();
+      autocompleteList = null;
+    }
+  });
+}
+
 // ================== Create Row ==================
 function createRow(name="",hours="0",grade=""){
   
@@ -159,7 +181,7 @@ function createRow(name="",hours="0",grade=""){
   row.querySelector(".hours").value = hours;
   row.querySelector(".grade").value = grade;
 
-  // تفعيل الـ Autocomplete على خلية اسم المادة
+  // تفعيل Autocomplete
   const nameCell = row.children[0];
   setupAutocomplete(nameCell, row);
 
@@ -167,7 +189,6 @@ function createRow(name="",hours="0",grade=""){
 
   return row;
 }
-
 
 // ================== Row Events ==================
 function attachRowEvents(row){
@@ -438,20 +459,16 @@ function clearLevel(button){
 }
 
 // ================== DARK MODE ==================
-// ================== DARK MODE PRO ==================
-
 function applyInitialTheme(){
 
   const saved = localStorage.getItem("theme");
 
-  // 1️⃣ لو المستخدم مختار يدوي
   if(saved){
     const isDark = saved === "dark";
     setTheme(isDark);
     return;
   }
 
-  // 2️⃣ لو الجهاز بيدعم الوضع الليلي
   const media = window.matchMedia("(prefers-color-scheme: dark)");
 
   if(media.matches !== undefined){
@@ -459,15 +476,12 @@ function applyInitialTheme(){
     return;
   }
 
-  // 3️⃣ fallback: حسب الوقت
   const hour = new Date().getHours();
   const isNight = hour >= 18 || hour < 6;
 
   setTheme(isNight);
 }
 
-
-// تغيير يدوي
 function toggleDarkMode(){
 
   const isDark = !document.body.classList.contains("dark-mode");
@@ -477,8 +491,6 @@ function toggleDarkMode(){
   localStorage.setItem("theme", isDark ? "dark" : "light");
 }
 
-
-// تطبيق الثيم
 function setTheme(isDark){
 
   document.body.classList.toggle("dark-mode", isDark);
@@ -486,8 +498,6 @@ function setTheme(isDark){
   updateToggleButton(isDark);
 }
 
-
-// تحديث شكل الزر
 function updateToggleButton(isDark){
 
   const btn = document.getElementById("dark-mode-toggle");
@@ -497,18 +507,14 @@ function updateToggleButton(isDark){
   btn.innerHTML = isDark ? "☀️" : "🌙";
 }
 
-
-// يتغير تلقائي لو نظام الجهاز اتغير
 window.matchMedia("(prefers-color-scheme: dark)")
 .addEventListener("change", e => {
 
-  // لو المستخدم مختارش يدوي
   if(!localStorage.getItem("theme")){
     setTheme(e.matches);
   }
 
 });
-
 
 // ================== Start App ==================
 document.addEventListener("DOMContentLoaded",()=>{
@@ -523,7 +529,6 @@ let deferredPrompt;
 
 const installBtn = document.getElementById("install-btn");
 
-// يظهر الزر لما يكون التثبيت متاح
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
@@ -535,7 +540,6 @@ window.addEventListener("beforeinstallprompt", (e) => {
   }, 50);
 });
 
-// عند الضغط على الزر
 installBtn.addEventListener("click", async () => {
 
   if (!deferredPrompt) return;
@@ -552,12 +556,10 @@ installBtn.addEventListener("click", async () => {
 
 });
 
-// عند التثبيت من أي مكان
 window.addEventListener("appinstalled", () => {
   hideInstallButton();
 });
 
-// function موحدة للإخفاء
 function hideInstallButton(){
   installBtn.classList.remove("show");
 
