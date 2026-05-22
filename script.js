@@ -74,10 +74,17 @@ function generateGradeOptions(){
 function setupAutocomplete(cell, row) {
   let autocompleteList = null;
 
+  // تأكد أن الخلية (td) هي التي تحمل position: relative
+  cell.style.position = "relative";
+  
+  // قم بتعيين tabindex لجعل الخلية قابلة للتركيز
+  cell.setAttribute('tabindex', '0');
+
+
   cell.addEventListener("input", function() {
     const value = this.textContent.trim();
 
-    // إزالة القائمة القديمة
+    // إزالة القائمة القديمة إن وجدت
     if (autocompleteList) {
       autocompleteList.remove();
       autocompleteList = null;
@@ -86,7 +93,7 @@ function setupAutocomplete(cell, row) {
     // إذا كان الحقل فارغ
     if (!value) return;
 
-    // تصفية المواد
+    // تصفية المواد التي تبدأ بما تم إدخاله
     const filtered = subjectsList.filter(subject =>
       subject.toLowerCase().startsWith(value.toLowerCase())
     );
@@ -97,27 +104,19 @@ function setupAutocomplete(cell, row) {
     // إنشاء قائمة الاقتراحات
     autocompleteList = document.createElement("ul");
     autocompleteList.className = "autocomplete-list";
-    autocompleteList.style.position = "absolute";
-    autocompleteList.style.top = "100%";
-    autocompleteList.style.right = "0";
-    autocompleteList.style.left = "0";
-    autocompleteList.style.zIndex = "1000";
+    // تم حذف style.position و style.top و style.right و style.left
+    // لأنه تم تعريفها بالفعل في style.css
+    autocompleteList.style.zIndex = "1000"; // تأكد من أنها في المقدمة
 
     filtered.slice(0, 8).forEach(subject => {
       const li = document.createElement("li");
       li.textContent = subject;
-      li.style.cursor = "pointer";
-      li.style.padding = "10px 12px";
-      li.style.borderBottom = "1px solid #f3f4f6";
-      li.style.transition = "background 0.15s";
       
-      li.addEventListener("mouseenter", function() {
-        this.style.background = "#f1f5f9";
-      });
-      
-      li.addEventListener("mouseleave", function() {
-        this.style.background = "transparent";
-      });
+      // لا داعي لتحديد الأنماط هنا لأنها معرفة في style.css
+      // li.style.cursor = "pointer";
+      // li.style.padding = "10px 12px";
+      // li.style.borderBottom = "1px solid #f3f4f6";
+      // li.style.transition = "background 0.15s";
       
       li.addEventListener("click", function() {
         cell.textContent = subject;
@@ -125,20 +124,38 @@ function setupAutocomplete(cell, row) {
           autocompleteList.remove();
           autocompleteList = null;
         }
+        // اجعل الخلية غير قابلة للتحرير مؤقتا لتجنب مشاكل التركيز بعد الاختيار
+        cell.setAttribute('contenteditable', 'false');
+        setTimeout(() => {
+          cell.setAttribute('contenteditable', 'true');
+        }, 0);
         if (!handleDuplicate(row)) calculate();
+      });
+
+      // إضافة أحداث التمرير (hover) التي كانت معرفة سابقاً
+      li.addEventListener("mouseenter", function() {
+        this.style.background = "#f1f5f9";
+        if (document.body.classList.contains("dark-mode")) {
+            this.style.background = "#334155";
+        }
+      });
+      
+      li.addEventListener("mouseleave", function() {
+        this.style.background = "transparent";
       });
       
       autocompleteList.appendChild(li);
     });
 
-    // إضافة القائمة
-    cell.parentElement.style.position = "relative";
-    cell.parentElement.appendChild(autocompleteList);
+    // إضافة القائمة إلى الخلية (td) مباشرة بدلاً من عنصرها الأب
+    cell.appendChild(autocompleteList);
+    // تأكد من أن الـ cell هو في وضع التركيز ليتم تفعيل الأحداث مثل keydown
+    cell.focus();
   });
 
-  // إغلاق عند الضغط بعيداً
+  // إغلاق عند الضغط بعيداً عن الخلية أو القائمة
   document.addEventListener("click", function(e) {
-    if (e.target !== cell && autocompleteList) {
+    if (e.target !== cell && !cell.contains(e.target) && autocompleteList) {
       autocompleteList.remove();
       autocompleteList = null;
     }
@@ -149,7 +166,21 @@ function setupAutocomplete(cell, row) {
     if (e.key === "Escape" && autocompleteList) {
       autocompleteList.remove();
       autocompleteList = null;
+      e.preventDefault(); // منع أي سلوك افتراضي لمفتاح Escape
     }
+  });
+
+  // لمنع ظهور القائمة عند إزالة التركيز وإعادة التركيز بسرعة
+  cell.addEventListener("blur", function() {
+    // يمكننا إزالة القائمة بعد تأخير قصير للسماح بحدث النقر
+    setTimeout(() => {
+      if (autocompleteList && !cell.contains(document.activeElement)) {
+        autocompleteList.remove();
+        autocompleteList = null;
+      }
+    }, 100);
+    // لا تنسى استدعاء calculate هنا أيضًا بعد إزالة التركيز إذا لم تكن هناك مشكلة تكرار
+    // if (!handleDuplicate(row)) calculate(); // هذا تم نقله لحدث click للقائمة
   });
 }
 
@@ -199,7 +230,13 @@ function attachRowEvents(row){
 
   hours.addEventListener("change",()=>{ if(!handleDuplicate(row)) calculate(); });
   grade.addEventListener("change",()=>{ if(!handleDuplicate(row)) calculate(); });
-  name.addEventListener("blur",()=>{ if(!handleDuplicate(row)) calculate(); });
+  // event 'blur' هنا فقط للتأكد من حساب GPA بعد الخروج من الخلية
+  name.addEventListener("blur",()=>{ 
+    // تأكد من أن القائمة ليست مفتوحة قبل الحساب لتجنب مشاكل التركيز
+    if (!name.querySelector('.autocomplete-list')) {
+        if(!handleDuplicate(row)) calculate(); 
+    }
+  });
 
 }
 
