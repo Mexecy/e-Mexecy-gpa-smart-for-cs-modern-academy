@@ -1,4 +1,4 @@
-const CACHE_NAME = "gpa-clean-v6";
+const CACHE_NAME = "gpa-clean-v9";
 
 const APP_FILES = [
   "./",
