@@ -98,7 +98,9 @@ function generateGradeOptions(){
 function generateSubjectOptions(){
 
   let options =
-  `<option value="">Choose Subject</option>`;
+  <option value="" disabled selected>
+Select Subject
+</option>
 
   for(const group in subjectsData){
 
