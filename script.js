@@ -362,7 +362,10 @@ if(grade !== "F (0.0)" && grade !== ""){
   
   document.getElementById("passed-hours").textContent = passedHours;  
   
-document.getElementById("global-hours").textContent = globalHours;  
+const remainingHours = 136 - passedHours;
+
+document.getElementById("global-hours").textContent =
+remainingHours > 0 ? remainingHours : 0;
   
 document.getElementById("global-points").textContent = globalPoints.toFixed(2);  
   
