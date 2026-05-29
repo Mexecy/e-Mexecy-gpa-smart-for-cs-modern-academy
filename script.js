@@ -15,6 +15,75 @@ const gradeMap = {
   "F (0.0)":0.0
 };
 
+// ================== Subjects ==================
+const subjectsData = {
+
+  "Level 1 - Semester 1":[
+    "Computer Ethics",
+    "Human Rights",
+    "Calculus",
+    "Physics",
+    "Introduction to Computer Science",
+    "Computer Programming",
+    "Introduction to Information Systems"
+  ],
+
+  "Level 1 - Semester 2":[
+    "English Language",
+    "Linear Algebra",
+    "Statistics and Probabilities",
+    "Object-Oriented Programming",
+    "Introduction to Database",
+    "Logic Design"
+  ],
+
+  "Level 2 - Semester 1":[
+    "Discrete Mathematics",
+    "Operations Research",
+    "Data Structures",
+    "Microprocessor and Assembly Language",
+    "Systems Analysis and Design",
+    "Web Programming"
+  ],
+
+  "Level 2 - Semester 2":[
+    "Mobile Application Development",
+    "Numerical Analysis",
+    "Analysis of Algorithm",
+    "Computer Graphics",
+    "Computer Architecture",
+    "Software Engineering",
+    "Training 1"
+  ],
+
+  "Level 3 - Semester 1":[
+    "Quality Assurance and Control",
+    "Fundamentals of Multimedia",
+    "Compiler Design and Theory",
+    "Theory of Operating Systems"
+  ],
+
+  "Level 3 - Semester 2":[
+    "Computer Networks",
+    "Digital Image Processing",
+    "Artificial Intelligence",
+    "Human Computer Interaction",
+    "Training 2"
+  ],
+
+  "Level 4 - Semester 1":[
+    "Cloud Computing",
+    "Machine Learning",
+    "Graduation Project 1"
+  ],
+
+  "Level 4 - Semester 2":[
+    "Cyber Security",
+    "Data Communication",
+    "Graduation Project 2"
+  ]
+
+};
 // ================== State ==================
 let previousGPA = 0;
 let isLoading = false;
@@ -25,6 +94,33 @@ function generateGradeOptions(){
   .map(g=>`<option value="${g}">${g}</option>`)
   .join("");
 }
+// ================== Generate Subject Options ==================
+function generateSubjectOptions(){
+
+  let options =
+  `<option value="">Choose Subject</option>`;
+
+  for(const group in subjectsData){
+
+    options += `<optgroup label="${group}">`;
+
+    subjectsData[group].forEach(subject=>{
+
+      options += `
+      <option value="${subject}">
+        ${subject}
+      </option>
+      `;
+
+    });
+
+    options += `</optgroup>`;
+
+  }
+
+  return options;
+
+}
 
 // ================== Create Row ==================
 function createRow(name="",hours="0",grade=""){
@@ -32,7 +128,15 @@ function createRow(name="",hours="0",grade=""){
   const row = document.createElement("tr");
 
   row.innerHTML = `
-  <td contenteditable="true">${name}</td>
+  <td>
+
+<select class="subject-select">
+
+${generateSubjectOptions()}
+
+</select>
+
+</td>
   <td>
     <select class="hours">
       <option value="0">0</option>
@@ -53,6 +157,7 @@ function createRow(name="",hours="0",grade=""){
 
   row.querySelector(".hours").value = hours;
   row.querySelector(".grade").value = grade;
+  row.querySelector(".subject-select").value = name;
 
   attachRowEvents(row);
 
@@ -64,11 +169,25 @@ function attachRowEvents(row){
 
   const hours = row.querySelector(".hours");
   const grade = row.querySelector(".grade");
-  const name = row.children[0];
+  const subject = row.querySelector(".subject-select");
 
-  hours.addEventListener("change",()=>{ if(!handleDuplicate(row)) calculate(); });
-  grade.addEventListener("change",()=>{ if(!handleDuplicate(row)) calculate(); });
-  name.addEventListener("blur",()=>{ if(!handleDuplicate(row)) calculate(); });
+  hours.addEventListener("change",()=>{
+
+    if(!handleDuplicate(row)) calculate();
+
+  });
+
+  grade.addEventListener("change",()=>{
+
+    if(!handleDuplicate(row)) calculate();
+
+  });
+
+  subject.addEventListener("change",()=>{
+
+    if(!handleDuplicate(row)) calculate();
+
+  });
 
 }
 
@@ -88,7 +207,11 @@ function addSubject(btn){
 // ================== Handle Duplicate ==================
 function handleDuplicate(row){
 
-  const name = row.children[0].textContent.trim().toLowerCase();
+  const name =
+row.querySelector(".subject-select")
+.value
+.trim()
+.toLowerCase();
   const hours = parseFloat(row.querySelector(".hours").value)||0;
   const grade = row.querySelector(".grade").value;
 
@@ -102,7 +225,11 @@ function handleDuplicate(row){
 
     if(r===row) return;
 
-    const existingName = r.children[0].textContent.trim().toLowerCase();
+    const existingName =
+r.querySelector(".subject-select")
+.value
+.trim()
+.toLowerCase();
 
     if(existingName===name){
       duplicateRow = r;
@@ -266,7 +393,7 @@ function saveData(){
 
       subjects.push({
 
-        name: row.children[0].textContent,
+        name: row.querySelector(".subject-select").value,
         hours: row.querySelector(".hours").value,
         grade: row.querySelector(".grade").value,
         updated: row.classList.contains("updated-subject")
