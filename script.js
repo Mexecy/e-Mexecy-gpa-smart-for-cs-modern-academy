@@ -94,13 +94,15 @@ function generateGradeOptions(){
   .map(g=>`<option value="${g}">${g}</option>`)
   .join("");
 }
+
 // ================== Generate Subject Options ==================
 function generateSubjectOptions(){
 
-  let options =
+  let options = `
   <option value="" disabled selected>
-Select Subject
-</option>
+    Select Subject
+  </option>
+  `;
 
   for(const group in subjectsData){
 
@@ -123,7 +125,6 @@ Select Subject
   return options;
 
 }
-
 // ================== Create Row ==================
 function createRow(name="",hours="0",grade=""){
   
