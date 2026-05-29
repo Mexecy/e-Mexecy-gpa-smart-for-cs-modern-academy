@@ -143,8 +143,9 @@ function handleDuplicate(row){
 // ================== Calculate GPA ==================
 function calculate(){
 
-  let globalPoints = 0;
-  let globalHours = 0;
+ let globalPoints = 0;
+let globalHours = 0;
+let passedHours = 0; 
 
   document.querySelectorAll(".semester tbody tr").forEach(row=>{
 
@@ -159,13 +160,21 @@ function calculate(){
 
     globalPoints += total;
     globalHours += hours;
+    
+// لو المادة ناجحة
+if(grade !== "F (0.0)" && grade !== ""){
+  passedHours += hours;
+}
 
   });
 
   const gpa = globalHours ? (globalPoints/globalHours) : 0;
 
-  document.getElementById("global-hours").textContent = globalHours;
-  document.getElementById("global-points").textContent = globalPoints.toFixed(2);
+  document.getElementById("passed-hours").textContent = passedHours;
+
+document.getElementById("global-hours").textContent = globalHours;
+
+document.getElementById("global-points").textContent = globalPoints.toFixed(2);
 
   animateGPA(previousGPA,gpa);
   updateProgressBar(gpa);
