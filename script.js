@@ -141,13 +141,13 @@ function createRow(name="",hours="0",grade=""){
   <td>
 
     <input
-    type="text"
-    class="subject-input"
-    list="subjects-list"
-    placeholder="Select or type subject"
-    value="${name}"
-    autocomplete="off"
-    >
+type="text"
+class="subject-input"
+list="subjects-list"
+placeholder="اكتب أو اختر المادة"
+value="${name}"
+autocomplete="on"
+>
 
   </td>
 
