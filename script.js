@@ -131,15 +131,21 @@ function createRow(name="",hours="0",grade=""){
   const row = document.createElement("tr");  
   
   row.innerHTML = `  
-  <td>  
-  
-<select class="subject-select">  
-  
-${generateSubjectOptions()}  
-  
-</select>  
-  
-</td>  
+  <td>
+
+<select class="subject-select">
+${generateSubjectOptions()}
+<option value="__custom__">Other / مادة أخرى</option>
+</select>
+
+<input
+type="text"
+class="custom-subject"
+placeholder="Write subject name"
+style="display:none; margin-top:6px;"
+>
+
+</td>
   <td>  
     <select class="hours">  
       <option value="0">0</option>  
@@ -161,38 +167,74 @@ ${generateSubjectOptions()}
   row.querySelector(".hours").value = hours;  
   row.querySelector(".grade").value = grade;  
   row.querySelector(".subject-select").value = name;  
-  
+ const customInput =
+row.querySelector(".custom-subject");
+
+if(
+name &&
+!Object.values(subjectsData)
+.flat()
+.includes(name)
+){
+  row.querySelector(".subject-select").value =
+  "__custom__";
+
+  customInput.style.display = "block";
+  customInput.value = name;
+} 
   attachRowEvents(row);  
   
   return row;  
 }  
   
 // ================== Row Events ==================  
-function attachRowEvents(row){  
-  
-  const hours = row.querySelector(".hours");  
-  const grade = row.querySelector(".grade");  
-  const subject = row.querySelector(".subject-select");  
-  
-  hours.addEventListener("change",()=>{  
-  
-    if(!handleDuplicate(row)) calculate();  
-  
-  });  
-  
-  grade.addEventListener("change",()=>{  
-  
-    if(!handleDuplicate(row)) calculate();  
-  
-  });  
-  
-  subject.addEventListener("change",()=>{  
-  
-    if(!handleDuplicate(row)) calculate();  
-  
-  });  
-  
-}  
+function attachRowEvents(row){
+
+  const hours = row.querySelector(".hours");
+  const grade = row.querySelector(".grade");
+  const subject = row.querySelector(".subject-select");
+  const customInput =
+  row.querySelector(".custom-subject");
+
+  hours.addEventListener("change",()=>{
+
+    if(!handleDuplicate(row)) calculate();
+
+  });
+
+  grade.addEventListener("change",()=>{
+
+    if(!handleDuplicate(row)) calculate();
+
+  });
+
+  // تغيير المادة
+  subject.addEventListener("change",()=>{
+
+    if(subject.value === "__custom__"){
+
+      customInput.style.display = "block";
+
+      customInput.focus();
+
+    }else{
+
+      customInput.style.display = "none";
+
+    }
+
+    if(!handleDuplicate(row)) calculate();
+
+  });
+
+  // كتابة مادة يدوي
+  customInput.addEventListener("input",()=>{
+
+    if(!handleDuplicate(row)) calculate();
+
+  });
+
+}
   
 // ================== Add Subject ==================  
 function addSubject(btn){  
@@ -210,11 +252,20 @@ function addSubject(btn){
 // ================== Handle Duplicate ==================  
 function handleDuplicate(row){  
   
-  const name =  
-row.querySelector(".subject-select")  
-.value  
-.trim()  
-.toLowerCase();  
+  const subjectSelect =
+row.querySelector(".subject-select");
+
+const customInput =
+row.querySelector(".custom-subject");
+
+const name =
+(
+subjectSelect.value === "__custom__"
+? customInput.value
+: subjectSelect.value
+)
+.trim()
+.toLowerCase();
   const hours = parseFloat(row.querySelector(".hours").value)||0;  
   const grade = row.querySelector(".grade").value;  
   
@@ -228,11 +279,20 @@ row.querySelector(".subject-select")
   
     if(r===row) return;  
   
-    const existingName =  
-r.querySelector(".subject-select")  
-.value  
-.trim()  
-.toLowerCase();  
+    const existingSelect =
+r.querySelector(".subject-select");
+
+const existingCustom =
+r.querySelector(".custom-subject");
+
+const existingName =
+(
+existingSelect.value === "__custom__"
+? existingCustom.value
+: existingSelect.value
+)
+.trim()
+.toLowerCase();
   
     if(existingName===name){  
       duplicateRow = r;  
@@ -396,7 +456,13 @@ function saveData(){
   
       subjects.push({  
   
-        name: row.querySelector(".subject-select").value,  
+        name:
+row.querySelector(".subject-select").value
+=== "__custom__"
+
+? row.querySelector(".custom-subject").value
+
+: row.querySelector(".subject-select").value, 
         hours: row.querySelector(".hours").value,  
         grade: row.querySelector(".grade").value,  
         updated: row.classList.contains("updated-subject")  
