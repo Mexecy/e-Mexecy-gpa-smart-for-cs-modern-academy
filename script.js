@@ -105,7 +105,9 @@ function generateSubjectOptions(){
 
   for(const group in subjectsData){
 
-    options += `<optgroup label="${group}">`;
+   options += `
+<optgroup label="📘 ${group}">
+`; 
 
     subjectsData[group].forEach(subject=>{
 
