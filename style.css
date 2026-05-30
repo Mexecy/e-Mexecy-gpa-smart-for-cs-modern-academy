@@ -65,12 +65,21 @@ transform:scale(.995);
 }
 
 .level-title{
+display:block;
+text-align:center;
+
+background:linear-gradient(135deg,#2563eb,#1d4ed8);
+color:#fff;
+
 font-weight:800;
 font-size:22px;
+
+padding:12px;
 margin:0 0 12px 0;
-display:inline-block;
-padding-bottom:6px;
-border-bottom:4px solid #16a34a;
+
+border-radius:12px;
+
+box-shadow:0 4px 12px rgba(37,99,235,.25);
 }
 
 /* ===== الفصل ===== */
@@ -79,13 +88,22 @@ margin-bottom:2px;
 }
 
 .semester h3{
-display:inline-block;
+display:block;
+
+background:linear-gradient(135deg,#10b981,#059669);
+color:#fff;
+
 font-size:18px;
 font-weight:700;
-margin:2px 0 4px 0;
-padding:4px 12px;
-border-right:3px solid #16a34a;
-color:#1f2937;
+
+padding:10px;
+margin:4px 0 10px 0;
+
+border-radius:10px;
+
+text-align:center;
+
+box-shadow:0 4px 10px rgba(16,185,129,.25);
 }
 
 /* ===== الجدول ===== */
@@ -374,11 +392,15 @@ background:#1e293b;
 
 /* عنوان الفصل */
 body.dark-mode .semester h3{
-color:#22c55e;
+background:linear-gradient(135deg,#16a34a,#15803d);
+color:#fff;
 font-weight:800;
-opacity:1;
 }
 
+body.dark-mode .level-title{
+background:linear-gradient(135deg,#1d4ed8,#1e40af);
+color:#fff;
+}
 /* إصلاح لون المادة المحدثة في الدارك مود */
 body.dark-mode .updated-subject td{
 background:#166534 !important;
