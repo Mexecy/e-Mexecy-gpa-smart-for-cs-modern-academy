@@ -128,23 +128,23 @@ transform:scale(1.01);
 
 th:first-child,
 td:first-child{
-width:48%;
+width:56%;
 text-align:right;
 }
 
 th:nth-child(2),
 td:nth-child(2){
-width:15%;
+width:11%;
 }
 
 th:nth-child(3),
 td:nth-child(3){
-width:27%;
+width:21%;
 }
 
 th:nth-child(4),
 td:nth-child(4){
-width:14%;
+width:12%;
 white-space:nowrap;
 }
 
