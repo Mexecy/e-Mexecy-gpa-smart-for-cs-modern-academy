@@ -126,25 +126,29 @@ background:#f8fafc;
 transform:scale(1.01);
 }
 
+/* اسم المادة */
 th:first-child,
 td:first-child{
-width:48%;
+width:58%;
 text-align:right;
 }
 
+/* الساعات */
 th:nth-child(2),
 td:nth-child(2){
-width:15%;
+width:10%;
 }
 
+/* التقدير */
 th:nth-child(3),
 td:nth-child(3){
-width:27%;
+width:20%;
 }
 
+/* الإجمالي */
 th:nth-child(4),
 td:nth-child(4){
-width:14%;
+width:12%;
 white-space:nowrap;
 }
 
@@ -161,8 +165,8 @@ select{
 width:100%;
 box-sizing:border-box;
 font-size:13px;
-padding:4px;
-text-align:center;
+padding:4px 6px;
+text-align:right;
 border:1px solid #e5e7eb;
 border-radius:8px;
 background:#ffffff;
