@@ -126,32 +126,32 @@ background:#f8fafc;
 transform:scale(1.01);
 }
 
-/* ===== توزيع أعمدة الجدول للموبايل ===== */
+/* ===== توزيع الأعمدة النهائي ===== */
 
 /* اسم المادة */
 th:first-child,
 td:first-child{
-width:48%;
-text-align:right;
+  width:55%;
+  text-align:right;
 }
 
 /* الساعات */
 th:nth-child(2),
 td:nth-child(2){
-width:14%;
+  width:13%;
 }
 
 /* التقدير */
 th:nth-child(3),
 td:nth-child(3){
-width:25%;
+  width:22%;
 }
 
 /* الإجمالي */
 th:nth-child(4),
 td:nth-child(4){
-width:13%;
-white-space:nowrap;
+  width:10%;
+  white-space:nowrap;
 }
 
 td[contenteditable="true"]{
@@ -476,4 +476,15 @@ transform:translateX(-50%) scale(1.05);
 box-shadow:
 0 8px 22px rgba(37,99,235,.6),
 0 0 18px rgba(59,130,246,.9);
+}
+/* ===== تحسين اسم المادة على الموبايل ===== */
+
+.subject-select{
+  width:100%;
+  min-width:0;
+  box-sizing:border-box;
+  font-size:12px;
+  padding:4px 2px;
+  text-align:center;
+  overflow:hidden;
 }
