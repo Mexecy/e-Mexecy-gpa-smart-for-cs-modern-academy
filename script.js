@@ -19,7 +19,6 @@ const gradeMap = {
 const subjectsData = {  
   
   "Level 1 - Semester 1":[  
-    "Computer Ethics",  
     "Human Rights",  
     "Calculus",  
     "Physics",  
@@ -60,27 +59,45 @@ const subjectsData = {
     "Quality Assurance and Control",  
     "Fundamentals of Multimedia",  
     "Compiler Design and Theory",  
-    "Theory of Operating Systems"  
-  ],  
+    "Theory of Operating Systems", 
+    "Dynamic Languages",
+    "Modeling and Simulation",
+    "Selected Topics in Computer Science1",
+    "Human Computer Interaction",
+  ],
   
   "Level 3 - Semester 2":[  
+    "Computer Ethics",
     "Computer Networks",  
     "Digital Image Processing",  
-    "Artificial Intelligence",  
-    "Human Computer Interaction",  
+    "Artificial Intelligence",   
+    "Embedded Systems",
+    "Vertual Reality",
+    "Digital Signal Processing",
+    "Distributed Systems",
+    "project Management",
     "Training 2"  
   ],  
   
   "Level 4 - Semester 1":[  
     "Cloud Computing",  
     "Machine Learning",  
-    "Graduation Project 1"  
+    "Selected Topics in Computer Science 2",
+    "Digital Forensics",
+    "Parallel Processics",
+    "Graduation Project 1" 
+    "Internet Of Things",
   ],  
   
   "Level 4 - Semester 2":[  
-    "Cyber Security",  
+    "Cyber Security", 
+  "Machine Learning",
     "Data Communication",  
     "Graduation Project 2"  
+  "Computer Vision System",
+  "Wireless Networks",
+  "Data Science and Big Data",
+  "Computer Arabization",
   ]  
   
 };  
