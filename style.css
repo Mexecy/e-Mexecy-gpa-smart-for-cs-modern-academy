@@ -126,29 +126,31 @@ background:#f8fafc;
 transform:scale(1.01);
 }
 
+/* ===== توزيع أعمدة الجدول للموبايل ===== */
+
 /* اسم المادة */
 th:first-child,
 td:first-child{
-width:54%;
+width:48%;
 text-align:right;
 }
 
 /* الساعات */
 th:nth-child(2),
 td:nth-child(2){
-width:12%;
+width:14%;
 }
 
 /* التقدير */
 th:nth-child(3),
 td:nth-child(3){
-width:22%;
+width:25%;
 }
 
 /* الإجمالي */
 th:nth-child(4),
 td:nth-child(4){
-width:12%;
+width:13%;
 white-space:nowrap;
 }
 
@@ -163,13 +165,31 @@ background:#f1f5f9;
 
 select{
 width:100%;
+min-width:0;
 box-sizing:border-box;
 font-size:13px;
-padding:4px;
+padding:4px 3px;
 text-align:center;
 border:1px solid #e5e7eb;
 border-radius:8px;
 background:#ffffff;
+overflow:hidden;
+}
+
+/* الساعات */
+.hours{
+min-width:0;
+font-size:13px;
+padding:4px 2px;
+text-align:center;
+}
+
+/* التقدير */
+.grade{
+min-width:0;
+font-size:13px;
+padding:4px 2px;
+text-align:center;
 }
 
 select:focus{
