@@ -80,25 +80,25 @@ const subjectsData = {
   ],  
   
   "Level 4 - Semester 1":[  
-    "Cloud Computing",  
-    "Machine Learning",  
-    "Selected Topics in Computer Science 2",
-    "Digital Forensics",
-    "Parallel Processics",
-    "Graduation Project 1" 
-    "Internet Of Things",
-  ],  
+  "Cloud Computing",  
+  "Machine Learning",  
+  "Selected Topics in Computer Science 2",
+  "Digital Forensics",
+  "Parallel Processics",
+  "Graduation Project 1",
+  "Internet Of Things",
+],  
   
-  "Level 4 - Semester 2":[  
-    "Cyber Security", 
+"Level 4 - Semester 2":[  
+  "Cyber Security", 
   "Machine Learning",
-    "Data Communication",  
-    "Graduation Project 2"  
+  "Data Communication",  
+  "Graduation Project 2",
   "Computer Vision System",
   "Wireless Networks",
   "Data Science and Big Data",
   "Computer Arabization",
-  ]  
+]  
   
 };  
 // ================== State ==================  
