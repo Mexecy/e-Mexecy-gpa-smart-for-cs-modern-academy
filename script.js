@@ -1,4 +1,6 @@
-// ================== Grade Map ==================
+// =====================================================
+// ===================== Grade Map ======================
+// =====================================================
 
 const gradeMap = {
   "A+ (4.0)": 4.0,
@@ -17,7 +19,9 @@ const gradeMap = {
 };
 
 
-// ================== Subjects ==================
+// =====================================================
+// ===================== Subjects =======================
+// =====================================================
 
 const subjectsData = {
 
@@ -106,26 +110,37 @@ const subjectsData = {
 };
 
 
-// ================== State ==================
+// =====================================================
+// ======================= State ========================
+// =====================================================
 
 let previousGPA = 0;
 let isLoading = false;
+let deferredPrompt = null;
 
 
-// ================== Generate Grade Options ==================
+// =====================================================
+// ================ Generate Grade Options ==============
+// =====================================================
 
-function generateGradeOptions(){
+function generateGradeOptions() {
 
   return Object.keys(gradeMap)
-    .map(g => `<option value="${g}">${g}</option>`)
+    .map(grade => `
+      <option value="${grade}">
+        ${grade}
+      </option>
+    `)
     .join("");
 
 }
 
 
-// ================== Generate Subject Options ==================
+// =====================================================
+// ================ Generate Subject Options =============
+// =====================================================
 
-function generateSubjectOptions(){
+function generateSubjectOptions() {
 
   let options = `
     <option value="" disabled selected>
@@ -133,7 +148,7 @@ function generateSubjectOptions(){
     </option>
   `;
 
-  for(const group in subjectsData){
+  for (const group in subjectsData) {
 
     options += `
       <optgroup label="📘 ${group}">
@@ -142,45 +157,50 @@ function generateSubjectOptions(){
     subjectsData[group].forEach(subject => {
 
       options += `
-        <option value="${subject}">${subject}</option>
+        <option value="${subject}">
+          ${subject}
+        </option>
       `;
 
     });
 
-    options += `</optgroup>`;
+    options += `
+      </optgroup>
+    `;
 
   }
-
-  options += `
-    <option value="__custom__">
-      Other / مادة أخرى
-    </option>
-  `;
 
   return options;
 
 }
 
 
-// ================== Create Row ==================
+// =====================================================
+// ====================== Create Row ====================
+// =====================================================
 
-function createRow(name = "", hours = "0", grade = ""){
+function createRow(name = "", hours = "0", grade = "") {
 
   const row = document.createElement("tr");
 
   row.innerHTML = `
-
-    <td class="subject-cell">
+    <td>
 
       <select class="subject-select">
+
         ${generateSubjectOptions()}
+
+        <option value="__custom__">
+          Other / مادة أخرى
+        </option>
+
       </select>
 
       <input
         type="text"
         class="custom-subject"
         placeholder="Write subject name"
-        style="display:none; margin-top:6px;"
+        style="display:none;"
       >
 
     </td>
@@ -211,10 +231,15 @@ function createRow(name = "", hours = "0", grade = ""){
 
     </td>
 
-    <td class="total">0.00</td>
-
+    <td class="total">
+      0.00
+    </td>
   `;
 
+
+  // ===============================
+  // Restore saved values
+  // ===============================
 
   const hoursSelect = row.querySelector(".hours");
   const gradeSelect = row.querySelector(".grade");
@@ -226,41 +251,33 @@ function createRow(name = "", hours = "0", grade = ""){
   gradeSelect.value = grade || "";
 
 
-  // ================================
-  // تحميل اسم المادة
-  // ================================
+  // ===============================
+  // Normal Subject
+  // ===============================
 
   const allSubjects = Object.values(subjectsData).flat();
 
-  if(name && allSubjects.includes(name)){
+  if (name && allSubjects.includes(name)) {
 
     subjectSelect.value = name;
 
+    customInput.style.display = "none";
+
   }
 
-  else if(name){
+  // ===============================
+  // Custom Subject
+  // ===============================
+
+  else if (name) {
 
     subjectSelect.value = "__custom__";
 
     customInput.style.display = "block";
+
     customInput.value = name;
 
   }
-
-  else{
-
-    subjectSelect.value = "";
-
-  }
-
-
-  // ================================
-  // تحسين اتجاه اسم المادة
-  // ================================
-
-  subjectSelect.style.direction = "ltr";
-  subjectSelect.style.textAlign = "left";
-  subjectSelect.style.textAlignLast = "left";
 
 
   attachRowEvents(row);
@@ -270,9 +287,11 @@ function createRow(name = "", hours = "0", grade = ""){
 }
 
 
-// ================== Row Events ==================
+// =====================================================
+// ==================== Row Events ======================
+// =====================================================
 
-function attachRowEvents(row){
+function attachRowEvents(row) {
 
   const hours = row.querySelector(".hours");
   const grade = row.querySelector(".grade");
@@ -280,70 +299,69 @@ function attachRowEvents(row){
   const customInput = row.querySelector(".custom-subject");
 
 
-  // ================================
-  // الساعات
-  // ================================
+  // ===============================
+  // Hours
+  // ===============================
 
   hours.addEventListener("change", () => {
 
-    if(!handleDuplicate(row)){
+    if (!handleDuplicate(row)) {
       calculate();
     }
 
   });
 
 
-  // ================================
-  // التقدير
-  // ================================
+  // ===============================
+  // Grade
+  // ===============================
 
   grade.addEventListener("change", () => {
 
-    if(!handleDuplicate(row)){
+    if (!handleDuplicate(row)) {
       calculate();
     }
 
   });
 
 
-  // ================================
-  // اسم المادة
-  // ================================
+  // ===============================
+  // Subject
+  // ===============================
 
   subject.addEventListener("change", () => {
 
-    if(subject.value === "__custom__"){
+    if (subject.value === "__custom__") {
 
       customInput.style.display = "block";
 
-      setTimeout(() => {
-        customInput.focus();
-      }, 50);
+      customInput.focus();
 
     }
 
-    else{
+    else {
 
       customInput.style.display = "none";
+
       customInput.value = "";
 
     }
 
 
-    if(!handleDuplicate(row)){
+    if (!handleDuplicate(row)) {
       calculate();
     }
 
   });
 
 
-  // ================================
-  // المادة اليدوية
-  // ================================
+  // ===============================
+  // Custom Subject
+  // ===============================
 
   customInput.addEventListener("input", () => {
 
-    if(!handleDuplicate(row)){
+    if (!handleDuplicate(row)) {
       calculate();
     }
 
@@ -352,17 +370,21 @@ function attachRowEvents(row){
 }
 
 
-// ================== Add Subject ==================
+// =====================================================
+// ==================== Add Subject =====================
+// =====================================================
 
-function addSubject(btn){
+function addSubject(button) {
 
-  const semester = btn.closest(".semester");
+  if (!button) return;
 
-  if(!semester) return;
+  const semester = button.closest(".semester");
+
+  if (!semester) return;
 
   const tbody = semester.querySelector("tbody");
 
-  if(!tbody) return;
+  if (!tbody) return;
 
   const row = createRow();
 
@@ -373,49 +395,38 @@ function addSubject(btn){
 }
 
 
-// ================== Get Subject Name ==================
+// =====================================================
+// ================= Handle Duplicate ===================
+// =====================================================
 
-function getSubjectName(row){
+function handleDuplicate(row) {
 
-  const subjectSelect = row.querySelector(".subject-select");
-  const customInput = row.querySelector(".custom-subject");
+  const subjectSelect =
+    row.querySelector(".subject-select");
 
-  if(!subjectSelect) return "";
-
-  let name = "";
-
-  if(subjectSelect.value === "__custom__"){
-
-    name = customInput ? customInput.value : "";
-
-  }
-
-  else{
-
-    name = subjectSelect.value;
-
-  }
-
-  return name.trim();
-
-}
+  const customInput =
+    row.querySelector(".custom-subject");
 
 
-// ================== Handle Duplicate ==================
-
-function handleDuplicate(row){
-
-  const name = getSubjectName(row)
+  const name = (
+    subjectSelect.value === "__custom__"
+      ? customInput.value
+      : subjectSelect.value
+  )
+    .trim()
     .toLowerCase();
+
 
   const hours =
     parseFloat(row.querySelector(".hours").value) || 0;
+
 
   const grade =
     row.querySelector(".grade").value;
 
 
-  if(!name || hours === 0 || !grade){
+  // لا يوجد بيانات كافية للمقارنة
+  if (!name || hours === 0 || !grade) {
     return false;
   }
 
@@ -429,24 +440,39 @@ function handleDuplicate(row){
 
   document
     .querySelectorAll(".semester tbody tr")
-    .forEach(r => {
+    .forEach(existingRow => {
 
-      if(r === row) return;
+      if (existingRow === row) return;
 
-      const existingName =
-        getSubjectName(r)
-          .toLowerCase();
 
-      if(existingName === name){
+      const existingSelect =
+        existingRow.querySelector(".subject-select");
 
-        duplicateRow = r;
+
+      const existingCustom =
+        existingRow.querySelector(".custom-subject");
+
+
+      const existingName = (
+        existingSelect.value === "__custom__"
+          ? existingCustom.value
+          : existingSelect.value
+      )
+        .trim()
+        .toLowerCase();
+
+
+      if (existingName === name) {
+
+        duplicateRow = existingRow;
 
       }
 
     });
 
 
-  if(!duplicateRow){
+  // لا يوجد تكرار
+  if (!duplicateRow) {
     return false;
   }
 
@@ -454,30 +480,25 @@ function handleDuplicate(row){
   const existingGrade =
     duplicateRow.querySelector(".grade").value;
 
+
   const existingGradeValue =
     gradeMap[existingGrade] || 0;
 
 
-  // ================================
+  // =================================================
   // الاحتفاظ بأعلى تقدير
-  // ================================
+  // =================================================
 
-  if(gradeValue > existingGradeValue){
+  if (gradeValue > existingGradeValue) {
 
-    duplicateRow
-      .querySelector(".grade")
-      .value = grade;
+    duplicateRow.querySelector(".grade").value = grade;
 
-    duplicateRow
-      .querySelector(".hours")
-      .value = hours;
+    duplicateRow.querySelector(".hours").value = hours;
 
 
     duplicateRow.classList.remove("final");
 
-    duplicateRow.classList.add(
-      "updated-subject"
-    );
+    duplicateRow.classList.add("updated-subject");
 
 
     setTimeout(() => {
@@ -491,9 +512,9 @@ function handleDuplicate(row){
   }
 
 
-  // ================================
+  // =================================================
   // حذف الصف المكرر
-  // ================================
+  // =================================================
 
   row.classList.add("fade-out");
 
@@ -502,12 +523,14 @@ function handleDuplicate(row){
     "transitionend",
     () => {
 
-      row.remove();
+      if (row.parentNode) {
+        row.remove();
+      }
 
       calculate();
 
     },
-    {once:true}
+    { once: true }
   );
 
 
@@ -516,9 +539,11 @@ function handleDuplicate(row){
 }
 
 
-// ================== Calculate GPA ==================
+// =====================================================
+// ==================== Calculate GPA ===================
+// =====================================================
 
-function calculate(){
+function calculate() {
 
   let globalPoints = 0;
 
@@ -553,7 +578,7 @@ function calculate(){
         row.querySelector(".total");
 
 
-      if(totalCell){
+      if (totalCell) {
 
         totalCell.textContent =
           total.toFixed(2);
@@ -567,11 +592,10 @@ function calculate(){
 
 
       // المادة ناجحة
-
-      if(
+      if (
         grade !== "F (0.0)" &&
         grade !== ""
-      ){
+      ) {
 
         passedHours += hours;
 
@@ -580,22 +604,35 @@ function calculate(){
     });
 
 
+  // =================================================
+  // GPA
+  // =================================================
+
   const gpa =
     globalHours
       ? globalPoints / globalHours
       : 0;
 
 
-  const passedElement =
+  // =================================================
+  // Passed Hours
+  // =================================================
+
+  const passedHoursElement =
     document.getElementById("passed-hours");
 
-  if(passedElement){
 
-    passedElement.textContent =
+  if (passedHoursElement) {
+
+    passedHoursElement.textContent =
       passedHours;
 
   }
 
+
+  // =================================================
+  // Remaining Hours
+  // =================================================
 
   const remainingHours =
     136 - passedHours;
@@ -604,7 +641,8 @@ function calculate(){
   const globalHoursElement =
     document.getElementById("global-hours");
 
-  if(globalHoursElement){
+
+  if (globalHoursElement) {
 
     globalHoursElement.textContent =
       remainingHours > 0
@@ -614,10 +652,15 @@ function calculate(){
   }
 
 
+  // =================================================
+  // Total Points
+  // =================================================
+
   const globalPointsElement =
     document.getElementById("global-points");
 
-  if(globalPointsElement){
+
+  if (globalPointsElement) {
 
     globalPointsElement.textContent =
       globalPoints.toFixed(2);
@@ -625,17 +668,32 @@ function calculate(){
   }
 
 
+  // =================================================
+  // GPA Animation
+  // =================================================
+
   animateGPA(previousGPA, gpa);
 
+
+  // =================================================
+  // Progress
+  // =================================================
+
   updateProgressBar(gpa);
+
 
   previousGPA = gpa;
 
 
+  // =================================================
+  // Letter
+  // =================================================
+
   const letterElement =
     document.getElementById("global-letter");
 
-  if(letterElement){
+
+  if (letterElement) {
 
     letterElement.textContent =
       globalHours === 0
@@ -645,7 +703,11 @@ function calculate(){
   }
 
 
-  if(!isLoading){
+  // =================================================
+  // Save
+  // =================================================
+
+  if (!isLoading) {
 
     saveData();
 
@@ -654,14 +716,17 @@ function calculate(){
 }
 
 
-// ================== GPA Animation ==================
+// =====================================================
+// ==================== GPA Animation ==================
+// =====================================================
 
-function animateGPA(start, end){
+function animateGPA(start, end) {
 
   const el =
     document.getElementById("global-gpa");
 
-  if(!el) return;
+
+  if (!el) return;
 
 
   const duration = 400;
@@ -670,7 +735,7 @@ function animateGPA(start, end){
     performance.now();
 
 
-  function frame(now){
+  function frame(now) {
 
     const progress =
       Math.min(
@@ -688,7 +753,7 @@ function animateGPA(start, end){
       value.toFixed(2);
 
 
-    if(progress < 1){
+    if (progress < 1) {
 
       requestAnimationFrame(frame);
 
@@ -702,14 +767,17 @@ function animateGPA(start, end){
 }
 
 
-// ================== Progress Bar ==================
+// =====================================================
+// ================= Progress Bar ======================
+// =====================================================
 
-function updateProgressBar(gpa){
+function updateProgressBar(gpa) {
 
   const bar =
     document.getElementById("gpa-bar");
 
-  if(!bar) return;
+
+  if (!bar) return;
 
 
   const percent =
@@ -730,25 +798,25 @@ function updateProgressBar(gpa){
     "gpa-bar";
 
 
-  if(gpa >= 3.7){
+  if (gpa >= 3.7) {
 
     bar.classList.add("excellent");
 
   }
 
-  else if(gpa >= 3){
+  else if (gpa >= 3) {
 
     bar.classList.add("verygood");
 
   }
 
-  else if(gpa >= 2){
+  else if (gpa >= 2) {
 
     bar.classList.add("good");
 
   }
 
-  else{
+  else {
 
     bar.classList.add("danger");
 
@@ -757,44 +825,46 @@ function updateProgressBar(gpa){
 }
 
 
-// ================== Letter ==================
+// =====================================================
+// ====================== Letter =======================
+// =====================================================
 
-function getLetter(gpa){
+function getLetter(gpa) {
 
-  if(gpa >= 4)
+  if (gpa >= 4)
     return "A+ ممتاز مرتفع";
 
-  if(gpa >= 3.7)
+  if (gpa >= 3.7)
     return "A ممتاز";
 
-  if(gpa >= 3.4)
+  if (gpa >= 3.4)
     return "A- ممتاز منخفض";
 
-  if(gpa >= 3.2)
+  if (gpa >= 3.2)
     return "B+ جيد جداً مرتفع";
 
-  if(gpa >= 3)
+  if (gpa >= 3)
     return "B جيد جداً";
 
-  if(gpa >= 2.8)
+  if (gpa >= 2.8)
     return "B- جيد جداً منخفض";
 
-  if(gpa >= 2.6)
+  if (gpa >= 2.6)
     return "C+ جيد مرتفع";
 
-  if(gpa >= 2.4)
+  if (gpa >= 2.4)
     return "C جيد";
 
-  if(gpa >= 2.2)
+  if (gpa >= 2.2)
     return "C- جيد منخفض";
 
-  if(gpa >= 2)
+  if (gpa >= 2)
     return "D+ مقبول مرتفع";
 
-  if(gpa >= 1.5)
+  if (gpa >= 1.5)
     return "D مقبول";
 
-  if(gpa >= 1)
+  if (gpa >= 1)
     return "D- مقبول منخفض";
 
   return "F راسب";
@@ -802,9 +872,11 @@ function getLetter(gpa){
 }
 
 
-// ================== Save Data ==================
+// =====================================================
+// ===================== Save Data =====================
+// =====================================================
 
-function saveData(){
+function saveData() {
 
   const data = [];
 
@@ -820,9 +892,23 @@ function saveData(){
         .querySelectorAll("tbody tr")
         .forEach(row => {
 
+          const subjectSelect =
+            row.querySelector(".subject-select");
+
+
+          const customInput =
+            row.querySelector(".custom-subject");
+
+
+          const subjectName =
+            subjectSelect.value === "__custom__"
+              ? customInput.value.trim()
+              : subjectSelect.value;
+
+
           subjects.push({
 
-            name: getSubjectName(row),
+            name: subjectName,
 
             hours:
               row.querySelector(".hours").value,
@@ -853,9 +939,11 @@ function saveData(){
 }
 
 
-// ================== Load Data ==================
+// =====================================================
+// ===================== Load Data =====================
+// =====================================================
 
-function loadData(){
+function loadData() {
 
   isLoading = true;
 
@@ -864,7 +952,7 @@ function loadData(){
     localStorage.getItem("gpaData");
 
 
-  if(!saved){
+  if (!saved) {
 
     isLoading = false;
 
@@ -876,16 +964,16 @@ function loadData(){
   let data;
 
 
-  try{
+  try {
 
     data = JSON.parse(saved);
 
   }
 
-  catch(error){
+  catch (error) {
 
     console.error(
-      "Invalid saved GPA data",
+      "Error loading GPA data:",
       error
     );
 
@@ -898,19 +986,19 @@ function loadData(){
 
   document
     .querySelectorAll(".semester")
-    .forEach((semester,index) => {
+    .forEach((semester, index) => {
 
       const tbody =
         semester.querySelector("tbody");
 
 
-      if(!tbody) return;
+      if (!tbody) return;
 
 
       tbody.innerHTML = "";
 
 
-      if(!data[index]) return;
+      if (!data[index]) return;
 
 
       data[index].forEach(sub => {
@@ -923,7 +1011,7 @@ function loadData(){
           );
 
 
-        if(sub.updated){
+        if (sub.updated) {
 
           row.classList.add(
             "updated-subject",
@@ -948,21 +1036,27 @@ function loadData(){
 }
 
 
-// ================== Clear Level ==================
+// =====================================================
+// ===================== Clear Level ===================
+// =====================================================
 
-function clearLevel(button){
+function clearLevel(button) {
+
+  if (!button) return;
+
 
   const level =
     button.closest(".level");
 
-  if(!level) return;
+
+  if (!level) return;
 
 
   level
     .querySelectorAll("tbody")
-    .forEach(tb => {
+    .forEach(tbody => {
 
-      tb.innerHTML = "";
+      tbody.innerHTML = "";
 
     });
 
@@ -974,33 +1068,36 @@ function clearLevel(button){
 }
 
 
-// ================== DARK MODE ==================
+// =====================================================
+// ===================== DARK MODE =====================
+// =====================================================
 
-function applyInitialTheme(){
+function applyInitialTheme() {
 
   const saved =
     localStorage.getItem("theme");
 
 
-  if(saved){
+  // المستخدم اختار يدويًا
+  if (saved) {
 
-    const isDark =
-      saved === "dark";
-
-    setTheme(isDark);
+    setTheme(
+      saved === "dark"
+    );
 
     return;
 
   }
 
 
+  // نظام الجهاز
   const media =
     window.matchMedia(
       "(prefers-color-scheme: dark)"
     );
 
 
-  if(media.matches !== undefined){
+  if (media && typeof media.matches === "boolean") {
 
     setTheme(media.matches);
 
@@ -1009,6 +1106,7 @@ function applyInitialTheme(){
   }
 
 
+  // fallback
   const hour =
     new Date().getHours();
 
@@ -1023,9 +1121,11 @@ function applyInitialTheme(){
 }
 
 
-// ================== Toggle Dark Mode ==================
+// =====================================================
+// ================= Toggle Dark Mode ==================
+// =====================================================
 
-function toggleDarkMode(){
+function toggleDarkMode() {
 
   const isDark =
     !document.body.classList.contains(
@@ -1046,9 +1146,11 @@ function toggleDarkMode(){
 }
 
 
-// ================== Set Theme ==================
+// =====================================================
+// ==================== Set Theme =======================
+// =====================================================
 
-function setTheme(isDark){
+function setTheme(isDark) {
 
   document.body.classList.toggle(
     "dark-mode",
@@ -1061,9 +1163,11 @@ function setTheme(isDark){
 }
 
 
-// ================== Toggle Button ==================
+// =====================================================
+// ================= Toggle Button ======================
+// =====================================================
 
-function updateToggleButton(isDark){
+function updateToggleButton(isDark) {
 
   const btn =
     document.getElementById(
@@ -1071,7 +1175,7 @@ function updateToggleButton(isDark){
     );
 
 
-  if(!btn) return;
+  if (!btn) return;
 
 
   btn.innerHTML =
@@ -1082,167 +1186,173 @@ function updateToggleButton(isDark){
 }
 
 
-// ================== System Theme Change ==================
+// =====================================================
+// =========== System Theme Change =====================
+// =====================================================
 
-const themeMedia =
-  window.matchMedia(
-    "(prefers-color-scheme: dark)"
-  );
+function setupThemeListener() {
+
+  const media =
+    window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    );
 
 
-themeMedia.addEventListener(
-  "change",
-  e => {
+  const handler = event => {
 
-    if(
-      !localStorage.getItem("theme")
-    ){
+    // لا نغير اختيار المستخدم اليدوي
+    if (!localStorage.getItem("theme")) {
 
-      setTheme(e.matches);
+      setTheme(
+        event.matches
+      );
 
     }
 
-  }
-);
+  };
 
 
-// ================== Start App ==================
+  if (media.addEventListener) {
 
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-
-    applyInitialTheme();
-
-    loadData();
+    media.addEventListener(
+      "change",
+      handler
+    );
 
   }
-);
+
+  else if (media.addListener) {
+
+    media.addListener(handler);
+
+  }
+
+}
 
 
-// ================== PWA INSTALL ==================
+// =====================================================
+// ================= PWA INSTALL ========================
+// =====================================================
 
-let deferredPrompt = null;
+function setupInstallButton() {
+
+  const installBtn =
+    document.getElementById(
+      "install-btn"
+    );
 
 
-function getInstallButton(){
+  if (!installBtn) return;
 
-  return document.getElementById(
-    "install-btn"
+
+  // =========================================
+  // ظهور زر التثبيت
+  // =========================================
+
+  window.addEventListener(
+    "beforeinstallprompt",
+    event => {
+
+      event.preventDefault();
+
+
+      deferredPrompt = event;
+
+
+      installBtn.style.display =
+        "inline-flex";
+
+
+      setTimeout(() => {
+
+        installBtn.classList.add(
+          "show"
+        );
+
+      }, 50);
+
+    }
+  );
+
+
+  // =========================================
+  // الضغط على Install App
+  // =========================================
+
+  installBtn.addEventListener(
+    "click",
+    async () => {
+
+      if (!deferredPrompt) return;
+
+
+      deferredPrompt.prompt();
+
+
+      try {
+
+        const choice =
+          await deferredPrompt.userChoice;
+
+
+        if (
+          choice &&
+          choice.outcome === "accepted"
+        ) {
+
+          hideInstallButton();
+
+        }
+
+      }
+
+      catch (error) {
+
+        console.log(
+          "Install prompt error:",
+          error
+        );
+
+      }
+
+
+      deferredPrompt = null;
+
+    }
+  );
+
+
+  // =========================================
+  // تم تثبيت التطبيق
+  // =========================================
+
+  window.addEventListener(
+    "appinstalled",
+    () => {
+
+      hideInstallButton();
+
+      deferredPrompt = null;
+
+    }
   );
 
 }
 
 
-// ================== Before Install ==================
+// =====================================================
+// ================= Hide Install Button ===============
+// =====================================================
 
-window.addEventListener(
-  "beforeinstallprompt",
-  e => {
-
-    e.preventDefault();
-
-    deferredPrompt = e;
-
-
-    const installBtn =
-      getInstallButton();
-
-
-    if(!installBtn) return;
-
-
-    installBtn.style.display =
-      "inline-flex";
-
-
-    setTimeout(() => {
-
-      installBtn.classList.add(
-        "show"
-      );
-
-    },50);
-
-  }
-);
-
-
-// ================== Install Click ==================
-
-document.addEventListener(
-  "click",
-  async e => {
-
-    const installBtn =
-      e.target.closest(
-        "#install-btn"
-      );
-
-
-    if(!installBtn) return;
-
-
-    if(!deferredPrompt) return;
-
-
-    deferredPrompt.prompt();
-
-
-    try{
-
-      const choice =
-        await deferredPrompt.userChoice;
-
-
-      if(
-        choice &&
-        choice.outcome === "accepted"
-      ){
-
-        hideInstallButton();
-
-      }
-
-    }
-
-    catch(error){
-
-      console.error(
-        "Install error:",
-        error
-      );
-
-    }
-
-
-    deferredPrompt = null;
-
-  }
-);
-
-
-// ================== App Installed ==================
-
-window.addEventListener(
-  "appinstalled",
-  () => {
-
-    hideInstallButton();
-
-  }
-);
-
-
-// ================== Hide Install Button ==================
-
-function hideInstallButton(){
+function hideInstallButton() {
 
   const installBtn =
-    getInstallButton();
+    document.getElementById(
+      "install-btn"
+    );
 
 
-  if(!installBtn) return;
+  if (!installBtn) return;
 
 
   installBtn.classList.remove(
@@ -1255,6 +1365,26 @@ function hideInstallButton(){
     installBtn.style.display =
       "none";
 
-  },300);
+  }, 300);
 
 }
+
+
+// =====================================================
+// ===================== Start App ======================
+// =====================================================
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    applyInitialTheme();
+
+    setupThemeListener();
+
+    setupInstallButton();
+
+    loadData();
+
+  }
+);
