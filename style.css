@@ -6,23 +6,22 @@
 box-sizing:border-box;
 }
 
-html{
+html,
+body{
 width:100%;
 max-width:100%;
+margin:0;
+padding:0;
 overflow-x:hidden;
 }
 
 body{
 font-family:system-ui;
 background:#eef2f7;
-margin:0;
 padding:8px;
 direction:rtl;
 -webkit-tap-highlight-color:transparent;
 -webkit-font-smoothing:antialiased;
-width:100%;
-max-width:100%;
-overflow-x:hidden;
 }
 
 
@@ -34,12 +33,19 @@ overflow-x:hidden;
 width:100%;
 max-width:600px;
 margin:auto;
+
 background:#ffffff;
+
 padding:12px 6px;
+
 border-radius:18px;
+
 box-shadow:0 20px 40px rgba(0,0,0,0.08);
+
 box-sizing:border-box;
+
 animation:fadeUp .6s ease;
+
 overflow:hidden;
 }
 
@@ -50,8 +56,11 @@ overflow:hidden;
 
 h1{
 text-align:center;
+
 margin-bottom:20px;
+
 font-size:20px;
+
 letter-spacing:.5px;
 }
 
@@ -62,19 +71,29 @@ letter-spacing:.5px;
 
 .global-summary{
 display:flex;
+
 flex-wrap:wrap;
+
 gap:8px;
+
 justify-content:space-between;
+
 margin-bottom:8px;
+
 font-weight:bold;
+
 font-size:13px;
+
 background:#f1f5f9;
+
 padding:8px 14px;
+
 border-radius:14px;
 }
 
 .global-summary span{
 font-size:16px;
+
 font-weight:600;
 }
 
@@ -84,16 +103,27 @@ font-weight:600;
 /* ================================================= */
 
 .level{
-background:#ffffff;
-padding:14px;
-margin-bottom:4px;
-border-radius:18px;
-border:1px solid #eef2f7;
-box-shadow:0 4px 15px rgba(0,0,0,0.05);
-transition:transform .25s ease,box-shadow .25s ease;
-box-sizing:border-box;
 width:100%;
 max-width:100%;
+
+background:#ffffff;
+
+padding:14px;
+
+margin-bottom:4px;
+
+border-radius:18px;
+
+border:1px solid #eef2f7;
+
+box-shadow:0 4px 15px rgba(0,0,0,0.05);
+
+transition:
+transform .25s ease,
+box-shadow .25s ease;
+
+box-sizing:border-box;
+
 overflow:hidden;
 }
 
@@ -103,10 +133,15 @@ transform:scale(.995);
 
 .level-title{
 font-weight:800;
+
 font-size:22px;
+
 margin:0 0 12px 0;
+
 display:inline-block;
+
 padding-bottom:6px;
+
 border-bottom:4px solid #16a34a;
 }
 
@@ -116,19 +151,27 @@ border-bottom:4px solid #16a34a;
 /* ================================================= */
 
 .semester{
-margin-bottom:2px;
 width:100%;
 max-width:100%;
+
+margin-bottom:2px;
+
 overflow:hidden;
 }
 
 .semester h3{
 display:inline-block;
+
 font-size:18px;
+
 font-weight:700;
+
 margin:2px 0 4px 0;
+
 padding:4px 12px;
+
 border-right:3px solid #16a34a;
+
 color:#1f2937;
 }
 
@@ -138,22 +181,26 @@ color:#1f2937;
 /* ================================================= */
 
 table{
+display:table;
+
 width:100%;
 max-width:100%;
-min-width:0;
+
+margin:0 0 15px 0;
+
+padding:0;
 
 border-collapse:separate;
+
 border-spacing:0;
 
-overflow:hidden;
-
-margin-bottom:15px;
+table-layout:fixed;
 
 background:#ffffff;
 
 border-radius:14px;
 
-table-layout:fixed;
+overflow:hidden;
 
 box-shadow:0 6px 18px rgba(0,0,0,0.05);
 
@@ -167,7 +214,10 @@ box-sizing:border-box;
 
 th{
 background:#f8fafc;
+
 font-weight:600;
+
+white-space:nowrap;
 }
 
 
@@ -184,11 +234,14 @@ padding:8px 3px;
 font-size:13px;
 
 text-align:center;
+
 vertical-align:middle;
 
 box-sizing:border-box;
 
 min-width:0;
+
+max-width:100%;
 
 overflow:hidden;
 }
@@ -216,24 +269,29 @@ background:#f8fafc;
 /* ================================================= */
 
 /*
-   ترتيب الأعمدة بسبب RTL:
+   الجدول RTL:
 
-   1 = اسم المادة
-   2 = الساعات
-   3 = التقدير
-   4 = الإجمالي
+   اسم المادة  = 52%
+   الساعات     = 13%
+   التقدير     = 23%
+   الإجمالي     = 12%
 
-   تم إعطاء التقدير والإجمالي مساحة كافية
+   تم تكبير التقدير والإجمالي لمنع القص.
 */
+
 
 /* ===== اسم المادة ===== */
 
 th:first-child,
 td:first-child{
 width:52%;
+
 text-align:right;
+
 vertical-align:middle;
+
 min-width:0;
+
 overflow:hidden;
 }
 
@@ -243,8 +301,11 @@ overflow:hidden;
 th:nth-child(2),
 td:nth-child(2){
 width:13%;
+
 text-align:center;
+
 min-width:0;
+
 overflow:hidden;
 }
 
@@ -254,8 +315,11 @@ overflow:hidden;
 th:nth-child(3),
 td:nth-child(3){
 width:23%;
+
 text-align:center;
+
 min-width:0;
+
 overflow:hidden;
 }
 
@@ -265,10 +329,14 @@ overflow:hidden;
 th:nth-child(4),
 td:nth-child(4){
 width:12%;
+
 text-align:center;
-white-space:nowrap;
+
 min-width:0;
+
 overflow:hidden;
+
+white-space:nowrap;
 }
 
 
@@ -283,30 +351,38 @@ width:100%;
 max-width:100%;
 min-width:0;
 
+height:auto;
+min-height:38px;
+
 box-sizing:border-box;
 
+font-family:inherit;
+
 font-size:12px;
+
 font-weight:500;
 
 padding:6px 3px;
 
 text-align:center;
+
 text-align-last:center;
 
 border:1px solid #e5e7eb;
+
 border-radius:9px;
 
 background:#ffffff;
+
 color:#111827;
+
+outline:none;
 
 overflow:hidden;
 
 text-overflow:clip;
 
 white-space:normal;
-
-min-height:38px;
-height:auto;
 
 line-height:1.25;
 }
@@ -316,6 +392,7 @@ line-height:1.25;
 
 .subject-select option{
 font-size:12px;
+
 white-space:normal;
 }
 
@@ -325,10 +402,14 @@ white-space:normal;
 /* ================================================= */
 
 .custom-subject{
+display:block;
+
 width:100%;
 max-width:100%;
 
 box-sizing:border-box;
+
+font-family:inherit;
 
 font-size:12px;
 
@@ -341,9 +422,12 @@ border:1px solid #e5e7eb;
 border-radius:8px;
 
 background:#ffffff;
+
 color:#111827;
 
 text-align:center;
+
+outline:none;
 }
 
 
@@ -360,11 +444,14 @@ min-width:0;
 
 box-sizing:border-box;
 
+font-family:inherit;
+
 font-size:13px;
 
 padding:5px 1px;
 
 text-align:center;
+
 text-align-last:center;
 
 border:1px solid #e5e7eb;
@@ -372,9 +459,12 @@ border:1px solid #e5e7eb;
 border-radius:8px;
 
 background:#ffffff;
+
 color:#111827;
 
 min-height:36px;
+
+outline:none;
 
 overflow:hidden;
 }
@@ -393,11 +483,14 @@ min-width:0;
 
 box-sizing:border-box;
 
+font-family:inherit;
+
 font-size:12px;
 
 padding:5px 1px;
 
 text-align:center;
+
 text-align-last:center;
 
 border:1px solid #e5e7eb;
@@ -405,9 +498,12 @@ border:1px solid #e5e7eb;
 border-radius:8px;
 
 background:#ffffff;
+
 color:#111827;
 
 min-height:36px;
+
+outline:none;
 
 overflow:hidden;
 }
@@ -418,17 +514,22 @@ overflow:hidden;
 /* ================================================= */
 
 select{
+display:block;
+
 width:100%;
 max-width:100%;
 min-width:0;
 
 box-sizing:border-box;
 
+font-family:inherit;
+
 font-size:12px;
 
 padding:5px 2px;
 
 text-align:center;
+
 text-align-last:center;
 
 border:1px solid #e5e7eb;
@@ -437,9 +538,9 @@ border-radius:8px;
 
 background:#ffffff;
 
-outline:none;
+color:#111827;
 
-overflow:hidden;
+outline:none;
 }
 
 
@@ -449,6 +550,7 @@ overflow:hidden;
 
 select option{
 font-size:13px;
+
 white-space:normal;
 }
 
@@ -459,6 +561,7 @@ white-space:normal;
 
 select:focus{
 outline:none;
+
 border-color:#94a3b8;
 }
 
@@ -469,6 +572,7 @@ border-color:#94a3b8;
 
 td[contenteditable="true"]{
 outline:none;
+
 border-radius:6px;
 }
 
@@ -492,7 +596,12 @@ border:none;
 
 border-radius:18px;
 
-background:linear-gradient(135deg,#0f172a,#1e293b);
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#1e293b
+);
 
 color:#fff;
 
@@ -508,7 +617,12 @@ transform:scale(1.04);
 }
 
 .clear-btn{
-background:linear-gradient(135deg,#ef4444,#dc2626);
+background:
+linear-gradient(
+135deg,
+#ef4444,
+#dc2626
+);
 }
 
 
@@ -517,7 +631,12 @@ background:linear-gradient(135deg,#ef4444,#dc2626);
 /* ================================================= */
 
 .gpa-box{
-background:linear-gradient(145deg,#ffffff,#e2e8f0);
+background:
+linear-gradient(
+145deg,
+#ffffff,
+#e2e8f0
+);
 
 padding:6px 20px;
 
@@ -532,6 +651,7 @@ box-shadow:0 15px 35px rgba(0,0,0,.08);
 
 .gpa-value{
 font-size:26px;
+
 font-weight:800;
 }
 
@@ -554,7 +674,12 @@ width:0%;
 
 border-radius:20px;
 
-background:linear-gradient(90deg,#16a34a,#22c55e);
+background:
+linear-gradient(
+90deg,
+#16a34a,
+#22c55e
+);
 
 transition:width .8s ease;
 }
@@ -584,13 +709,17 @@ color:#16a34a;
 
 .hero-header{
 text-align:center;
+
 margin-bottom:10px;
 }
 
 .hero-icon{
 width:140px;
+
 height:140px;
+
 border-radius:30px;
+
 margin-bottom:8px;
 }
 
@@ -598,6 +727,7 @@ margin-bottom:8px;
 font-size:clamp(18px,5vw,24px);
 
 margin:0;
+
 margin-bottom:2px;
 
 font-weight:800;
@@ -679,6 +809,7 @@ background:#dcfce7;
 
 body.dark-mode{
 background:#0f172a;
+
 color:#f1f5f9;
 }
 
@@ -688,6 +819,7 @@ background:#1e293b;
 
 body.dark-mode .level{
 background:#0f172a;
+
 border:1px solid #1e293b;
 }
 
@@ -697,11 +829,13 @@ background:#0f172a;
 
 body.dark-mode th{
 background:#1e293b;
+
 color:#f1f5f9;
 }
 
 body.dark-mode td{
 background:#0f172a;
+
 color:#f1f5f9;
 }
 
@@ -730,6 +864,7 @@ background:#1e293b;
 
 body.dark-mode td[contenteditable="true"]{
 background:#0f172a !important;
+
 color:#f1f5f9 !important;
 }
 
@@ -744,9 +879,10 @@ background:#1e293b !important;
 
 body.dark-mode select{
 background:#020617;
+
 color:#f1f5f9;
 
-border:1px solid #334155;
+border-color:#334155;
 }
 
 body.dark-mode .subject-select{
@@ -767,6 +903,7 @@ border-color:#334155;
 
 body.dark-mode select option{
 background:#020617;
+
 color:#f1f5f9;
 }
 
@@ -857,7 +994,9 @@ top:10px;
 
 left:50%;
 
-transform:translateX(-50%) scale(.8);
+transform:
+translateX(-50%)
+scale(.8);
 
 display:inline-flex;
 
@@ -941,7 +1080,7 @@ box-shadow:
 @media(max-width:600px){
 
 body{
-padding:6px;
+padding:5px;
 }
 
 
@@ -950,9 +1089,9 @@ padding:6px;
 .container{
 padding:9px 4px;
 
-border-radius:16px;
-
 width:100%;
+
+max-width:100%;
 
 overflow:hidden;
 }
@@ -961,9 +1100,11 @@ overflow:hidden;
 /* المستوى */
 
 .level{
-padding:10px 8px;
+padding:10px 7px;
 
-border-radius:16px;
+width:100%;
+
+max-width:100%;
 
 overflow:hidden;
 }
@@ -973,6 +1114,8 @@ overflow:hidden;
 
 .semester{
 width:100%;
+
+max-width:100%;
 
 overflow:hidden;
 }
@@ -987,7 +1130,7 @@ max-width:100%;
 
 table-layout:fixed;
 
-margin-bottom:14px;
+overflow:hidden;
 }
 
 
@@ -1001,13 +1144,11 @@ font-size:11px;
 
 min-width:0;
 
+max-width:100%;
+
 overflow:hidden;
 }
 
-
-/* ================================================= */
- /* توزيع الموبايل */
- /* ================================================= */
 
 /* اسم المادة */
 
@@ -1059,12 +1200,9 @@ white-space:nowrap;
 }
 
 
-/* ================================================= */
-/* المادة */
- /* ================================================= */
+/* اسم المادة */
 
 .subject-select{
-
 width:100%;
 
 max-width:100%;
@@ -1079,18 +1217,15 @@ min-height:40px;
 
 overflow:hidden;
 
-text-overflow:clip;
-
 white-space:normal;
+
+text-overflow:clip;
 }
 
 
-/* ================================================= */
 /* الساعات */
- /* ================================================= */
 
 .hours{
-
 width:100%;
 
 max-width:100%;
@@ -1105,12 +1240,9 @@ min-height:36px;
 }
 
 
-/* ================================================= */
 /* التقدير */
- /* ================================================= */
 
 .grade{
-
 width:100%;
 
 max-width:100%;
@@ -1125,10 +1257,9 @@ min-height:36px;
 }
 
 
-/* كل select */
+/* Select */
 
 select{
-
 width:100%;
 
 max-width:100%;
@@ -1141,7 +1272,7 @@ padding:5px 1px;
 }
 
 
-/* العنوان */
+/* عنوان المستوى */
 
 .level-title{
 font-size:21px;
@@ -1166,7 +1297,7 @@ padding:4px 10px;
 @media(max-width:380px){
 
 body{
-padding:5px;
+padding:4px;
 }
 
 .container{
@@ -1174,7 +1305,7 @@ padding:8px 3px;
 }
 
 .level{
-padding:9px 6px;
+padding:9px 5px;
 }
 
 
