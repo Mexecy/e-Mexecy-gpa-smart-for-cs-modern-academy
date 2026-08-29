@@ -787,7 +787,7 @@ background:#dcfce7 !important;
 .fade-out{
 opacity:0;
 
-transition:opacity .9s ease;
+transition:opacity .11s ease;
 }
 
 @keyframes highlightRow{
