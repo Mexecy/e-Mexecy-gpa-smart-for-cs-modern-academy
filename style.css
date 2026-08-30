@@ -772,16 +772,12 @@ line-height:1;
 
 .updated-subject{
 background:#86efac !important;
-
-transition:
-background .6s ease,
-transform .3s ease;
-
-animation:highlightRow .7s ease;
+transition:background 11s ease, transform .3s ease;
 }
 
 .updated-subject.final{
 background:#dcfce7 !important;
+transition:background 11s ease;
 }
 
 .fade-out{
