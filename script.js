@@ -493,18 +493,15 @@ if(gradeValue > existingGradeValue){
   duplicateRow.querySelector(".grade").value = grade;
   duplicateRow.querySelector(".hours").value = hours;
 
-  // يظهر اللون الأخضر لحظة التحديث
   duplicateRow.classList.remove("final");
   duplicateRow.classList.add("updated-subject");
 
   saveData();
 
-  // بعد 1.5 ثانية يبدأ التحول التدريجي
   setTimeout(() => {
 
     duplicateRow.classList.add("final");
 
-    // بعد 11 ثانية يختفي تأثير التحديث تمامًا
     setTimeout(() => {
 
       duplicateRow.classList.remove("updated-subject");
@@ -512,9 +509,9 @@ if(gradeValue > existingGradeValue){
 
       saveData();
 
-    }, 11000);
+    },11000);
 
-  }, 1500);
+  },1500);
 
 }
   
