@@ -490,31 +490,33 @@ function handleDuplicate(row) {
   // =================================================
 if(gradeValue > existingGradeValue){
 
-  duplicateRow.querySelector(".grade").value = grade;
-  duplicateRow.querySelector(".hours").value = hours;
+    duplicateRow.querySelector(".grade").value = grade;
+    duplicateRow.querySelector(".hours").value = hours;
 
-  duplicateRow.classList.remove("final");
-  duplicateRow.classList.add("updated-subject");
+    // إظهار التحديث باللون الأخضر
+    duplicateRow.classList.remove("final");
+    duplicateRow.classList.add("updated-subject");
 
-  saveData();
+    saveData();
 
-  setTimeout(() => {
-
-    duplicateRow.classList.add("final");
-
+    // يظل أخضر لمدة 1.5 ثانية
     setTimeout(() => {
 
-      duplicateRow.classList.remove("updated-subject");
-      duplicateRow.classList.remove("final");
+        // يبدأ الآن الاختفاء التدريجي
+        duplicateRow.classList.add("final");
 
-      saveData();
+        // بعد انتهاء الـ 11 ثانية
+        setTimeout(() => {
 
-    },11000);
+            duplicateRow.classList.remove("updated-subject");
+            duplicateRow.classList.remove("final");
 
-  },1500);
+            saveData();
 
+        }, 11000);
+
+    }, 1500);
 }
-  
   // =================================================
   // حذف الصف المكرر
   // =================================================
