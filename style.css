@@ -1350,25 +1350,25 @@ padding:6px 1px;
 /* اسم المادة */
 th:first-child,
 td:first-child{
-width:60%;
+width:55%;
 }
 
 /* الساعات */
 th:nth-child(2),
 td:nth-child(2){
-width:12%;
+width:9%;
 }
 
 /* التقدير - مساحة ممتازة ومريحة تمنع تداخل السهم والنص */
 th:nth-child(3),
 td:nth-child(3){
-width:17%;
+width:21%;
 }
 
 /* الإجمالي */
 th:nth-child(4),
 td:nth-child(4){
-width:11%;
+width:15%;
 }
 
 /* المادة */
