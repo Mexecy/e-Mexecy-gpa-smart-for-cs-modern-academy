@@ -1339,87 +1339,67 @@ padding:8px 3px;
 padding:9px 5px;
 }
 
-
 /* الخلايا */
-
 th,
 td{
 font-size:10px;
-
 padding:6px 1px;
 }
 
+/* ===== توزيعة النسب الجديدة والآمنة (الحل الثاني) ===== */
 
-/* اسم المادة */
-
+/* اسم المادة - مساحة مريحة جداً */
 th:first-child,
 td:first-child{
-width:51%;
+width:60%;
 }
-
 
 /* الساعات */
-
 th:nth-child(2),
 td:nth-child(2){
-width:14%;
+width:13%;
 }
 
-
-/* التقدير */
-
+/* التقدير - مساحة أكبر لمنع قص النص والأقواس */
 th:nth-child(3),
 td:nth-child(3){
-width:23%;
+width:15%;
 }
 
-
 /* الإجمالي */
-
 th:nth-child(4),
 td:nth-child(4){
 width:12%;
 }
 
-
 /* المادة */
-
 .subject-select{
 font-size:10px;
-
 padding:5px 1px;
-
 min-height:38px;
 }
 
-
 /* الساعات */
-
 .hours{
 font-size:11px;
-
 padding:4px 0;
 }
 
-
-/* التقدير */
-
+/* التقدير - الحفاظ على حجم الخط وحمايته من القص */
 .grade{
 font-size:10px;
-
 padding:4px 0;
+white-space:nowrap; /* يمنع النص من النزول لسطر جديد */
 }
-
 
 /* Select */
-
 select{
 font-size:10px;
-
 padding:4px 0;
 }
 
 }
+
 
 
 /* ================================================= */
