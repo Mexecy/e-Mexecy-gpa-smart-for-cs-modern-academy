@@ -1384,13 +1384,16 @@ font-size:11px;
 padding:4px 0;
 }
 
-/* التقدير */
+/* التقدير - حل مشكلة اختفاء الحرف الأول */
 .grade{
-font-size:10px;
-padding:4px 1px;
-white-space:nowrap;
-text-align:center;
-text-align-last:center;
+font-size: 10px;
+padding: 4px 0px !important; /* تصفير الحشو الجانبي تماماً لإعطاء مساحة للحرف */
+text-indent: 0px; /* إلغاء أي إزاحة تلقائية للنص */
+white-space: nowrap;
+text-align: center;
+text-align-last: center;
+width: 100%;
+max-width: 100%;
 }
 
 /* الـ select هنا تركتها لك كما هي تماماً دون أي حذف لتشغيل القائمة بشكل سليم */
