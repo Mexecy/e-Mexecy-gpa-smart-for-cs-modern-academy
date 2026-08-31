@@ -314,7 +314,7 @@ overflow:hidden;
 
 th:nth-child(3),
 td:nth-child(3){
-width:15%;
+width:13%;
 
 text-align:center;
 
@@ -328,7 +328,7 @@ overflow:hidden;
 
 th:nth-child(4),
 td:nth-child(4){
-width:10%;
+width:12%;
 
 text-align:center;
 
@@ -1209,7 +1209,7 @@ overflow:hidden;
 
 th:nth-child(3),
 td:nth-child(3){
-width:15%;
+width:13%;
 
 min-width:0;
 
@@ -1221,7 +1221,7 @@ overflow:hidden;
 
 th:nth-child(4),
 td:nth-child(4){
-width:10%;
+width:12%;
 
 min-width:0;
 
