@@ -433,9 +433,9 @@ transition:none !important;
    لكن الصف يجب أن يظل ظاهرًا.
 */
 .fade-out{
-opacity:1 !important;
-visibility:visible !important;
-transition:none !important;
+opacity:0 !important;
+visibility:hidden !important;
+transition:opacity .9s ease, visibility 0s linear .9s !important;
 }
 
 /* ================================================= */
