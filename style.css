@@ -431,11 +431,10 @@ line-height:1;
 }
 
 .updated-subject.final td{
-    background:#dbeafe !important;
-    color:#1e3a8a !important;
-    transition: background-color 11s ease, color 11s ease !important;
+    background:#1e3a5f !important;
+    color:#e0f2fe !important;
+    transition:none !important;
 }
-
 .updated-subject{
     animation:none !important;
 }
